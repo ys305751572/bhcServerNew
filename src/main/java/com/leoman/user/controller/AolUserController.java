@@ -30,14 +30,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/management/aoluser")
 public class AolUserController extends GenericEntityController<AolUser, AolUser, AolUserManagerImpl> {
 
-	@Autowired
-	IOrganiseManager iOrganiseManager;
-	@Autowired
-	IUserDeviceManager userDeviceManager;
-	@Autowired
-	IDeviceManager deviceManager;
-	@Autowired
-	IOrganiseDeviceManager iOrganiseDeviceManager;
+//	@Autowired
+//	IOrganiseManager iOrganiseManager;
+//	@Autowired
+//	IUserDeviceManager userDeviceManager;
+//	@Autowired
+//	IDeviceManager deviceManager;
+//	@Autowired
+//	IOrganiseDeviceManager iOrganiseDeviceManager;
 	
 	private static final String USERSLIST = "management/aol/usersMgr/usersList";
 	private static final String VIEWUSERINFO = "management/aol/usersMgr/viewUserInfo";
