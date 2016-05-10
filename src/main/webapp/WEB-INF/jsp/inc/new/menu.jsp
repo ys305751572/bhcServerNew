@@ -91,7 +91,7 @@
                 <span class="menu-item">用户管理</span>
             </a>
             <ul class="list-unstyled menu-item">
-                <li><a href="form-elements.html">用户信息查询</a></li>
+                <li><a href="${contextPath}/admin/aoluser/getUsersDataList">用户信息查询</a></li>
                 <li><a href="form-components.html">子女用户信息查询</a></li>
             </ul>
         </li>

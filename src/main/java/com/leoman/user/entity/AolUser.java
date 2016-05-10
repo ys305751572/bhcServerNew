@@ -13,7 +13,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "user")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class AolUser implements Serializable {
 
     private static final long serialVersionUID = -2571308010092743039L;

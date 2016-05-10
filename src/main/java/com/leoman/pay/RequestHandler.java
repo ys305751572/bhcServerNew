@@ -18,10 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * ��������
- * ��������̳д��࣬��дcreateSign�������ɡ�
  * @author miklchen
- *
  */
 public class RequestHandler {
 	

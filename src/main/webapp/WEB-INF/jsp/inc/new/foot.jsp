@@ -65,3 +65,5 @@
 <script src="${contextPath}/html/js/validation/validate.min.js"></script> <!-- jQuery Form Validation Library -->
 <script src="${contextPath}/html/js/validation/validationEngine.min.js"></script> <!-- jQuery Form Validation Library - requirred with above js -->
 <script src="${contextPath}/html/js/icheck.js"></script> <!-- Custom Checkbox + Radio -->
+
+<script src="${contextPath}/static/js/global.js"></script> <!-- global -->

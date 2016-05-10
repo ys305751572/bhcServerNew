@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/management/aoluser")
+@RequestMapping("/admin/aoluser")
 public class AolUserController extends GenericEntityController<AolUser, AolUser, AolUserManagerImpl> {
 
 //	@Autowired

@@ -15,7 +15,6 @@ import com.leoman.pay.util.ConstantUtil;
 import com.leoman.pay.util.TenpayUtil;
 import com.leoman.pay.util.WXUtil;
 
-import org.json.JSONException;
 public class PayRequest {
 
 	public static Map<String,Object> pay(int type,HttpServletRequest request, HttpServletResponse response) {
@@ -92,7 +91,7 @@ public class PayRequest {
 //			prepayReqHandler.setGateUrl(gateUrl);
 			try {
 				prepayid = prepayReqHandler.sendPrepay();
-			} catch (JSONException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			if (null != prepayid && !"".equals(prepayid)) {
