@@ -22,4 +22,13 @@ public class DataTableFactory {
         return  map;
     }
 
+    public static Map<String,Object> fitting(Integer draw,List<?> list,long count){
+        Map<String,Object>  map = new HashMap<String, Object>();
+        map.put("data",list);
+        map.put("draw",draw);
+        map.put("iTotalRecords",count);
+        map.put("iTotalDisplayRecords",count);
+        return  map;
+    }
+
 }
