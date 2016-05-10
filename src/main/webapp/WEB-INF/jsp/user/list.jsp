@@ -97,7 +97,7 @@
                     "searching": false,
                     "ordering": true,
                     "ajax": {
-                        "url": "admin/info/list",
+                        "url": "${contextPath}admin/user/getUsersDataList",
                         "type": "POST"
                     },
                     "columns": [

@@ -41,7 +41,7 @@ public class AolUserController extends GenericEntityController<AolUser, AolUser,
 //	@Autowired
 //	IOrganiseDeviceManager iOrganiseDeviceManager;
 	
-	private static final String USERSLIST = "management/aol/usersMgr/usersList";
+	private static final String USERSLIST = "user/list";
 	private static final String VIEWUSERINFO = "management/aol/usersMgr/viewUserInfo";
 	private static final String HANDADDDEVICE = "management/aol/usersMgr/handAddDevice";
 	private static final String USERTRANSFER = "management/aol/usersMgr/userTransfer";
