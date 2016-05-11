@@ -526,8 +526,8 @@ $(document).ready(function(){
 	parentCheck.on('ifChecked', function(){
         console.log("$(this).closest('.block-area')----:" + $(this).closest('.block-area').find('.list-check').length);
 		$(this).closest('.block-area').find('.list-check').each(function() {
-            console.log("checked:" + $(this).prop("checked"));
             $(this).prop("checked",true);
+            $(this).closest('.icheckbox_minimal').addClass("checked");
         });
 	});
     
@@ -536,6 +536,7 @@ $(document).ready(function(){
 		$(this).closest('.block-area').find('.list-check').each(function() {
             console.log("checked:" + $(this).prop("checked"));
             $(this).prop("checked",false);
+            $(this).closest('.icheckbox_minimal').removeClass("checked");
         });
 	});
     
