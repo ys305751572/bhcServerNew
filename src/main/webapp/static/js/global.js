@@ -29,7 +29,7 @@ var $leoman = {
     v: {
         ajaxOption: {method: 'POST', dataType: 'json', async: true},
         notifyMethod: null,
-        dataTableL:{
+        dataTableL: {
             "oLanguage": {
                 "sLengthMenu": "每页显示 _MENU_条",
                 "sZeroRecords": "没有找到符合条件的数据",
@@ -56,22 +56,22 @@ var $leoman = {
         }
         $.notify(msg, option);
     },
-    optNotify: function (method,title,button) {
+    optNotify: function (method, title, button) {
 
-        if($("#notifyjs-foo-alert-option").length>0){
+        if ($("#notifyjs-foo-alert-option").length > 0) {
             return false;
         }
 
-        if(title===undefined){
+        if (title === undefined) {
             title = '确认删除么？删除后不可恢复！';
         }
-        if(button===undefined){
+        if (button === undefined) {
             button = '删除';
         }
 
         $.notify({
             title: title,
-            button:button
+            button: button
         }, {
             style: 'foo',
             autoHide: false,
@@ -93,16 +93,16 @@ var $leoman = {
             }
         });
     },
-    cutText: function (sub, length,less) {
+    cutText: function (sub, length, less) {
         var str = "";
         if (sub && sub.length > length) {
-            str =  sub.substr(0, length);
-            if(less){
-                str=str+less;
-                str =  '<p title="'+sub+'">' + str + '</p>';
+            str = sub.substr(0, length);
+            if (less) {
+                str = str + less;
+                str = '<p title="' + sub + '">' + str + '</p>';
             }
         } else {
-            str =  sub;
+            str = sub;
         }
 
         return str;
@@ -178,27 +178,27 @@ var $leoman = {
         return obj.DataTable($.extend($leoman.v.dataTableL, option))
     },
     // 根据类型获取性别
-    getSex: function(type){
-        if(type == 0){
+    getSex: function (type) {
+        if (type == 0) {
             return "";
         }
-        if(type == 1){
+        if (type == 1) {
             return "男";
         }
-        if(type == 2){
+        if (type == 2) {
             return "女";
         }
         return "";
     },
     // 根据类型获取性别
-    getUserType: function(type){
-        if(type == 0){
+    getUserType: function (type) {
+        if (type == 0) {
             return "业主";
         }
-        if(type == 1){
+        if (type == 1) {
             return "家属";
         }
-        if(type == 2){
+        if (type == 2) {
             return "租客";
         }
         return "";
@@ -207,17 +207,17 @@ var $leoman = {
 }
 
 
-$.notify.addStyle('foo', {
-    html: "<div id='notifyjs-foo-alert-option'>" +
-    "<div class='clearfix'>" +
-    "<div class='title' data-notify-html='title'/>" +
-    "<div class='buttons'>" +
-    "<button class='no'>取消</button>" +
-    "<button class='yes' data-notify-text='button'></button>" +
-    "</div>" +
-    "</div>" +
-    "</div>"
-});
+//$.notify.addStyle('foo', {
+//    html: "<div id='notifyjs-foo-alert-option'>" +
+//    "<div class='clearfix'>" +
+//    "<div class='title' data-notify-html='title'/>" +
+//    "<div class='buttons'>" +
+//    "<button class='no'>取消</button>" +
+//    "<button class='yes' data-notify-text='button'></button>" +
+//    "</div>" +
+//    "</div>" +
+//    "</div>"
+//});
 
 $(document).on('click', '.notifyjs-foo-base .no', function () {
     $(this).trigger('notify-hide');
@@ -252,10 +252,10 @@ $(document).on('click', '.notifyjs-foo-base .yes', function () {
                 return checkIds[0];
             }
         } else {
-            if(checkIds.length == 0){
+            if (checkIds.length == 0) {
                 $leoman.notify('请选择至少一条记录操作！', 'error');
                 return false;
-            }else{
+            } else {
                 return checkIds;
             }
         }

@@ -257,7 +257,7 @@ public class AolUserManagerImpl extends GenericManagerImpl<AolUser, AolUserDAO> 
 			Long count = queryCount(sql);
 			
 			Query query = em.createQuery(innerSql + sql + " order by u.bak5 DESC ");
-			int firstResult = start * length;
+			int firstResult = (start - 1) * length;
 			query.setFirstResult(firstResult);
 			query.setMaxResults(length);
 			list = query.getResultList();
@@ -502,9 +502,8 @@ public class AolUserManagerImpl extends GenericManagerImpl<AolUser, AolUserDAO> 
 	
 	/**
 	 * 查询总条数
-	 * @param sql
 	 * @return
-	 */
+
 	public Long queryCount2(String sql) {
 		Long count = Long.valueOf(0);
 		String countSql = "select count(_ar.id) as count from " + sql + "";
@@ -514,6 +513,7 @@ public class AolUserManagerImpl extends GenericManagerImpl<AolUser, AolUserDAO> 
 		em.close();
 		return count;
 	}
+	 */
 	
 	/**
 	 * 根据部门ID获取该部门所属用户ID

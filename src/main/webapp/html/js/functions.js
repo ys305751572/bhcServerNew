@@ -512,7 +512,6 @@ $(document).ready(function(){
      Checkbox + Radio
      -----------------------------------------------------------*/
     if($('input:checkbox, input:radio')[0]) {
-    	
 	//Checkbox + Radio skin
 	$('input:checkbox:not([data-toggle="buttons"] input, .make-switch input), input:radio:not([data-toggle="buttons"] input)').iCheck({
 		    checkboxClass: 'icheckbox_minimal',

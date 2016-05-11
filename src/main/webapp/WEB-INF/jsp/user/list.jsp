@@ -61,7 +61,7 @@
             <table class="table table-bordered table-hover tile" id="dataTables" cellspacing="0" width="100%">
                 <thead>
                 <tr>
-                    <th><input type="checkbox" onclick="$bluemobi.checkAll(this)" class="checkall"/></th>
+                    <th><input type="checkbox" class="pull-left list-parent-check"/></th>
                     <th>姓名</th>
                     <th>性别</th>
                     <th>生日</th>
@@ -88,34 +88,34 @@
         },
         fn: {
             init: function () {
-
+                $user.fn.dataTableInit();
             },
             dataTableInit: function () {
-                $user.v.dTable = $bluemobi.dataTable($('#dataTables'), {
+                $user.v.dTable = $leoman.dataTable($('#dataTables'), {
                     "processing": true,
                     "serverSide": true,
                     "searching": false,
-                    "ordering": true,
                     "ajax": {
-                        "url": "${contextPath}admin/user/getUsersDataList",
+                        "url": "${contextPath}/admin/aoluser/getUsersDataList",
                         "type": "POST"
                     },
                     "columns": [
                         {
-                            "data": "id",
+                            "data": "userId",
                             "render" : function(data) {
-                                var checkbox = "<input type='checkbox' value=" + data + ">";
+                                var checkbox = "<input type=\"checkbox\" class=\"pull-left list-check\" value=" + data + ">";
                                 return checkbox;
                             }
                         },
                         {"data": "name"},
+                        {"data": "sex"},
                         {"data": "birthday"},
                         {"data": "height"},
                         {"data": "weight"},
                         {"data": "mobile"},
                         {"data": "email"},
                         {
-                            "data": "createDate",
+                            "data": "bak5",
                             render: function (data) {
                                 return new Date(data).format("yyyy-MM-dd hh:mm:ss")
                                 }
@@ -125,28 +125,42 @@
                             "render" : function(data) {
                                 var detail = "<a  title='查看' href='${contextPath}/admin/aoluser/detail' class='btn btn-primary btn-circle add'>" +
                                         "<i class='fa fa-edit'></i></a>";
-
                                 return detail;
                             }
                         }
                     ],
                     "createdRow": function (row, data, index) {
                         $user.v.list.push(data);
+//                        $('td', row).eq(0).html("<input type='checkbox' value=" + data.id + ">");
                     },
                     rowCallback: function (row, data) {
-                        var items = kuserList.v.list;
+                        var items = $user.v.list;
                     },
                     "fnServerParams": function (aoData) {
-                        aoData.title = $("#title").val();
-                        aoData.isList = $("#isList").val();
+//                        aoData.title = $("#title").val();
                     },
                     "fnDrawCallback": function (row) {
-                        $bluemobi.uiform();
+                        $leoman.uiform();
                     }
                 });
+            },
+            responseComplete: function (result, action) {
+                if (result.status == "0") {
+                    if (action) {
+                        $user.v.dTable.ajax.reload(null, false);
+                    } else {
+                        $user.v.dTable.ajax.reload();
+                    }
+                    $leoman.notify(result.msg, "success");
+                } else {
+                    $leoman.notify(result.msg, "error");
+                }
             }
         }
     }
+    $(function() {
+        $user.fn.init();
+    })
 </script>
 </body>
 </html>

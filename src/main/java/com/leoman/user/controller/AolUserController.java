@@ -1,17 +1,10 @@
 package com.leoman.user.controller;
 
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.leoman.admin.entity.Admin;
 import com.leoman.common.controller.common.GenericEntityController;
 import com.leoman.common.core.Constant;
@@ -19,10 +12,8 @@ import com.leoman.common.entity.PageVO;
 import com.leoman.common.factory.DataTableFactory;
 import com.leoman.user.entity.AolUser;
 import com.leoman.user.service.impl.AolUserManagerImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -118,10 +109,11 @@ public class AolUserController extends GenericEntityController<AolUser, AolUser,
 		//获取登录用户
 		Admin loginuser = (Admin) request.getSession().getAttribute(Constant.SESSION_MEMBER_GLOBLE);
 
+		int pageNum = getPageNum(start, length);
 		PageVO pv = null;
 		List<AolUser> renderList = new ArrayList<AolUser>();
 		try{
-			pv = this.getEntityManager().queryUsersDataList(start,length, usersname, sexType, mobile, birthday, regTimeQ, regTimeZ,"0",loginuser.getUserId());
+			pv = this.getEntityManager().queryUsersDataList(pageNum,length, usersname, sexType, mobile, birthday, regTimeQ, regTimeZ,"1",loginuser.getUserId());
 			List<AolUser> tmpList = pv.getList();
 			AolUser aolUser = new AolUser();
 			aolUser.setName("admin");
@@ -148,10 +140,11 @@ public class AolUserController extends GenericEntityController<AolUser, AolUser,
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return DataTableFactory.fitting(draw,renderList,pv.getCount());
+		Map<String,Object> map = DataTableFactory.fitting(draw,renderList,pv.getCount());
+		return map;
 
 	}
-//
+
 //	@RequestMapping(value="/sfUserInfo", method=RequestMethod.POST)
 //	@ResponseBody
 //	public void sfUserInfo(HttpServletRequest request, HttpServletResponse response, String userId){
