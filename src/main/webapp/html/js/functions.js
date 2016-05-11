@@ -524,17 +524,25 @@ $(document).ready(function(){
 	var listCheck = $('.list-check');
     
 	parentCheck.on('ifChecked', function(){
-		$(this).closest('.list-container').find('.list-check').iCheck('check');
+        console.log("$(this).closest('.block-area')----:" + $(this).closest('.block-area').find('.list-check').length);
+		$(this).closest('.block-area').find('.list-check').each(function() {
+            console.log("checked:" + $(this).prop("checked"));
+            $(this).prop("checked",true);
+        });
 	});
     
-	parentCheck.on('ifClicked', function(){
-		$(this).closest('.list-container').find('.list-check').iCheck('uncheck');
+	parentCheck.on('ifUnchecked', function(){
+        console.log("$(this).closest('.block-area')====:" + $(this).closest('.block-area').find('.list-check').length);
+		$(this).closest('.block-area').find('.list-check').each(function() {
+            console.log("checked:" + $(this).prop("checked"));
+            $(this).prop("checked",false);
+        });
 	});
     
 	listCheck.on('ifChecked', function(){
-		    var parent = $(this).closest('.list-container').find('.list-parent-check');
-		    var thisCheck = $(this).closest('.list-container').find('.list-check');
-		    var thisChecked = $(this).closest('.list-container').find('.list-check:checked');
+		    var parent = $(this).closest('.block-area').find('.list-parent-check');
+		    var thisCheck = $(this).closest('.block-area').find('.list-check');
+		    var thisChecked = $(this).closest('.block-area').find('.list-check:checked');
 	    
 		    if(thisCheck.length == thisChecked.length) {
 			parent.iCheck('check');
@@ -542,7 +550,7 @@ $(document).ready(function(){
 	});
     
 	listCheck.on('ifUnchecked', function(){
-		    var parent = $(this).closest('.list-container').find('.list-parent-check');
+		    var parent = $(this).closest('.block-area').find('.list-parent-check');
 		    parent.iCheck('uncheck');
 	});
     

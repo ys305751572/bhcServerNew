@@ -102,8 +102,9 @@
                     "columns": [
                         {
                             "data": "userId",
-                            "render" : function(data) {
-                                var checkbox = "<input type=\"checkbox\" class=\"pull-left list-check\" value=" + data + ">";
+                            "render": function (data) {
+                                var checkbox = "<div class=\"icheckbox_minimal\" aria-checked=\"false\" aria-disabled=\"false\" style=\"position: relative;\"><input type=\"checkbox\" value="+ data +" class=\"pull-left list-check\" style=\"position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);\"></div>";
+//                                var checkbox = "<input type='checkbox' class='pull-left list-check' value=''>";
                                 return checkbox;
                             }
                         },
@@ -118,11 +119,11 @@
                             "data": "bak5",
                             render: function (data) {
                                 return new Date(data).format("yyyy-MM-dd hh:mm:ss")
-                                }
+                            }
                         },
                         {
                             "data": "",
-                            "render" : function(data) {
+                            "render": function (data) {
                                 var detail = "<a  title='查看' href='${contextPath}/admin/aoluser/detail' class='btn btn-primary btn-circle add'>" +
                                         "<i class='fa fa-edit'></i></a>";
                                 return detail;
@@ -158,7 +159,7 @@
             }
         }
     }
-    $(function() {
+    $(function () {
         $user.fn.init();
     })
 </script>
