@@ -29,13 +29,15 @@
                     <label>手机</label>
                     <input type="text" class="input-sm form-control" id="mobile" name="mobile" placeholder="...">
                 </div>
-                <div class="col-md-2 form-group" >
+                <div class="col-md-2 form-group">
                     <label>生日</label>
-                    <input type="text" class="input-sm form-control form_datetime" id="birthday" name="birthday" placeholder="..." readonly="readonly">
+                    <input type="text" class="input-sm form-control form_datetime" id="birthday" name="birthday"
+                           placeholder="..." readonly="readonly">
                 </div>
-                <div class="col-md-2 form-group" >
+                <div class="col-md-2 form-group">
                     <label>注册时间</label>
-                    <input type="text" class="input-sm form-control form_datetime" id="" name="" placeholder="..." readonly="readonly">
+                    <input type="text" class="input-sm form-control form_datetime" id="" name="" placeholder="..."
+                           readonly="readonly">
                 </div>
                 <div class="col-md-2 form-group">
                     <label>性别</label>
@@ -86,7 +88,7 @@
             init: function () {
                 $user.fn.dataTableInit();
 
-                $("#c_search").click(function() {
+                $("#c_search").click(function () {
                     $user.v.dTable.ajax.reload();
                 });
             },
@@ -104,7 +106,7 @@
                             "data": "userId",
                             "render": function (data) {
 //                                var checkbox = "<div class=\"icheckbox_minimal\" aria-checked=\"false\" aria-disabled=\"false\" style=\"position: relative;\"><input type=\"checkbox\" value="+ data +" class='pull-left list-check' style=\"position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);\"></div>";
-                                var checkbox = "<input type='checkbox' class='pull-left list-check' value="+ data +">";
+                                var checkbox = "<input type='checkbox' class='pull-left list-check' value=" + data + ">";
                                 return checkbox;
                             }
                         },
@@ -136,7 +138,7 @@
                         aoData.usersname = $("#username").val();
                         aoData.mobile = $("#mobile").val();
                         aoData.birthday = $("#birthday").val();
-                        aoData.sexType =$("#sex").val();
+                        aoData.sexType = $("#sex").val();
                     }
                 });
             },
@@ -160,16 +162,16 @@
 </script>
 <script>
     $('.form_datetime').datetimepicker({
-        language:  'zh-CN',
+        language: 'zh-CN',
         weekStart: 1,
-        todayBtn:  1,
+        todayBtn: 1,
         autoclose: 1,
         todayHighlight: 1,
         startView: 2,
-        minView : "2",
+        minView: "2",
         forceParse: 0,
         showMeridian: 1,
-        format:'yyyy-mm-dd'
+        format: 'yyyy-mm-dd'
     });
 </script>
 </body>
