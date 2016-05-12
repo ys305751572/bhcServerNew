@@ -2,7 +2,7 @@ $(document).ready(function(){
     /* --------------------------------------------------------
 	Template Settings
     -----------------------------------------------------------*/
-    
+
     //var settings =  '<a id="settings" href="#changeSkin" data-toggle="modal">' +
 		//	'<i class="fa fa-gear"></i> Change Skin' +
 		//    '</a>' +
@@ -63,14 +63,14 @@ $(document).ready(function(){
 		//	'</div>' +
 		//    '</div>';
     //$('#main').prepend(settings);
-            
+
     $('body').on('click', '.template-skins > a', function(e){
 	e.preventDefault();
 	var skin = $(this).data('skin');
 	$('body').attr('id', skin);
 	$('#changeSkin').modal('hide');
     });
-    
+
     /* --------------------------------------------------------
 	Components
     -----------------------------------------------------------*/
@@ -84,17 +84,17 @@ $(document).ready(function(){
 	if($('.select')[0]) {
 	    $('.select').selectpicker();
 	}
-        
+
         //Sortable
         if($('.sortable')[0]) {
 	    $('.sortable').sortable();
 	}
-	
+
         //Tag Select
 	if($('.tag-select')[0]) {
 	    $('.tag-select').chosen();
 	}
-        
+
         /* Tab */
 	if($('.tab')[0]) {
 	    $('.tab a').click(function(e) {
@@ -102,12 +102,12 @@ $(document).ready(function(){
 		$(this).tab('show');
 	    });
 	}
-        
+
         /* Collapse */
 	if($('.collapse')[0]) {
 	    $('.collapse').collapse();
 	}
-        
+
         /* Accordion */
         $('.panel-collapse').on('shown.bs.collapse', function () {
             $(this).prev().find('.panel-title a').removeClass('active');
@@ -120,7 +120,7 @@ $(document).ready(function(){
         //Popover
     	if($('.pover')[0]) {
     	    $('.pover').popover();
-    	} 
+    	}
     })();
 
     /* --------------------------------------------------------
@@ -134,7 +134,7 @@ $(document).ready(function(){
             $('#sidebar').toggleClass('toggled');
             //$('#content').toggleClass('m-0');
         });
-         
+
         /* Active Menu */
         $('#sidebar .menu-item').hover(function(){
             $(this).closest('.dropdown').addClass('hovered');
@@ -146,7 +146,7 @@ $(document).ready(function(){
         $('.side-menu .dropdown > a').click(function(e){
             e.preventDefault();
         });
-	
+
 
     })();
 
@@ -177,7 +177,7 @@ $(document).ready(function(){
 
             $('.todo-list .media input').on('ifUnchecked', function(){
                 $(this).closest('.media').find('.checkbox label').removeAttr('style');
-            });    
+            });
         })
     })();
 
@@ -230,7 +230,7 @@ $(document).ready(function(){
 	Calendar
     -----------------------------------------------------------*/
     (function(){
-	
+
         //Sidebar
         if ($('#sidebar-calendar')[0]) {
             var date = new Date();
@@ -341,21 +341,21 @@ $(document).ready(function(){
 	if($('.color-picker')[0]) {
 	    $('.color-picker').colorpicker();
 	}
-        
+
         //RGB
 	if($('.color-picker-rgb')[0]) {
 	    $('.color-picker-rgb').colorpicker({
 		format: 'rgb'
 	    });
 	}
-        
+
         //RGBA
 	if($('.color-picker-rgba')[0]) {
 	    $('.color-picker-rgba').colorpicker({
 		format: 'rgba'
 	    });
 	}
-	
+
 	//Output Color
 	if($('[class*="color-picker"]')[0]) {
 	    $('[class*="color-picker"]').colorpicker().on('changeColor', function(e){
@@ -390,7 +390,7 @@ $(document).ready(function(){
 		pick12HourFormat: true
 	    });
 	}
-        
+
         $('.datetime-pick input:text').on('click', function(){
             $(this).closest('.datetime-pick').find('.add-on i').click();
         });
@@ -418,14 +418,14 @@ $(document).ready(function(){
 		savable:false
 	    });
 	}
-        
+
         //WYSIWYE Editor
 	if($('.wysiwye-editor')[0]) {
 	    $('.wysiwye-editor').summernote({
 		height: 200
 	    });
 	}
-        
+
     })();
 
     /* --------------------------------------------------------
@@ -456,7 +456,7 @@ $(document).ready(function(){
 		    jQuery.browser.version = RegExp.$1;
 		}
 	    })();
-	    
+
 	    //Lightbox
 	    $().piroBox_ext({
 		piro_speed : 700,
@@ -493,7 +493,7 @@ $(document).ready(function(){
 
 
     })();
-    
+
     /* --------------------------------------------------------
      Login + Sign up
     -----------------------------------------------------------*/
@@ -502,74 +502,15 @@ $(document).ready(function(){
 	    e.preventDefault();
 	    var box = $(this).attr('data-switch');
 	    $(this).closest('.box').toggleClass('active');
-	    $('#'+box).closest('.box').addClass('active'); 
+	    $('#'+box).closest('.box').addClass('active');
 	});
     })();
-    
-   
-    
+
+
+
+
     /* --------------------------------------------------------
-     Checkbox + Radio
-     -----------------------------------------------------------*/
-    if($('input:checkbox, input:radio')[0]) {
-	//Checkbox + Radio skin
-	$('input:checkbox:not([data-toggle="buttons"] input, .make-switch input), input:radio:not([data-toggle="buttons"] input)').iCheck({
-		    checkboxClass: 'icheckbox_minimal',
-		    radioClass: 'iradio_minimal',
-		    increaseArea: '20%' // optional
-	});
-    
-	//Checkbox listing
-	var parentCheck = $('.list-parent-check');
-	var listCheck = $('.list-check');
-    
-	parentCheck.on('ifChecked', function(){
-        console.log("$(this).closest('.block-area')----:" + $(this).closest('.block-area').find('.list-check').length);
-		$(this).closest('.block-area').find('.list-check').each(function() {
-            $(this).prop("checked",true);
-            $(this).closest('.icheckbox_minimal').addClass("checked");
-        });
-	});
-    
-	parentCheck.on('ifUnchecked', function(){
-        console.log("$(this).closest('.block-area')====:" + $(this).closest('.block-area').find('.list-check').length);
-		$(this).closest('.block-area').find('.list-check').each(function() {
-            console.log("checked:" + $(this).prop("checked"));
-            $(this).prop("checked",false);
-            $(this).closest('.icheckbox_minimal').removeClass("checked");
-        });
-	});
-    
-	listCheck.on('ifChecked', function(){
-		    var parent = $(this).closest('.block-area').find('.list-parent-check');
-		    var thisCheck = $(this).closest('.block-area').find('.list-check');
-		    var thisChecked = $(this).closest('.block-area').find('.list-check:checked');
-	    
-		    if(thisCheck.length == thisChecked.length) {
-			parent.iCheck('check');
-		    }
-	});
-    
-	listCheck.on('ifUnchecked', function(){
-		    var parent = $(this).closest('.block-area').find('.list-parent-check');
-		    parent.iCheck('uncheck');
-	});
-    
-	listCheck.on('ifChanged', function(){
-		    var thisChecked = $(this).closest('.list-container').find('.list-check:checked');
-		    var showon = $(this).closest('.list-container').find('.show-on');
-		    if(thisChecked.length > 0 ) {
-			showon.show();
-		    }
-		    else {
-			showon.hide();
-		    }
-	});
-	   
-    }
-    
-    /* --------------------------------------------------------
-        MAC Hack 
+        MAC Hack
     -----------------------------------------------------------*/
     (function(){
 	//Mac only
@@ -577,7 +518,7 @@ $(document).ready(function(){
             $('body').addClass('mac-os');
         }
     })();
-    
+
 });
 
 $(window).load(function(){
@@ -613,7 +554,7 @@ $(window).load(function(){
             return val;
         }
     });
-    
+
 });
 
 /* --------------------------------------------------------

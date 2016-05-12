@@ -30,6 +30,73 @@ var $leoman = {
         ajaxOption: {method: 'POST', dataType: 'json', async: true},
         notifyMethod: null,
         dataTableL: {
+            "fnDrawCallback" : function() {
+                /* --------------------------------------------------------
+                 Checkbox + Radio
+                 -----------------------------------------------------------*/
+                if($('input:checkbox, input:radio')[0]) {
+                    //Checkbox + Radio skin
+                    $('input:checkbox:not([data-toggle="buttons"] input, .make-switch input), input:radio:not([data-toggle="buttons"] input)').iCheck({
+                        checkboxClass: 'icheckbox_minimal',
+                        radioClass: 'iradio_minimal',
+                        increaseArea: '20%' // optional
+                    });
+
+                    //Checkbox listing
+                    var parentCheck = $('.list-parent-check');
+                    var listCheck = $('.list-check');
+                    parentCheck.on('ifChecked', function(){
+                        $(this).closest('.block-area').find('.list-check').each(function() {
+                            $(this).prop("checked",true);
+                            $(this).closest('.icheckbox_minimal').addClass("checked");
+                            $(this).closest('tr').addClass("warning");
+                        });
+
+                        var checkIds = [];
+                        $(this).closest('.block-area').find('.list-check').each(function () {
+                            checkIds.push($(this).val())
+                        });
+                        console.log("ids:" + checkIds);
+                    });
+
+                    parentCheck.on('ifUnchecked', function(){
+                        $(this).closest('.block-area').find('.list-check').each(function() {
+                            $(this).prop("checked",false);
+                            $(this).closest('.icheckbox_minimal').removeClass("checked");
+                            $(this).closest('tr').removeClass("warning");
+                        });
+                    });
+
+                    listCheck.on('ifChecked', function(){
+                        var parent = $(this).closest('.block-area').find('.list-parent-check');
+                        var thisCheck = $(this).closest('.block-area').find('.list-check');
+                        var thisChecked = $(this).closest('.block-area').find('.list-check:checked');
+
+                        thisChecked.closest('tr').addClass("warning");
+                        if(thisCheck.length == thisChecked.length) {
+                            parent.iCheck('check');
+                        }
+                    });
+
+                    listCheck.on('ifUnchecked', function(){
+                        var parent = $(this).closest('.block-area').find('.list-parent-check');
+                        parent.prop("checked",false);
+                        parent.closest('.icheckbox_minimal').removeClass("checked");
+                        $(this).closest('tr').removeClass("warning");
+                    });
+
+                    //listCheck.on('ifChanged', function(){
+                    //	    var thisChecked = $(this).closest('.list-container').find('.list-check:checked');
+                    //	    var showon = $(this).closest('.list-container').find('.show-on');
+                    //	    if(thisChecked.length > 0 ) {
+                    //		showon.show();
+                    //	    }
+                    //	    else {
+                    //		showon.hide();
+                    //	    }
+                    //});
+                }
+            },
             "oLanguage": {
                 "sLengthMenu": "每页显示 _MENU_条",
                 "sZeroRecords": "没有找到符合条件的数据",
@@ -234,11 +301,9 @@ $(document).on('click', '.notifyjs-foo-base .yes', function () {
 (function ($) {
     $.fn.getInputId = function (sigle) {
         var checkIds = [];
-
-        this.each(function () {
+        $(this).closest('.block-area').find('.list-check').each(function () {
             checkIds.push($(this).val())
         });
-
         if (sigle) {
             if (checkIds.length > 1) {
                 $leoman.notify('只能选择一条记录！', 'error');

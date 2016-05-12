@@ -22,38 +22,33 @@
         <div class="block-area" id="search">
             <div class="row">
                 <div class="col-md-2 form-group">
-                    <label>Text feild</label>
-                    <input type="text" class="input-sm form-control" placeholder="...">
+                    <label>姓名</label>
+                    <input type="text" class="input-sm form-control" id="username" name="username" placeholder="...">
                 </div>
                 <div class="col-md-2 form-group">
-                    <label>Text feild</label>
-                    <input type="text" class="input-sm form-control" placeholder="...">
+                    <label>手机</label>
+                    <input type="text" class="input-sm form-control" id="mobile" name="mobile" placeholder="...">
+                </div>
+                <div class="col-md-2 form-group" >
+                    <label>生日</label>
+                    <input type="text" class="input-sm form-control form_datetime" id="birthday" name="birthday" placeholder="..." readonly="readonly">
+                </div>
+                <div class="col-md-2 form-group" >
+                    <label>注册时间</label>
+                    <input type="text" class="input-sm form-control form_datetime" id="" name="" placeholder="..." readonly="readonly">
                 </div>
                 <div class="col-md-2 form-group">
-                    <label>Text feild</label>
-                    <input type="text" class="input-sm form-control" placeholder="...">
-                </div>
-                <div class="col-md-2 form-group">
-                    <label>Text feild</label>
-                    <input type="text" class="input-sm form-control" placeholder="...">
-                </div>
-                <div class="col-md-2 form-group">
-                    <label>Password</label>
-                    <input type="password" class="input-sm form-control" placeholder="...">
-                </div>
-                <div class="col-md-2 form-group">
-                    <label>Select</label>
-                    <select class="select">
-                        <option>Default</option>
-                        <option>Toyota Avalon</option>
-                        <option>Toyota Crown</option>
-                        <option>Lexus LX570</option>
+                    <label>性别</label>
+                    <select id="sex" name="sex" class="select">
+                        <option value="">全部</option>
+                        <option value="男">男</option>
+                        <option value="女">女</option>
                     </select>
                 </div>
             </div>
         </div>
         <div class="block-area" id="alternative-buttons">
-            <button class="btn btn-alt m-r-5">Search</button>
+            <button id="c_search" class="btn btn-alt m-r-5">查询</button>
         </div>
         <hr class="whiter m-t-20"/>
         <!-- form表格 -->
@@ -80,6 +75,7 @@
 </section>
 <!-- JS -->
 <%@ include file="../inc/new/foot.jsp" %>
+
 <script>
     $user = {
         v: {
@@ -89,6 +85,10 @@
         fn: {
             init: function () {
                 $user.fn.dataTableInit();
+
+                $("#c_search").click(function() {
+                    $user.v.dTable.ajax.reload();
+                });
             },
             dataTableInit: function () {
                 $user.v.dTable = $leoman.dataTable($('#dataTables'), {
@@ -103,8 +103,8 @@
                         {
                             "data": "userId",
                             "render": function (data) {
-                                var checkbox = "<div class=\"icheckbox_minimal\" aria-checked=\"false\" aria-disabled=\"false\" style=\"position: relative;\"><input type=\"checkbox\" value="+ data +" class=\"pull-left list-check\" style=\"position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);\"></div>";
-//                                var checkbox = "<input type='checkbox' class='pull-left list-check' value=''>";
+//                                var checkbox = "<div class=\"icheckbox_minimal\" aria-checked=\"false\" aria-disabled=\"false\" style=\"position: relative;\"><input type=\"checkbox\" value="+ data +" class='pull-left list-check' style=\"position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);\"></div>";
+                                var checkbox = "<input type='checkbox' class='pull-left list-check' value="+ data +">";
                                 return checkbox;
                             }
                         },
@@ -126,22 +126,17 @@
                             "render": function (data) {
                                 var detail = "<a  title='查看' href='${contextPath}/admin/aoluser/detail' class='btn btn-primary btn-circle add'>" +
                                         "<i class='fa fa-edit'></i></a>";
-                                return detail;
+
+                                var add = "";
+                                return detail + add;
                             }
                         }
                     ],
-                    "createdRow": function (row, data, index) {
-                        $user.v.list.push(data);
-//                        $('td', row).eq(0).html("<input type='checkbox' value=" + data.id + ">");
-                    },
-                    rowCallback: function (row, data) {
-                        var items = $user.v.list;
-                    },
                     "fnServerParams": function (aoData) {
-//                        aoData.title = $("#title").val();
-                    },
-                    "fnDrawCallback": function (row) {
-                        $leoman.uiform();
+                        aoData.usersname = $("#username").val();
+                        aoData.mobile = $("#mobile").val();
+                        aoData.birthday = $("#birthday").val();
+                        aoData.sexType =$("#sex").val();
                     }
                 });
             },
@@ -162,6 +157,20 @@
     $(function () {
         $user.fn.init();
     })
+</script>
+<script>
+    $('.form_datetime').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView : "2",
+        forceParse: 0,
+        showMeridian: 1,
+        format:'yyyy-mm-dd'
+    });
 </script>
 </body>
 </html>

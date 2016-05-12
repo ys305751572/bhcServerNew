@@ -76,7 +76,7 @@ select:not([multiple]){
    background-image: url(../img/select-bg.png);
    background-repeat: no-repeat;
    background-position: right center;
-   color: 
+   /*color: ;*/
 }
 
 .ie9 select:not([multiple]){
@@ -156,7 +156,7 @@ input[type="checkbox"], input[type="radio"]{
 -----------------------------------------------------------*/
 .btn:not(.form-control) {
    background: -moz-linear-gradient(top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,1) 100%);
-   background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,0.3)), color-stop(100%, rgba(0,0,0,1)));
+   /*background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,0.3)), color-stop(100%, rgba(0,0,0,1)));*/
    background: -webkit-linear-gradient(top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,1) 100%);
    background: -o-linear-gradient(top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,1) 100%);
    background: -ms-linear-gradient(top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,1) 100%);

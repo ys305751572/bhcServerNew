@@ -9,7 +9,8 @@
 
 <!-- Bootstrap -->
 <script src="${contextPath}/html/js/bootstrap.min.js"></script>
-
+<script src="${contextPath}/html/js/select.min.js"></script> <!-- Custom Select -->
+<script src="${contextPath}/html/js/chosen.min.js"></script> <!-- Custom Multi Select -->
 <!-- Charts -->
 <script src="${contextPath}/html/js/charts/jquery.flot.js"></script>
 <!-- Flot Main -->
@@ -40,12 +41,10 @@
 <script src="${contextPath}/html/js/validation/validate.min.js"></script>
 <!-- jQuery Form Validation Library -->
 <script src="${contextPath}/html/js/validation/validationEngine.min.js"></script>
-<!-- jQuery Form Validation Library - requirred with above js -->
-<script src="${contextPath}/html/js/select.min.js"></script>
-<!-- Custom Select -->
-<script src="${contextPath}/html/js/chosen.min.js"></script>
+
 <!-- Custom Multi Select -->
-<script src="${contextPath}/html/js/datetimepicker.min.js"></script>
+<script src="${contextPath }/html/datepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="${contextPath }/html/datepicker/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <!-- Date & Time Picker -->
 <script src="${contextPath}/html/js/colorpicker.min.js"></script>
 <!-- Color Picker -->
@@ -86,7 +85,6 @@
 
 <!-- All JS functions -->
 <script src="${contextPath}/html/js/functions.js"></script>
-<script src="${contextPath}/html/js/datatables/bootstrap.min.js"></script>
 <!-- News Feeds -->
 <script src="${contextPath}/html/js/datatables/jquery.dataTables.min.js"></script>
 <!-- News Feeds -->
@@ -112,8 +110,7 @@
 
 <script src="${contextPath }/static/js/plugins/metisMenu/metisMenu.min.js"></script>
 <script src="${contextPath }/static/js/plugins/jquery.form.min.js"></script>
-<script src="${contextPath }/static/js/plugins/validator-0.7.3/jquery.validator.js"></script>
-<script src="${contextPath }/static/js/plugins/validator-0.7.3/local/zh_CN.js"></script>
+
 <script src="${contextPath }/static/js/plugins/notify-bootstap.min.js"></script>
 <script src="${contextPath }/static/js/plugins/jquery.uniform.min.js"></script>
 <script src="${contextPath }/static/js/plugins/boxer/jquery.fs.boxer.min.js"></script>
@@ -123,3 +120,4 @@
 <!-- Custom Theme JavaScript -->
 <script src="${contextPath }/static/js/sb-admin-2.js"></script>
 <script src="${contextPath }/static/js/dataformat.js"></script>
+
