@@ -97,16 +97,10 @@
         </li>
         <li class="dropdown">
             <a class="sa-side-ui" href="">
-                <span class="menu-item">User Interface</span>
+                <span class="menu-item">测量结果</span>
             </a>
             <ul class="list-unstyled menu-item">
-                <li><a href="buttons.html">Buttons</a></li>
-                <li><a href="labels.html">Labels</a></li>
-                <li><a href="images-icons.html">Images &amp; Icons</a></li>
-                <li><a href="alerts.html">Alerts</a></li>
-                <li><a href="media.html">Media</a></li>
-                <li><a href="components.html">Components</a></li>
-                <li><a href="other-components.html">Others</a></li>
+                <li><a href="${contextPath}/admin/measure/xtlist">血糖预警</a></li>
             </ul>
         </li>
         <li>

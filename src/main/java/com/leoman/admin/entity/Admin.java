@@ -18,9 +18,20 @@ public class Admin{
     @Column(name = "user_id")
     private String userId;
 
+    @Column(name = "bak4")
+    private String userType;
+
     @Column(name = "bak5")
     @Temporal(TemporalType.DATE)
     private Date createDate;
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
 
     public String getUserId() {
         return userId;

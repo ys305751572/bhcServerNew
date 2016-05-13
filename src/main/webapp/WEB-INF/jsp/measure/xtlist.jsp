@@ -12,7 +12,7 @@
     <!-- CSS -->
     <%@ include file="../inc/new/css.jsp" %>
 </head>
-<body id="skin-blur-ocean">
+<body id="skin-cloth">
 <%@ include file="../inc/new/header.jsp" %>
 <div class="clearfix"></div>
 <section id="main" class="p-relative" role="main">
@@ -62,12 +62,9 @@
                     <th>用户姓名</th>
                     <th>设备类型</th>
                     <th>测量状态</th>
-                    <th>测量收缩压</th>
-                    <th>高压状态</th>
-                    <th>预警收缩压</th>
-                    <th>低压状态</th>
-                    <th>预警舒张压</th>
-                    <th>心率</th>
+                    <th>测量血糖</th>
+                    <th>血糖状态</th>
+                    <th>预警血糖</th>
                     <th>测量时间</th>
                     <th>操作</th>
                 </tr>

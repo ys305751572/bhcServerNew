@@ -12,7 +12,7 @@
     <!-- CSS -->
     <%@ include file="../inc/new/css.jsp" %>
 </head>
-<body id="skin-blur-ocean">
+<body id="skin-cloth">
 <%@ include file="../inc/new/header.jsp" %>
 <div class="clearfix"></div>
 <section id="main" class="p-relative" role="main">
