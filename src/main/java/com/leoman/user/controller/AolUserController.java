@@ -5,13 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.leoman.admin.entity.Admin;
 import com.leoman.common.controller.common.GenericEntityController;
 import com.leoman.common.core.Constant;
 import com.leoman.common.entity.PageVO;
 import com.leoman.common.factory.DataTableFactory;
+import com.leoman.device.entity.Device;
+import com.leoman.device.service.IDeviceManager;
 import com.leoman.user.entity.AolUser;
 import com.leoman.user.service.impl.AolUserManagerImpl;
+import com.leoman.utils.Result;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,100 +30,103 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/admin/aoluser")
 public class AolUserController extends GenericEntityController<AolUser, AolUser, AolUserManagerImpl> {
 
-//	@Autowired
+    //	@Autowired
 //	IOrganiseManager iOrganiseManager;
 //	@Autowired
 //	IUserDeviceManager userDeviceManager;
-//	@Autowired
-//	IDeviceManager deviceManager;
+    @Autowired
+    private IDeviceManager deviceManager;
 //	@Autowired
 //	IOrganiseDeviceManager iOrganiseDeviceManager;
-	
-	private static final String USERSLIST = "user/list";
-	private static final String VIEWUSERINFO = "management/aol/usersMgr/viewUserInfo";
-	private static final String HANDADDDEVICE = "management/aol/usersMgr/handAddDevice";
-	private static final String USERTRANSFER = "management/aol/usersMgr/userTransfer";
-	private static final String VIEWOWNINFO = "management/aol/usersMgr/viewOwnInfo";
-	
-	@RequestMapping(value="/userslist", method=RequestMethod.GET)
-	public String userslist(HttpServletRequest request) {	
-		request.setAttribute("regTimeQ", request.getParameter("starttime"));
-		return USERSLIST;
-	}
-	
-	/**
-	 * 获取用户列表
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value="/getUserList", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> getUserList(Integer draw, Integer start, Integer length,String usersname,HttpServletRequest request) {
 
-		PageVO pv = null;
-		//获取登录用户
-		Admin loginuser = (Admin) request.getSession().getAttribute(Constant.SESSION_MEMBER_GLOBLE);
-		if("00000000000000000000000000000000".equals(loginuser.getUserId())){
-			//管理员
-			pv = this.getEntityManager().queryUsersDataList(start,length, "",usersname,"0");
-		}else{
-			//普通用户
-			pv = this.getEntityManager().queryUsersDataList(start,length, loginuser.getUserId(),usersname,"0");
-		}
-		 
-		Long count = (long)pv.getCount();
-		List tmpList = pv.getList();
-		return DataTableFactory.fitting(draw,tmpList,count);
-	}
-	
-	@RequestMapping(value = "foucsListPage", method = RequestMethod.GET)
-	public String foucsListPage(String cuserId,Model model) {
-		Map<String,Object> respMap = new HashMap<String, Object>();
-		respMap.put("cuserId", cuserId);
-		model.addAttribute("cuser", respMap);
-		return "management/aol/cuserMgr/usersList";
-	}
-	
-	/**
-	 * 获取用户列表
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value="/getFoucsUserList", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String,Object> getFoucsUserList(Integer draw, Integer start,Integer length,@RequestParam("cuserId") String cuserId,HttpServletRequest request) {
+    private static final String USERSLIST = "user/list";
+    private static final String VIEWUSERINFO = "user/detail";
+    private static final String HANDADDDEVICE = "management/aol/usersMgr/handAddDevice";
+    private static final String USERTRANSFER = "management/aol/usersMgr/userTransfer";
+    private static final String VIEWOWNINFO = "management/aol/usersMgr/viewOwnInfo";
 
-		//获取登录用户
-		PageVO pv = new PageVO();
-		Admin loginuser = (Admin) request.getSession().getAttribute(Constant.SESSION_MEMBER_GLOBLE);
-		pv = this.getEntityManager().queryFoucsUsersDataList(start,length, cuserId,"0","0");
-		Long count = (long)pv.getCount();
-		List tmpList = pv.getList();
-		return DataTableFactory.fitting(draw,tmpList,count);
-	}
-	
-	/**
-	 * 用户信息列表
-	 * @param request
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/getUsersDataList", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String,Object> getUsersDataList(Integer draw, Integer start,Integer length, String sexType,String mobile,
-											   String usersname,String birthday,String regTimeQ,String regTimeZ,String sortStr,
-											   HttpServletRequest request){
-		//获取登录用户
-		Admin loginuser = (Admin) request.getSession().getAttribute(Constant.SESSION_MEMBER_GLOBLE);
+    @RequestMapping(value = "/userslist", method = RequestMethod.GET)
+    public String userslist(HttpServletRequest request) {
+        request.setAttribute("regTimeQ", request.getParameter("starttime"));
+        return USERSLIST;
+    }
 
-		int pageNum = getPageNum(start, length);
-		PageVO pv = null;
-		List<AolUser> renderList = new ArrayList<AolUser>();
-		try{
-			pv = this.getEntityManager().queryUsersDataList(pageNum,length, usersname, sexType, mobile, birthday, regTimeQ, regTimeZ,"1",loginuser.getUserId());
-			List<AolUser> tmpList = pv.getList();
-			AolUser aolUser = new AolUser();
-			aolUser.setName("admin");
+    /**
+     * 获取用户列表
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getUserList", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getUserList(Integer draw, Integer start, Integer length, String usersname, HttpServletRequest request) {
+
+        PageVO pv = null;
+        //获取登录用户
+        Admin loginuser = (Admin) request.getSession().getAttribute(Constant.SESSION_MEMBER_GLOBLE);
+        if ("00000000000000000000000000000000".equals(loginuser.getUserId())) {
+            //管理员
+            pv = this.getEntityManager().queryUsersDataList(start, length, "", usersname, "0");
+        } else {
+            //普通用户
+            pv = this.getEntityManager().queryUsersDataList(start, length, loginuser.getUserId(), usersname, "0");
+        }
+
+        Long count = (long) pv.getCount();
+        List tmpList = pv.getList();
+        return DataTableFactory.fitting(draw, tmpList, count);
+    }
+
+    @RequestMapping(value = "foucsListPage", method = RequestMethod.GET)
+    public String foucsListPage(String cuserId, Model model) {
+        Map<String, Object> respMap = new HashMap<String, Object>();
+        respMap.put("cuserId", cuserId);
+        model.addAttribute("cuser", respMap);
+        return "management/aol/cuserMgr/usersList";
+    }
+
+    /**
+     * 获取用户列表
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getFoucsUserList", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getFoucsUserList(Integer draw, Integer start, Integer length, @RequestParam("cuserId") String cuserId, HttpServletRequest request) {
+
+        //获取登录用户
+        PageVO pv = new PageVO();
+        Admin loginuser = (Admin) request.getSession().getAttribute(Constant.SESSION_MEMBER_GLOBLE);
+        pv = this.getEntityManager().queryFoucsUsersDataList(start, length, cuserId, "0", "0");
+        Long count = (long) pv.getCount();
+        List tmpList = pv.getList();
+        return DataTableFactory.fitting(draw, tmpList, count);
+    }
+
+    /**
+     * 用户信息列表
+     *
+     * @param request
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    @RequestMapping(value = "/getUsersDataList", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> getUsersDataList(Integer draw, Integer start, Integer length, String sexType, String mobile,
+                                                String usersname, String birthday, String regTimeQ, String regTimeZ, String sortStr,
+                                                HttpServletRequest request) {
+        //获取登录用户
+        Admin loginuser = (Admin) request.getSession().getAttribute(Constant.SESSION_MEMBER_GLOBLE);
+
+        int pageNum = getPageNum(start, length);
+        PageVO pv = null;
+        List<AolUser> renderList = new ArrayList<AolUser>();
+        try {
+            pv = this.getEntityManager().queryUsersDataList(pageNum, length, usersname, sexType, mobile, birthday, regTimeQ, regTimeZ, "1", loginuser.getUserId());
+            List<AolUser> tmpList = pv.getList();
+            AolUser aolUser = new AolUser();
+            aolUser.setName("admin");
 //			aolUser.setSex("男");
 //			aolUser.setBirthday("1989-09-15");
 //			aolUser.setHeight("174");
@@ -124,88 +134,83 @@ public class AolUserController extends GenericEntityController<AolUser, AolUser,
 //			aolUser.setMobile("123456789");
 //			aolUser.setBak5(Timestamp.valueOf("2016-1-15 00:00:00"));
 //			aolUser.setEmail("30575157@qq.com");
-			for (AolUser u : tmpList) {
-				AolUser _u = new AolUser();
-				_u.setUserId(u.getUserId());
-				_u.setName(u.getName());
-				_u.setSex(u.getSex());
-				_u.setBirthday(u.getBirthday());
-				_u.setHeight(u.getHeight());
-				_u.setWeight(u.getWeight());
-				_u.setMobile(u.getMobile());
-				_u.setBak5(u.getBak5());
-				_u.setEmail(u.getEmail());
-				renderList.add(_u);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Map<String,Object> map = DataTableFactory.fitting(draw,renderList,pv.getCount());
-		return map;
+            for (AolUser u : tmpList) {
+                AolUser _u = new AolUser();
+                _u.setUserId(u.getUserId());
+                _u.setName(u.getName());
+                _u.setSex(u.getSex());
+                _u.setBirthday(u.getBirthday());
+                _u.setHeight(u.getHeight());
+                _u.setWeight(u.getWeight());
+                _u.setMobile(u.getMobile());
+                _u.setBak5(u.getBak5());
+                _u.setEmail(u.getEmail());
+                renderList.add(_u);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Map<String, Object> map = DataTableFactory.fitting(draw, renderList, pv.getCount());
+        return map;
 
-	}
+    }
 
-//	@RequestMapping(value="/sfUserInfo", method=RequestMethod.POST)
-//	@ResponseBody
-//	public void sfUserInfo(HttpServletRequest request, HttpServletResponse response, String userId){
-//		List<Device> udlist = null;
-//		udlist  = deviceManager.queryByProperty("user_id", userId);
-//		String msg = "";
-//		if(udlist == null||udlist.size() == 0){
-//			msg = "无法查询";
-//		}
-//		try {
-//			response.setCharacterEncoding("utf-8");
-//			response.setContentType("text/html");
-//			response.getWriter().write(msg);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//
-//	}
-//
-//	/**
-//	 * 查看用户信息
-//	 */
-//	@RequestMapping(value="/viewUserInfo", method=RequestMethod.GET)
-//	public String viewUserInfo(HttpServletRequest request){
-//		String userId = request.getParameter("userId");
-//		String deviceId = request.getParameter("deviceId");
-//		String urltype  = request.getParameter("urltype");
-//		AolUser user = this.getEntityManager().queryByPK(userId);
+    @RequestMapping(value = "/sfUserInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Result sfUserInfo(HttpServletRequest request, HttpServletResponse response, String userId) {
+        List<Device> udlist = null;
+        udlist = deviceManager.queryByProperty("user_id", userId);
+        String msg = "";
+        if (udlist == null || udlist.size() == 0) {
+            msg = "无法查询";
+            return Result.failure(msg);
+        }
+        return Result.success();
+    }
+
+
+    /**
+     * 查看用户信息
+     */
+    @RequestMapping(value = "/detail", method = RequestMethod.GET)
+    public String viewUserInfo(HttpServletRequest request) {
+        String userId = request.getParameter("userId");
+        String deviceId = request.getParameter("deviceId");
+        String urltype = request.getParameter("urltype");
+        AolUser user = this.getEntityManager().queryByPK(userId);
 //		MeasureController mc = new MeasureController();//调用MeasureController的report方法
-//		//查找用户所使用的设备ID
+        //查找用户所使用的设备ID
 //		List<UserDevice> udlist = null;
-//		List<Device> devicelist = new ArrayList<Device>();
-//		String xml = "";
-//		if((!StringUtils.isNotBlank(deviceId))||StringUtils.isNotBlank(urltype)){
-//			devicelist  = deviceManager.queryByProperty("user_id", userId);
-//			//根据查询出来的设备ID找到设备
-////			for (UserDevice userDevice : udlist) {
-////				List<Device> dlist = new ArrayList<Device>();
-////				dlist = deviceManager.queryByProperty("device_id", userDevice.getDevice_id());
-////				if(dlist.size()>0){
-////					devicelist.add(dlist.get(0));
-////				}
-////			}
-//			if(!StringUtils.isNotBlank(deviceId)){
-//				deviceId = devicelist.get(0).getDevice_id();
+        List<Device> devicelist = new ArrayList<Device>();
+        String xml = "";
+        if ((!StringUtils.isNotBlank(deviceId)) || StringUtils.isNotBlank(urltype)) {
+            devicelist = deviceManager.queryByProperty("user_id", userId);
+            //根据查询出来的设备ID找到设备
+//			for (UserDevice userDevice : udlist) {
+//				List<Device> dlist = new ArrayList<Device>();
+//				dlist = deviceManager.queryByProperty("device_id", userDevice.getDevice_id());
+//				if(dlist.size()>0){
+//					devicelist.add(dlist.get(0));
+//				}
 //			}
+            if (StringUtils.isNotBlank(deviceId)) {
+                deviceId = devicelist.get(0).getDevice_id();
+            }
 //			xml = mc.makeXmlReport(deviceId, userId, deviceManager.queryByProperty("device_id", deviceId).get(0).getDeviceType(),"","");
-//		}else{
-//			List<Device> dlist = new ArrayList<Device>();
-//			dlist = deviceManager.queryByProperty("device_id", deviceId);
-//			devicelist.add(dlist.get(0));
+        } else {
+            List<Device> dlist = new ArrayList<Device>();
+            dlist = deviceManager.queryByProperty("device_id", deviceId);
+            devicelist.add(dlist.get(0));
 //			xml = mc.makeXmlReport(deviceId, userId, dlist.get(0).getDeviceType(),"","");
-//		}
-//		request.setAttribute("devicelist", devicelist);
-//		System.out.println(deviceId);
-//		request.setAttribute("selectdeviceid", deviceId);
-//		request.setAttribute("xml", xml);
-//		request.setAttribute("aoluser", user);
-//		return VIEWUSERINFO;
-//	}
-//
+        }
+        request.setAttribute("devicelist", devicelist);
+        System.out.println(deviceId);
+        request.setAttribute("selectdeviceid", deviceId);
+        request.setAttribute("xml", xml);
+        request.setAttribute("aoluser", user);
+        return VIEWUSERINFO;
+    }
+
 //	/**
 //	 * 查看用户个人信息
 //	 */

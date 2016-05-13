@@ -12,7 +12,7 @@
     <!-- CSS -->
     <%@ include file="../inc/new/css.jsp" %>
 </head>
-<body id="skin-cloth">
+<body id="skin-blur-ocean">
 <%@ include file="../inc/new/header.jsp" %>
 <div class="clearfix"></div>
 <section id="main" class="p-relative" role="main">
@@ -124,13 +124,11 @@
                             }
                         },
                         {
-                            "data": "",
+                            "data": "userId",
                             "render": function (data) {
-                                var detail = "<a  title='查看' href='${contextPath}/admin/aoluser/detail' class='btn btn-primary btn-circle add'>" +
-                                        "<i class='fa fa-edit'></i></a>";
-
-                                var add = "";
-                                return detail + add;
+                                var detail = "<button title='查看' class='btn btn-primary btn-circle add' onclick=\"$user.fn.sfUserInfo(\'"+ data +"\')\">" +
+                                        "<i class='fa fa-eye'></i></button>";
+                                return detail;
                             }
                         }
                     ],
@@ -142,6 +140,25 @@
                     }
                 });
             },
+            sfUserInfo : function(userId) {
+                $.ajax({
+                    "url" : "${contextPath}/admin/aoluser/sfUserInfo",
+                    "data" : {
+                        "userId":userId
+                    },
+                    "dataType": "json",
+                    "type" : "POST",
+                    "success" : function(result) {
+                        if(!result.status) {
+                            console.log("!result.status")
+                            $common.fn.notify(result.msg);
+                            return;
+                        }
+                        window.location.href = "${contextPath}/admin/aoluser/detail?userId=" + userId;
+                    }
+                });
+            },
+
             responseComplete: function (result, action) {
                 if (result.status == "0") {
                     if (action) {

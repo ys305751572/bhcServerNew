@@ -8,3 +8,5 @@
 <link href="${contextPath}/html/css/generics.css" rel="stylesheet">
 <link href="${contextPath}/html/datepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
+<link rel="stylesheet" type="text/css" href="${contextPath}/html/alert/css/ns-default.css" />
+<link rel="stylesheet" type="text/css" href="${contextPath}/html/alert/css/ns-style-growl.css" />

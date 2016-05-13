@@ -121,3 +121,14 @@
 <script src="${contextPath }/static/js/sb-admin-2.js"></script>
 <script src="${contextPath }/static/js/dataformat.js"></script>
 
+<!-- alert -->
+<script src="${contextPath}/html/alert/js/classie.js"></script>
+<script src="${contextPath}/html/alert/js/modernizr.custom.js"></script>
+<script src="${contextPath}/html/alert/js/notificationFx.js"></script>
+<script src="${contextPath}/html/alert/js/notify.js"></script>
+
+<!-- highcharts  -->
+<script src="${contextPath}/html/charts/highcharts.js"></script>
+
+
+

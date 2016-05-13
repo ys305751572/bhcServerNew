@@ -12,7 +12,7 @@
         <!-- CSS -->
         <%@ include file="../inc/new/css.jsp"%>
     </head>
-    <body id="skin-cloth">
+    <body id="skin-blur-ocean">
         <section id="login">
             <header>
                 <h1>后台管理系统</h1>
