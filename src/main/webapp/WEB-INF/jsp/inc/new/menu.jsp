@@ -103,10 +103,13 @@
                 <li><a href="${contextPath}/admin/measure/xtlist">血糖预警</a></li>
             </ul>
         </li>
-        <li>
-            <a class="sa-side-chart" href="charts.html">
-                <span class="menu-item">Charts</span>
+        <li class="dropdown">
+            <a class="sa-side-chart" href="">
+                <span class="menu-item">医师管理</span>
             </a>
+            <ul class="list-unstyled menu-item">
+                <li><a href="${contextPath}/admin/doctor/index">医师列表</a></li>
+            </ul>
         </li>
         <li>
             <a class="sa-side-folder" href="file-manager.html">

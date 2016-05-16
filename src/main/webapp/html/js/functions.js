@@ -422,7 +422,6 @@ $(document).ready(function(){
         //WYSIWYE Editor
 	if($('.wysiwye-editor')[0]) {
 	    $('.wysiwye-editor').summernote({
-		height: 200
 	    });
 	}
         
@@ -505,8 +504,25 @@ $(document).ready(function(){
 	    $('#'+box).closest('.box').addClass('active'); 
 	});
     })();
-    
-   
+
+	/* Input Masking - you can include your own way */
+	(function(){
+		$('.mask-date').mask('00/00/0000');
+		$('.mask-time').mask('00:00:00');
+		$('.mask-date_time').mask('00/00/0000 00:00:00');
+		$('.mask-cep').mask('00000-000');
+		$('.mask-phone').mask('0000-0000');
+		$('.mask-phone_with_ddd').mask('(00) 0000-0000');
+		$('.mask-phone_us').mask('(000) 000-0000');
+		$('.mask-mixed').mask('AAA 000-S0S');
+		$('.mask-cpf').mask('000.000.000-00', {reverse: true});
+		$('.mask-money').mask('000.000.000.000.000,00', {reverse: true});
+		$('.mask-money2').mask("#.##0,00", {reverse: true, maxlength: false});
+		$('.mask-ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': {pattern: /[0-9]/, optional: true}}});
+		$('.mask-ip_address').mask('099.099.099.099');
+		$('.mask-percent').mask('##0,00%', {reverse: true});
+		$('.mask-credit_card').mask('0000 0000 0000 0000');
+	})();
     
     /* --------------------------------------------------------
      Checkbox + Radio

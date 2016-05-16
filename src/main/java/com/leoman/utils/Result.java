@@ -45,10 +45,15 @@ public final class Result {
 		this.data = data;
 	}
 
-	public static Result success() {
+	public static Result success(String... errorMessage) {
 		Result result = new Result();
-		result.status = SUCCESS;  
-		result.msg = "";
+		result.status = SUCCESS;
+		if(errorMessage == null || errorMessage.length == 0) {
+			result.msg = "操作成功";
+		}
+		else {
+			result.msg = errorMessage[0];
+		}
 		return result;
 	}
 

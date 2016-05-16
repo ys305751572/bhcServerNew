@@ -56,7 +56,8 @@ var $leoman = {
                         $(this).closest('.block-area').find('.list-check').each(function () {
                             checkIds.push($(this).val())
                         });
-                        console.log("ids:" + checkIds);
+                        var showon = $(this).closest('.container').find('.show-on');
+                        showon.show();
                     });
 
                     parentCheck.on('ifUnchecked', function(){
@@ -65,6 +66,9 @@ var $leoman = {
                             $(this).closest('.icheckbox_minimal').removeClass("checked");
                             $(this).closest('tr').removeClass("warning");
                         });
+
+                        var showon = $(this).closest('.container').find('.show-on');
+                        showon.hide();
                     });
 
                     listCheck.on('ifChecked', function(){
@@ -85,16 +89,16 @@ var $leoman = {
                         $(this).closest('tr').removeClass("warning");
                     });
 
-                    //listCheck.on('ifChanged', function(){
-                    //	    var thisChecked = $(this).closest('.list-container').find('.list-check:checked');
-                    //	    var showon = $(this).closest('.list-container').find('.show-on');
-                    //	    if(thisChecked.length > 0 ) {
-                    //		showon.show();
-                    //	    }
-                    //	    else {
-                    //		showon.hide();
-                    //	    }
-                    //});
+                    listCheck.on('ifChanged', function(){
+                        var thisChecked = $(this).closest('.block-area').find('.list-check:checked');
+                        var showon = $(this).closest('.container').find('.show-on');
+                        if(thisChecked.length > 0 ) {
+                            showon.show();
+                        }
+                        else {
+                            showon.hide();
+                        }
+                    });
                 }
             },
             "oLanguage": {

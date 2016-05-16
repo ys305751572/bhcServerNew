@@ -61,6 +61,7 @@
 <script src="${contextPath}/html/js/slider.min.js"></script>
 <!-- Input Slider -->
 <script src="${contextPath}/html/js/fileupload.min.js"></script>
+<script src="${contextPath}/html/js/uploadPreview.js"></script>
 <!-- File Upload -->
 
 <!-- Text Editor -->
@@ -97,10 +98,6 @@
 <script src="${contextPath}/html/js/datatables/dataTables.select.min.js"></script>
 <!-- News Feeds -->
 
-<!-- Form Related -->
-<script src="${contextPath}/html/js/validation/validate.min.js"></script>
-<!-- jQuery Form Validation Library -->
-<script src="${contextPath}/html/js/validation/validationEngine.min.js"></script>
 <!-- jQuery Form Validation Library - requirred with above js -->
 <script src="${contextPath}/html/js/icheck.js"></script>
 <!-- Custom Checkbox + Radio -->
