@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -72,7 +73,7 @@ public class DoctorContorller extends GenericEntityController<Doctor, Doctor, Do
 	 * @return
 	 */
 	@RequestMapping(value = "save", method = RequestMethod.POST)
-	public String modifyDoctor(Doctor doctor,MultipartFile imageFile,HttpServletRequest request) {
+	public String modifyDoctor(Doctor doctor, @RequestParam(value = "file",required = false) MultipartFile file, HttpServletRequest request) {
 		
 		Doctor _d = null;
 		if(StringUtils.isNotBlank(doctor.getId())) {

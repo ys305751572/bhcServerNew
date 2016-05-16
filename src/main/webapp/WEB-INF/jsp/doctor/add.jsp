@@ -83,7 +83,7 @@
                     <hr class="whiter m-t-20"/>
                     <div class="col-md-12 m-b-15">
                         <label>详细描述</label>
-                        <div class="wysiwye-editor"></div>
+                        <div class="wysiwye-editor" id="content1" name="content"></div>
                     </div>
                     <hr class="whiter m-t-20"/>
                 </div>
