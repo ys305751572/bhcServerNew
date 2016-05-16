@@ -1,5 +1,6 @@
 package com.leoman.doctor.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import com.leoman.common.factory.DataTableFactory;
 import com.leoman.doctor.entity.Doctor;
 import com.leoman.doctor.service.IDoctorManager;
 import com.leoman.doctor.service.impl.DoctorManagerImpl;
+import com.leoman.image.entity.FileBo;
+import com.leoman.utils.FileUtil;
 import com.leoman.utils.Result;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,19 +76,24 @@ public class DoctorContorller extends GenericEntityController<Doctor, Doctor, Do
 	 * @return
 	 */
 	@RequestMapping(value = "save", method = RequestMethod.POST)
-	public String modifyDoctor(Doctor doctor, @RequestParam(value = "file",required = false) MultipartFile file, HttpServletRequest request) {
+	public String modifyDoctor(Doctor doctor, @RequestParam(value = "imageFile",required = false) MultipartFile imageFile, HttpServletRequest request) {
 		
 		Doctor _d = null;
 		if(StringUtils.isNotBlank(doctor.getId())) {
 			_d = iDoctorManager.queryByPK(doctor.getId());
 		}
 		
-//		if(imageFile!=null&&imageFile.getSize()>0){
-//			String webRoot = request.getSession().getServletContext().getRealPath("");
-//			Attach attach  = CommonUtils.uploadAttach(imageFile, webRoot, "/upload/qc/",null);
-//			if(StringUtils.isNotBlank(attach.getAttachId()))
-//				doctor.setHead("/upload/qc/"+attach.getAttachName());
-//		}
+		if(imageFile!=null && imageFile.getSize()>0) {
+			FileBo fileBo = null;
+			try {
+				fileBo = FileUtil.save(imageFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if (fileBo != null && StringUtils.isNotBlank(fileBo.getPath())) {
+				doctor.setHead(fileBo.getPath());
+			}
+		}
 		if(_d != null && StringUtils.isBlank(doctor.getHead())) {
 			doctor.setHead(_d.getHead());
 		}

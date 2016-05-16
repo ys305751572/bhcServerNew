@@ -70,11 +70,11 @@
                             <div class="fileupload-preview thumbnail form-control">
 
                             </div>
-                            <div id="imageFile">
+                            <div>
                                 <span class="btn btn-file btn-alt btn-sm">
                                     <span class="fileupload-new">选择图片</span>
                                     <span class="fileupload-exists">更改</span>
-                                    <input id="head" name="head" type="file"/>
+                                    <input id="imageFile" name="imageFile" type="file"/>
                                 </span>
                                 <a href="#" class="btn fileupload-exists btn-sm" data-dismiss="fileupload">移除</a>
                             </div>
