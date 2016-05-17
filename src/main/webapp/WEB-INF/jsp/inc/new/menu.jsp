@@ -125,6 +125,7 @@
             </a>
             <ul class="list-unstyled menu-item">
                 <li><a href="${contextPath}/admin/pg/index">病理讲座列表</a></li>
+                <li><a href="${contextPath}/admin/pg2/index">病理讲座列表V2</a></li>
             </ul>
         </li>
     </ul>

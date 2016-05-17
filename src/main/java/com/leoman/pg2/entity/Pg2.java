@@ -18,8 +18,8 @@ import org.hibernate.annotations.GenericGenerator;
  *
  */
 @Entity
-@Table(name = "t_pathology")
-public class Pg {
+@Table(name = "t_pathology_v2")
+public class Pg2 {
 
 	@Id
 	@GenericGenerator(name = "idGenerator", strategy = "uuid")

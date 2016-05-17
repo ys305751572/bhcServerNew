@@ -11,9 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import com.leoman.common.controller.common.GenericEntityController;
 import com.leoman.common.factory.DataTableFactory;
 import com.leoman.image.entity.FileBo;
-import com.leoman.pg.entity.Pg;
-import com.leoman.pg.service.IPgManager;
-import com.leoman.pg.service.impl.PgManagerImpl;
+
+import com.leoman.pg2.entity.Pg2;
+import com.leoman.pg2.service.IPgManager2;
+import com.leoman.pg2.service.impl.PgManagerImpl2;
 import com.leoman.utils.FileUtil;
 import com.leoman.utils.JsonUtil;
 import com.leoman.utils.Result;
@@ -33,16 +34,16 @@ import org.springframework.web.multipart.MultipartFile;
  * @author yesong
  *
  */
-@RequestMapping("/admin/pg")
+@RequestMapping("/admin/pg2")
 @Controller
-public class PgController extends GenericEntityController<Pg, Pg, PgManagerImpl> {
+public class PgController2 extends GenericEntityController<Pg2, Pg2, PgManagerImpl2> {
 
-	public static final String PG_LIST = "pg/list";
-	public static final String PG_EDIT = "pg/add";
-	public static final String PG_DETAIL = "pg/detail";
+	public static final String PG_LIST = "pg2/list";
+	public static final String PG_EDIT = "pg2/add";
+	public static final String PG_DETAIL = "pg2/detail";
 	
 	@Autowired
-	private IPgManager manager;
+	private IPgManager2 manager;
 	
 	/**
 	 * 跳转列表页面
@@ -60,9 +61,9 @@ public class PgController extends GenericEntityController<Pg, Pg, PgManagerImpl>
 	@RequestMapping(value = "/list", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> findAll(Integer draw,Integer start, Integer length,String title) {
-		Page<Pg> pgPage = null;
+		Page<Pg2> pgPage = null;
 		try {
-			Pg pg = new Pg();
+			Pg2 pg = new Pg2();
 			pg.setTitle(title);
 			int pagenum = getPageNum(start,length);
 			pgPage = manager.findAll(pg, pagenum, length);
@@ -89,7 +90,7 @@ public class PgController extends GenericEntityController<Pg, Pg, PgManagerImpl>
 	 */
 	@RequestMapping(value = "edit",method = RequestMethod.GET)
 	public String pageEdit(String id,Model model) {
-		Pg pg = manager.queryByPK(id);
+		Pg2 pg = manager.queryByPK(id);
 		pg.setContent(StringUtils.isBlank(pg.getContent()) ? "" : pg.getContent().replaceAll("&lt","<").replaceAll("&gt",">"));
 		model.addAttribute("pg", pg);
 		return PG_EDIT;
@@ -101,8 +102,8 @@ public class PgController extends GenericEntityController<Pg, Pg, PgManagerImpl>
 	 */
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	@ResponseBody
-	public Result saveOrEdit(Pg pg, MultipartFile imageFile,HttpServletRequest request) {
-		Pg _pg = null;
+	public Result saveOrEdit(Pg2 pg, MultipartFile imageFile,HttpServletRequest request) {
+		Pg2 _pg = null;
 		if(StringUtils.isNotBlank(pg.getId())) {
 			_pg = manager.queryByPK(pg.getId());
 		}
@@ -160,7 +161,7 @@ public class PgController extends GenericEntityController<Pg, Pg, PgManagerImpl>
 	 */
 	@RequestMapping(value = "detail", method = RequestMethod.POST)
 	public String detail(String id, Model model) {
-		Pg pg = manager.queryByPK(id);
+		Pg2 pg = manager.queryByPK(id);
 		model.addAttribute("pg", pg);
 		return PG_DETAIL;
 	}
