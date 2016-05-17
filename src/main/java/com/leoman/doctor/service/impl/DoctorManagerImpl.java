@@ -33,6 +33,11 @@ public class DoctorManagerImpl extends GenericManagerImpl<Doctor, DoctorDAO> imp
 		return doctorDAO.findById(id);
 	}
 
+	@Override
+	public List<Doctor> findAllDoctor() {
+		return doctorDAO.findAll();
+	}
+
 	/**
 	 * 查询医师列表
 	 */

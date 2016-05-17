@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.leoman.doctor.entity.Doctor;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -40,7 +41,7 @@ public class Pg {
 	
 	@Column(name = "TYPE")
 	private Integer type; // 类型 0:病理 1:讲座
-	
+
 	@Column(name = "CREATE_DATE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;

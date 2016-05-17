@@ -39,8 +39,16 @@
                     <div class="col-md-6 m-b-15">
                         <label>类别</label>
                         <select class="select" id="type" name="type">
-                            <option <c:if test="${pg.type=='0'}">selected="selected" </c:if> value="0">病理</option>
                             <option <c:if test="${pg.type=='1'}">selected="selected" </c:if> value="1">讲座</option>
+                            <option <c:if test="${pg.type=='0'}">selected="selected" </c:if> value="0">病理</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 m-b-15">
+                        <label>医师</label>
+                        <select class="select" id="doctorId" name="doctorId">
+                            <c:forEach items="${list}" var="doctor">
+                                <option <c:if test="${pg.doctor.id == doctor.id}">selected="selected" </c:if> value="${doctor.id}">${doctor.name}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <hr class="whiter m-t-20"/>

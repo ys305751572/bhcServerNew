@@ -2,14 +2,9 @@ package com.leoman.pg2.entity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
+import com.leoman.doctor.entity.Doctor;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -40,10 +35,22 @@ public class Pg2 {
 	
 	@Column(name = "TYPE")
 	private Integer type; // 类型 0:病理 1:讲座
-	
+
+	@ManyToOne
+	@JoinColumn(name = "doctor_id")
+	private Doctor doctor;
+
 	@Column(name = "CREATE_DATE")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
+
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
 
 	public String getId() {
 		return id;

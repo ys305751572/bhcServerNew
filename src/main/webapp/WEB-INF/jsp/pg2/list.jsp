@@ -61,6 +61,7 @@
                     <th><input type="checkbox" class="pull-left list-parent-check"/></th>
                     <th>标题</th>
                     <th>类型</th>
+                    <th>所属医师</th>
                     <th>时间</th>
                     <th>操作</th>
                 </tr>
@@ -118,6 +119,12 @@
                                     adstype = "";
                                 }
                                 return adstype;
+                            }
+                        },
+                        {
+                            "data" : "doctor",
+                            "render" : function(data) {
+                                return data.name;
                             }
                         },
                         {

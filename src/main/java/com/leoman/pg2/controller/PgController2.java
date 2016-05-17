@@ -3,6 +3,7 @@ package com.leoman.pg2.controller;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.leoman.common.controller.common.GenericEntityController;
 import com.leoman.common.factory.DataTableFactory;
+import com.leoman.doctor.entity.Doctor;
+import com.leoman.doctor.service.IDoctorManager;
 import com.leoman.image.entity.FileBo;
 
 import com.leoman.pg2.entity.Pg2;
@@ -44,6 +47,9 @@ public class PgController2 extends GenericEntityController<Pg2, Pg2, PgManagerIm
 	
 	@Autowired
 	private IPgManager2 manager;
+
+	@Autowired
+	private IDoctorManager doctorManager;
 	
 	/**
 	 * 跳转列表页面
@@ -78,7 +84,9 @@ public class PgController2 extends GenericEntityController<Pg2, Pg2, PgManagerIm
 	 * @return
 	 */
 	@RequestMapping(value = "add", method = RequestMethod.GET)
-	public String pageAdd() {
+	public String pageAdd(Model model) {
+		List<Doctor> list = doctorManager.findAllDoctor();
+		model.addAttribute("list",list);
 		return PG_EDIT;
 	}
 	
@@ -93,6 +101,9 @@ public class PgController2 extends GenericEntityController<Pg2, Pg2, PgManagerIm
 		Pg2 pg = manager.queryByPK(id);
 		pg.setContent(StringUtils.isBlank(pg.getContent()) ? "" : pg.getContent().replaceAll("&lt","<").replaceAll("&gt",">"));
 		model.addAttribute("pg", pg);
+
+		List<Doctor> list = doctorManager.findAllDoctor();
+		model.addAttribute("list",list);
 		return PG_EDIT;
 	} 
 	
@@ -102,7 +113,7 @@ public class PgController2 extends GenericEntityController<Pg2, Pg2, PgManagerIm
 	 */
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	@ResponseBody
-	public Result saveOrEdit(Pg2 pg, MultipartFile imageFile,HttpServletRequest request) {
+	public Result saveOrEdit(Pg2 pg, String doctorId, MultipartFile imageFile,HttpServletRequest request) {
 		Pg2 _pg = null;
 		if(StringUtils.isNotBlank(pg.getId())) {
 			_pg = manager.queryByPK(pg.getId());
@@ -122,6 +133,10 @@ public class PgController2 extends GenericEntityController<Pg2, Pg2, PgManagerIm
 			pg.setImage(_pg.getImage());
 		}
 		pg.setCreateDate(new Date());
+
+		Doctor doctor = new Doctor();
+		doctor.setId(doctorId);
+		pg.setDoctor(doctor);
 		manager.save(pg);
 		return Result.success();
 	}
