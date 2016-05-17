@@ -1,4 +1,4 @@
-package com.leoman.pg.controller;
+package com.leoman.pg2.controller;
 
 import java.io.IOException;
 import java.util.Date;

@@ -22,50 +22,30 @@
         <ol class="breadcrumb hidden-xs">
             <li><a href="javascript:history.go(-1);" title="返回"><span class="icon">&#61771;</span></a></li>
         </ol>
-        <h1 class="page-title">医生信息</h1>
+        <h1 class="page-title">病理/讲座信息</h1>
         <form id="fromId" name="formName" method="post" enctype="multipart/form-data" class="box tile animated active form-validation-1">
             <div class="block-area">
-                <input type="hidden" id="id" name="id" value="${doctor.id}">
+                <input type="hidden" id="id" name="id" value="${pg.id}">
                 <div class="row">
                     <div class="col-md-6 m-b-15">
-                        <label>医师名称</label>
-                        <input type="text" id="name" name="name" value="${doctor.name}" class="input-sm form-control validate[required]" placeholder="...">
+                        <label>标题</label>
+                        <input type="text" id="title" name="title" value="${pg.title}" class="input-sm form-control validate[required]" placeholder="...">
                     </div>
 
                     <div class="col-md-6 m-b-15">
-                        <label>职业</label>
-                        <input type="text" id="level" name="level" value="${doctor.level}" class="input-sm form-control validate[required]" placeholder="...">
-                    </div>
-
-                    <div class="col-md-6 m-b-15">
-                        <label>科室</label>
-                        <input type="text" id="depart" name="depart" value="${doctor.depart}" class="input-sm form-control validate[required]" placeholder="...">
-                    </div>
-
-                    <div class="col-md-6 m-b-15" >
-                        <label>所在医院</label>
-                        <input type="text" id="hospital" name="hospital" value="${doctor.hospital}" class="input-sm form-control validate[required]" placeholder="...">
-                    </div>
-
-                    <div class="col-md-6 m-b-15" >
-                        <label>所获奖励</label>
-                        <input type="text" id="reward" name="reward" value="${doctor.reward}" class="input-sm form-control validate[required]" placeholder="...">
-                    </div>
-
-                    <div class="col-md-6 m-b-15" >
-                        <label>擅长领域</label>
-                        <input type="text" id="domain" name="domain" value="${doctor.domain}" class="input-sm form-control validate[required]" placeholder="..." >
+                        <label>链接地址</label>
+                        <input type="text" id="url" name="url" value="${pg.url}" class="input-sm form-control" placeholder="...">
                     </div>
                     <div class="col-md-6 m-b-15">
-                        <label>性别</label>
-                        <select class="select" id="gender" name="gender">
-                            <option <c:if test="${doctor.gender=='1'}">selected="selected" </c:if> value="1">男</option>
-                            <option <c:if test="${doctor.gender=='2'}">selected="selected" </c:if> value="2">女</option>
+                        <label>类别</label>
+                        <select class="select" id="type" name="type">
+                            <option <c:if test="${pg.type=='0'}">selected="selected" </c:if> value="0">病理</option>
+                            <option <c:if test="${pg.type=='1'}">selected="selected" </c:if> value="1">讲座</option>
                         </select>
                     </div>
                     <hr class="whiter m-t-20"/>
                     <div class="col-md-12 m-b-15">
-                        <label>头像</label>
+                        <label>封面</label>
                         <div class="fileupload fileupload-new" data-provides="fileupload">
                             <div class="fileupload-preview thumbnail form-control">
 
@@ -83,7 +63,7 @@
                     <hr class="whiter m-t-20"/>
                     <div class="col-md-12 m-b-15">
                         <label>详细描述</label>
-                        <div class="wysiwye-editor" id="detail" name="detail">${doctor.detail}</div>
+                        <div class="wysiwye-editor" id="content1" name="content">${pg.content}</div>
                     </div>
                     <hr class="whiter m-t-20"/>
                 </div>
@@ -112,9 +92,6 @@
             init: function () {
                 $user.fn.initImage();
             },
-            save : function() {
-
-            },
             initImage : function() {
 
 //                var $exists = $("#imageFile").find(".fileupload-exists");
@@ -130,17 +107,17 @@
             save : function () {
                 var code =  $('.wysiwye-editor').code();
                 $("#fromId").ajaxSubmit({
-                    url : "${contextPath}/admin/doctor/save",
+                    url : "${contextPath}/admin/pg/save",
                     type : "POST",
                     data : {
-                        "detail" : code
+                        "content" : code
                     },
                     success : function(result) {
                         if(!result.status) {
                             $common.fn.notify(result.msg);
                             return;
                         }
-                        window.location.href = "${contextPath}/admin/doctor/index";
+                        window.location.href = "${contextPath}/admin/pg/index";
                     }
                 });
             }

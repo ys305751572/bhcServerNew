@@ -96,7 +96,7 @@
             </ul>
         </li>
         <li class="dropdown">
-            <a class="sa-side-ui" href="">
+            <a class="sa-side-chart" href="">
                 <span class="menu-item">测量结果</span>
             </a>
             <ul class="list-unstyled menu-item">
@@ -104,7 +104,7 @@
             </ul>
         </li>
         <li class="dropdown">
-            <a class="sa-side-chart" href="">
+            <a class="sa-side-ui" href="">
                 <span class="menu-item">医师管理</span>
             </a>
             <ul class="list-unstyled menu-item">
@@ -119,21 +119,12 @@
                 <li><a href="${contextPath}/admin/devices/deviceslist">设备列表</a></li>
             </ul>
         </li>
-        <li>
-            <a class="sa-side-calendar" href="calendar.html">
-                <span class="menu-item">Calendar</span>
-            </a>
-        </li>
         <li class="dropdown">
             <a class="sa-side-page" href="">
-                <span class="menu-item">Pages</span>
+                <span class="menu-item">病理讲座管理</span>
             </a>
             <ul class="list-unstyled menu-item">
-                <li><a href="list-view.html">List View</a></li>
-                <li><a href="profile-page.html">Profile Page</a></li>
-                <li><a href="messages.html">Messages</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="404.html">404 Error</a></li>
+                <li><a href="${contextPath}/admin/pg/index">病理讲座列表</a></li>
             </ul>
         </li>
     </ul>

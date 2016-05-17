@@ -305,7 +305,7 @@ $(document).on('click', '.notifyjs-foo-base .yes', function () {
 (function ($) {
     $.fn.getInputId = function (sigle) {
         var checkIds = [];
-        $(this).closest('.block-area').find('.list-check').each(function () {
+        $(this).each(function () {
             checkIds.push($(this).val())
         });
         if (sigle) {

@@ -22,8 +22,8 @@
         <div class="block-area" id="search">
             <div class="row">
                 <div class="col-md-2 form-group">
-                    <label>姓名</label>
-                    <input type="text" class="input-sm form-control" id="name" name="name" placeholder="...">
+                    <label>标题</label>
+                    <input type="text" class="input-sm form-control" id="title" name="title" placeholder="...">
                 </div>
             </div>
         </div>
@@ -35,17 +35,17 @@
             <div class="row">
                 <ul class="list-inline list-mass-actions">
                     <li>
-                        <a data-toggle="modal" href="${contextPath}/admin/doctor/add" title="新增" class="tooltips">
+                        <a data-toggle="modal" href="${contextPath}/admin/pg/add" title="新增" class="tooltips">
                             <i class="sa-list-add"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="" title="刷新" class="tooltips">
+                        <a href="${contextPath}/admin/pg/index" title="刷新" class="tooltips">
                             <i class="sa-list-refresh"></i>
                         </a>
                     </li>
                     <li class="show-on" style="display: none;">
-                        <a href="" title="删除" class="tooltips">
+                        <a onclick="$user.fn.delete()" title="删除" class="tooltips">
                             <i class="sa-list-delete"></i>
                         </a>
                     </li>
@@ -59,11 +59,9 @@
                 <thead>
                 <tr>
                     <th><input type="checkbox" class="pull-left list-parent-check"/></th>
-                    <th>医生姓名</th>
-                    <th>所在科室</th>
-                    <th>手机号</th>
-                    <th>性别</th>
-                    <th>医生等级</th>
+                    <th>标题</th>
+                    <th>类型</th>
+                    <th>时间</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -95,7 +93,7 @@
                     "serverSide": true,
                     "searching": false,
                     "ajax": {
-                        "url": "${contextPath}/admin/doctor/list",
+                        "url": "${contextPath}/admin/pg/list",
                         "type": "POST"
                     },
                     "columns": [
@@ -107,59 +105,63 @@
                                 return checkbox;
                             }
                         },
-                        {"data": "name"},
-                        {"data": "depart"},
-                        {"data": "mobile"},
+                        {"data": "title"},
                         {
-                            "data": "gender",
-                            "render": function (data) {
-                                if (data == 1) {
-                                    return '男';
+                            "data": "type",
+                            "render" : function(data) {
+                                var adstype = "";
+                                if(data == "0"){
+                                    adstype = "病理";
+                                } else if(data == "1"){
+                                    adstype = "讲座";
+                                } else {
+                                    adstype = "";
                                 }
-                                else {
-                                    return '女';
-                                }
+                                return adstype;
                             }
                         },
-                        {"data": "level"},
+                        {
+                            "data": "createDate",
+                            "render": function (data) {
+                               return new Date(data).format("yyyy-MM-dd hh:mm:ss");
+                            }
+                        },
                         {
                             "data": "id",
                             "render": function (data) {
                                 var edit = "<button title='编辑' class='btn btn-primary btn-circle edit' onclick=\"$user.fn.edit(\'" + data + "\')\">" +
                                         "<i class='fa fa-pencil-square-o'></i></button>";
-
-                                var detail = "<button title='查看' class='btn btn-primary btn-circle add' onclick=\"$user.fn.sfUserInfo(\'" + data + "\')\">" +
-                                        "<i class='fa fa-eye'></i></button>";
-                                return edit + "&nbsp;" + detail;
+                                return edit;
                             }
                         }
                     ],
                     "fnServerParams": function (aoData) {
-                        aoData.name = $("#name").val();
-                    }
-                });
-            },
-            sfUserInfo: function (id) {
-                $.ajax({
-                    "url": "${contextPath}/admin/doctor/sfDoctorInfo",
-                    "data": {
-                        "id": id
-                    },
-                    "dataType": "json",
-                    "type": "POST",
-                    "success": function (result) {
-                        if (!result.status) {
-                            $common.fn.notify(result.msg);
-                            return;
-                        }
-                        window.location.href = "${contextPath}/admin/doctor/detail?id=" + id;
+                        aoData.title = $("#title").val();
                     }
                 });
             },
             edit: function (id) {
-                window.location.href = "${contextPath}/admin/doctor/edit?id=" + id;
+                window.location.href = "${contextPath}/admin/pg/edit?id=" + id;
             },
-
+            delete: function () {
+                var checkBox = $("#dataTables tbody tr").find('input[type=checkbox]:checked');
+                var ids = checkBox.getInputId();
+                $.ajax({
+                    url : "${contextPath}/admin/pg/deleteBatch",
+                    data : {
+                        "ids" : JSON.stringify(ids)
+                    },
+                    type : "post",
+                    dataType : "json",
+                    success : function(result) {
+                        if(!result.status) {
+                            $common.fn.notify(result.msg);
+                            return;
+                        }
+                        $user.v.dTable.ajax.reload();
+                    }
+                });
+            },
             responseComplete: function (result, action) {
                 if (result.status == "0") {
                     if (action) {
