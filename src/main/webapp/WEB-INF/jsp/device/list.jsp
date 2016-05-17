@@ -22,35 +22,29 @@
         <div class="block-area" id="search">
             <div class="row">
                 <div class="col-md-2 form-group">
-                    <label>姓名</label>
-                    <input type="text" class="input-sm form-control" id="name" name="name" placeholder="...">
+                    <label>设备序列号</label>
+                    <input type="text" class="input-sm form-control" id="deviceSerial" name="deviceSerial" placeholder="...">
+                </div>
+                <div class="col-md-2 form-group">
+                    <label>使用状态</label>
+                    <select id="usedState" name="usedState" class="select">
+                        <option value="">全部</option>
+                        <option value="1">已被使用</option>
+                        <option value="0">未被使用</option>
+                    </select>
+                </div>
+                <div class="col-md-2 form-group">
+                    <label>设备类型</label>
+                    <select id="deviceType" name="deviceType" class="select">
+                        <option value="">全部</option>
+                        <option value="1">血压</option>
+                        <option value="2">血糖</option>
+                    </select>
                 </div>
             </div>
         </div>
         <div class="block-area" id="alternative-buttons">
             <button id="c_search" class="btn btn-alt m-r-5">查询</button>
-        </div>
-        <hr class="whiter m-t-20"/>
-        <div class="block-area">
-            <div class="row">
-                <ul class="list-inline list-mass-actions">
-                    <li>
-                        <a data-toggle="modal" href="${contextPath}/admin/doctor/add" title="新增" class="tooltips">
-                            <i class="sa-list-add"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" title="刷新" class="tooltips">
-                            <i class="sa-list-refresh"></i>
-                        </a>
-                    </li>
-                    <li class="show-on" style="display: none;">
-                        <a href="" title="删除" class="tooltips">
-                            <i class="sa-list-delete"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
         <hr class="whiter m-t-20"/>
         <!-- form表格 -->
@@ -59,12 +53,12 @@
                 <thead>
                 <tr>
                     <th><input type="checkbox" class="pull-left list-parent-check"/></th>
-                    <th>医生姓名</th>
-                    <th>所在科室</th>
-                    <th>手机号</th>
-                    <th>性别</th>
-                    <th>医生等级</th>
-                    <th>操作</th>
+                    <th>设备序列号</th>
+                    <th>功能类型</th>
+                    <th>设备类型</th>
+                    <th>生产年份</th>
+                    <th>生产月份</th>
+                    <th>使用状态</th>
                 </tr>
                 </thead>
             </table>
@@ -95,7 +89,7 @@
                     "serverSide": true,
                     "searching": false,
                     "ajax": {
-                        "url": "${contextPath}/admin/doctor/list",
+                        "url": "${contextPath}/admin/devices/getDevicesDataList",
                         "type": "POST"
                     },
                     "columns": [
@@ -107,11 +101,39 @@
                                 return checkbox;
                             }
                         },
-                        {"data": "name"},
-                        {"data": "depart"},
-                        {"data": "mobile"},
+                        {"data": "deviceSerial"},
                         {
-                            "data": "gender",
+                            "data": "deviceType",
+                            "render" : function(data) {
+                                var devtype = "";
+                                if(data == "1"){
+                                    devtype = "血压";
+                                } else if(data == "2"){
+                                    devtype = "血糖";
+                                } else if(data == "3"){
+                                    devtype = "体重";
+                                } else if(data == "4"){
+                                    devtype = "运动";
+                                } else {
+                                }
+                                return devtype;
+                            }
+                        },
+                        {
+                            "data": "bak1",
+                            "render" : function(data) {
+                                var devtype = "";
+                                if(data == "0"){
+                                    devtype = "普通设备";
+                                } else if(data == "1"){
+                                    devtype = "GSM设备";
+                                } else {
+                                }
+                                return devtype;
+                            }
+                        },
+                        {
+                            "data": "deviceProYear",
                             "render": function (data) {
                                 if (data == 1) {
                                     return '男';
@@ -121,45 +143,28 @@
                                 }
                             }
                         },
-                        {"data": "level"},
+                        {"data": "deviceProMonth"},
                         {
-                            "data": "id",
+                            "data": "usedState",
                             "render": function (data) {
-                                var edit = "<button title='编辑' class='btn btn-primary btn-circle edit' onclick=\"$user.fn.edit(\'" + data + "\')\">" +
-                                        "<i class='fa fa-pencil-square-o'></i></button>";
-
-                                var detail = "<button title='查看' class='btn btn-primary btn-circle add' onclick=\"$user.fn.sfUserInfo(\'" + data + "\')\">" +
-                                        "<i class='fa fa-eye'></i></button>";
-                                return edit + "&nbsp;" + detail;
+                                var usedstate = "";
+                                if(data == "0"){
+                                    usedstate = "未被使用";
+                                } else if(data == "1"){
+                                    usedstate = "已被使用";
+                                } else {
+                                }
+                                return usedstate;
                             }
                         }
                     ],
                     "fnServerParams": function (aoData) {
-                        aoData.name = $("#name").val();
+                        aoData.deviceSerial = $("#deviceSerial").val();
+                        aoData.usedState = $("#usedState").val();
+                        aoData.usedState = $("#deviceType").val();
                     }
                 });
             },
-            sfUserInfo: function (id) {
-                $.ajax({
-                    "url": "${contextPath}/admin/doctor/sfDoctorInfo",
-                    "data": {
-                        "id": id
-                    },
-                    "dataType": "json",
-                    "type": "POST",
-                    "success": function (result) {
-                        if (!result.status) {
-                            $common.fn.notify(result.msg);
-                            return;
-                        }
-                        window.location.href = "${contextPath}/admin/doctor/detail?id=" + id;
-                    }
-                });
-            },
-            edit: function (id) {
-                window.location.href = "${contextPath}/admin/doctor/edit?id=" + id;
-            },
-
             responseComplete: function (result, action) {
                 if (result.status == "0") {
                     if (action) {

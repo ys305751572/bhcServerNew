@@ -111,10 +111,13 @@
                 <li><a href="${contextPath}/admin/doctor/index">医师列表</a></li>
             </ul>
         </li>
-        <li>
-            <a class="sa-side-folder" href="file-manager.html">
-                <span class="menu-item">File Manager</span>
+        <li class="dropdown">
+            <a class="sa-side-folder" href="">
+                <span class="menu-item">设备管理</span>
             </a>
+            <ul class="list-unstyled menu-item">
+                <li><a href="${contextPath}/admin/devices/deviceslist">设备列表</a></li>
+            </ul>
         </li>
         <li>
             <a class="sa-side-calendar" href="calendar.html">

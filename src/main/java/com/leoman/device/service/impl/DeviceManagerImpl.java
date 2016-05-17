@@ -13,12 +13,14 @@ import com.leoman.common.entity.PageVO;
 import com.leoman.common.service.impl.GenericManagerImpl;
 import com.leoman.device.dao.DeviceDAO;
 import com.leoman.device.entity.Device;
+import com.leoman.device.entity.vo.DeviceListVO;
 import com.leoman.device.service.IDeviceManager;
 import com.leoman.user.service.IAolUserManager;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.security.util.Length;
 
 
 @Service
@@ -329,101 +331,100 @@ public class DeviceManagerImpl extends GenericManagerImpl<Device, DeviceDAO> imp
 	 */
 	@SuppressWarnings("unchecked")
 	public PageVO queryDevicesDataList(int pagenum,int pagesize,String deviceSerial,String organiseName,String usedState,String deviceType,String startTime, String organiseId){
-//		List<DeviceListVO> deviceListVO = null;
-//
-//		PageVO pv = new PageVO();
-//		EntityManager em = entityManagerFactory.createEntityManager();
-//
-//		try {
-//			//获取设备与代理商的关系SQL
-//			String selectOrgSql = "select od.deviceSerial, o.organiseName, o.organiseId from organisedevice od, organise o where od.organiseId = o.organiseId";
-//			//添加查询条件：代理商
-//			if(StringUtils.isNotBlank(organiseName)){
-//				selectOrgSql = selectOrgSql + " and o.organiseName like '%" + organiseName + "%' ";
-//			}
-//
-//			//获取设备信息和代理商名称
-//			String selectDevOrgSQL = "select d.*, dl.organiseName from device d left join (" + selectOrgSql + ") dl on d.deviceSerial = dl.deviceSerial where d.deviceSerial is not null ";
-//			//添加查询条件：设备序列号
-//			if(StringUtils.isNotBlank(deviceSerial)){
-//				selectDevOrgSQL = selectDevOrgSQL + " and d.deviceSerial like '%" + deviceSerial + "%' ";
-//			}
-//			if(StringUtils.isNotBlank(deviceType)){
-//				selectDevOrgSQL = selectDevOrgSQL + " and d.deviceType = '" + deviceType + "' ";
-//			}
-//			if(StringUtils.isNotBlank(startTime)){
-//				selectDevOrgSQL = selectDevOrgSQL + " and d.bak6 > '"+startTime+"' ";
-//			}
-//			if(StringUtils.isNotBlank(organiseId)){
-//				selectDevOrgSQL = selectDevOrgSQL + " and dl.organiseId = '" + organiseId + "' ";
-//			}
-//
-//			//获取总数SQL
-//			String countSQL = "select count(*) from (" + selectDevOrgSQL + ") ddl";
-//			//获取设备信息、代理商名称、使用状态的SQL
-//			String selectSQL = "select ddl.*, ud.device_id as devid from (" + selectDevOrgSQL + ") ddl left join (select distinct(device_id) from measure where user_id is not null and device_id is not null) ud on ddl.device_id = ud.device_id";
-//			//添加查询条件：使用状态
-//			if(StringUtils.isNotBlank(usedState)){
-//				if("0".equals(usedState)){
-//					//未被使用
-//					selectSQL = selectSQL + " where ud.device_id is null ";
-//				} else if("1".equals(usedState)) {
-//					//已被使用
-//					selectSQL = selectSQL + " where ud.device_id is not null ";
-//				}
-//			}
-//
-//			deviceListVO = new ArrayList<DeviceListVO>();
-//			List list = null;
-//
-//			//获取数据总数
-//			Long count = queryCountBySql(countSQL);
-//			//获取数据
-//			Query query = em.createNativeQuery(selectSQL);
-//			int firstResult = pp.getStart() * pp.getLength();
-//			query.setFirstResult(firstResult);
-//			query.setMaxResults(pp.getLength());
-//			list = query.getResultList();
-//			for(int i=0; i<list.size(); i++){
-//				Object[] ob = (Object[])list.get(i);
-//
-//				DeviceListVO devVo = new DeviceListVO();
-//				devVo.setDevice_id(ob[0].toString());
-//				devVo.setUser_id(ob[1] == null ? "" : ob[1].toString());
-//				devVo.setDeviceProYear(ob[2] == null ? "" : ob[2].toString());
-//				devVo.setDeviceProMonth(ob[3] == null ? "" : ob[3].toString());
-//				devVo.setDeviceType(ob[4] == null ? "" : ob[4].toString());
-//				devVo.setDeviceSerial(ob[5] == null ? "" : ob[5].toString());
-//				devVo.setVersion(ob[6] == null ? "" : ob[6].toString());
-//				devVo.setBak1(ob[7] == null ? "" : ob[7].toString());
-//				devVo.setBak2(ob[8] == null ? "" : ob[8].toString());
-//				devVo.setBak3(ob[9] == null ? "" : ob[9].toString());
-//				devVo.setBak4(ob[10] == null ? "" : ob[10].toString());
-//				//devVo.setBak5(ob[11] == null ? "" : ob[11].toString());
-//				//devVo.setBak6(ob[12] == null ? "" : ob[12].toString());
-//				//devVo.setBak7(ob[13] == null ? "" : ob[13].toString());
-//				//devVo.setBak8(ob[14] == null ? "" : ob[14].toString());
-//				/**15是dr,16是ts*/
-//				devVo.setOrganiseName(ob[17] == null ? "" : ob[17].toString());
-//				if(ob[18] == null){
-//					devVo.setUsedState("0");
-//				} else {
-//					devVo.setUsedState("1");
-//				}
-//
-//				deviceListVO.add(devVo);
-//			}
-//
-//			pv.setCount(count);
-//			pv.setStart(pp.getStart());
-//			pv.setLength(pp.getLength());
-//			pv.setList(deviceListVO);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		em.close();
-//		return pv;
-		return null;
+		List<DeviceListVO> deviceListVO = null;
+
+		PageVO pv = new PageVO();
+		EntityManager em = entityManagerFactory.createEntityManager();
+
+		try {
+			//获取设备与代理商的关系SQL
+			String selectOrgSql = "select od.deviceSerial, o.organiseName, o.organiseId from organisedevice od, organise o where od.organiseId = o.organiseId";
+			//添加查询条件：代理商
+			if(StringUtils.isNotBlank(organiseName)){
+				selectOrgSql = selectOrgSql + " and o.organiseName like '%" + organiseName + "%' ";
+			}
+
+			//获取设备信息和代理商名称
+			String selectDevOrgSQL = "select d.*, dl.organiseName from device d left join (" + selectOrgSql + ") dl on d.deviceSerial = dl.deviceSerial where d.deviceSerial is not null ";
+			//添加查询条件：设备序列号
+			if(StringUtils.isNotBlank(deviceSerial)){
+				selectDevOrgSQL = selectDevOrgSQL + " and d.deviceSerial like '%" + deviceSerial + "%' ";
+			}
+			if(StringUtils.isNotBlank(deviceType)){
+				selectDevOrgSQL = selectDevOrgSQL + " and d.deviceType = '" + deviceType + "' ";
+			}
+			if(StringUtils.isNotBlank(startTime)){
+				selectDevOrgSQL = selectDevOrgSQL + " and d.bak6 > '"+startTime+"' ";
+			}
+			if(StringUtils.isNotBlank(organiseId)){
+				selectDevOrgSQL = selectDevOrgSQL + " and dl.organiseId = '" + organiseId + "' ";
+			}
+
+			//获取总数SQL
+			String countSQL = "select count(*) from (" + selectDevOrgSQL + ") ddl";
+			//获取设备信息、代理商名称、使用状态的SQL
+			String selectSQL = "select ddl.*, ud.device_id as devid from (" + selectDevOrgSQL + ") ddl left join (select distinct(device_id) from measure where user_id is not null and device_id is not null) ud on ddl.device_id = ud.device_id";
+			//添加查询条件：使用状态
+			if(StringUtils.isNotBlank(usedState)){
+				if("0".equals(usedState)){
+					//未被使用
+					selectSQL = selectSQL + " where ud.device_id is null ";
+				} else if("1".equals(usedState)) {
+					//已被使用
+					selectSQL = selectSQL + " where ud.device_id is not null ";
+				}
+			}
+
+			deviceListVO = new ArrayList<DeviceListVO>();
+			List list = null;
+
+			//获取数据总数
+			Long count = queryCountBySql(countSQL);
+			//获取数据
+			Query query = em.createNativeQuery(selectSQL);
+			int firstResult = (pagenum - 1) * pagesize;
+			query.setFirstResult(firstResult);
+			query.setMaxResults(pagesize);
+			list = query.getResultList();
+			for(int i=0; i<list.size(); i++){
+				Object[] ob = (Object[])list.get(i);
+
+				DeviceListVO devVo = new DeviceListVO();
+				devVo.setDevice_id(ob[0].toString());
+				devVo.setUser_id(ob[1] == null ? "" : ob[1].toString());
+				devVo.setDeviceProYear(ob[2] == null ? "" : ob[2].toString());
+				devVo.setDeviceProMonth(ob[3] == null ? "" : ob[3].toString());
+				devVo.setDeviceType(ob[4] == null ? "" : ob[4].toString());
+				devVo.setDeviceSerial(ob[5] == null ? "" : ob[5].toString());
+				devVo.setVersion(ob[6] == null ? "" : ob[6].toString());
+				devVo.setBak1(ob[7] == null ? "" : ob[7].toString());
+				devVo.setBak2(ob[8] == null ? "" : ob[8].toString());
+				devVo.setBak3(ob[9] == null ? "" : ob[9].toString());
+				devVo.setBak4(ob[10] == null ? "" : ob[10].toString());
+				//devVo.setBak5(ob[11] == null ? "" : ob[11].toString());
+				//devVo.setBak6(ob[12] == null ? "" : ob[12].toString());
+				//devVo.setBak7(ob[13] == null ? "" : ob[13].toString());
+				//devVo.setBak8(ob[14] == null ? "" : ob[14].toString());
+				/**15是dr,16是ts*/
+				devVo.setOrganiseName(ob[17] == null ? "" : ob[17].toString());
+				if(ob[18] == null){
+					devVo.setUsedState("0");
+				} else {
+					devVo.setUsedState("1");
+				}
+
+				deviceListVO.add(devVo);
+			}
+
+			pv.setCount(count);
+			pv.setStart(pagenum);
+			pv.setLength(pagesize);
+			pv.setList(deviceListVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		em.close();
+		return pv;
 	}
 	
 	/**

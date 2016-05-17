@@ -39,7 +39,7 @@ public class DoctorManagerImpl extends GenericManagerImpl<Doctor, DoctorDAO> imp
 	@Override
 	public Page<Doctor> findAll(final Doctor doctor, Integer currentPage, Integer pageSize) throws Exception {
 		Specification<Doctor> spec = buildSpecification(doctor);
-		return doctorDAO.findAll(spec,new PageRequest(currentPage, pageSize, Sort.Direction.DESC, "id"));
+		return doctorDAO.findAll(spec,new PageRequest(currentPage - 1, pageSize, Sort.Direction.DESC, "id"));
 	}
 	
 	@Override

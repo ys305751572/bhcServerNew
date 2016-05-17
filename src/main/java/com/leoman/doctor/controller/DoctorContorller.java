@@ -62,7 +62,7 @@ public class DoctorContorller extends GenericEntityController<Doctor, Doctor, Do
 		
 		try {
 			Doctor doctor = iDoctorManager.findById(id);
-			doctor.setDetail(doctor.getDetail() !=null ? doctor.getDetail().replaceAll("\"", "\'").trim() : "");
+			doctor.setDetail(doctor.getDetail() !=null ? doctor.getDetail().replaceAll("lt", "<").replaceAll("gt",">").trim() : "");
 			model.addAttribute("doctor", doctor);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,7 +76,8 @@ public class DoctorContorller extends GenericEntityController<Doctor, Doctor, Do
 	 * @return
 	 */
 	@RequestMapping(value = "save", method = RequestMethod.POST)
-	public String modifyDoctor(Doctor doctor, @RequestParam(value = "imageFile",required = false) MultipartFile imageFile, HttpServletRequest request) {
+	@ResponseBody
+	public Result modifyDoctor(Doctor doctor, @RequestParam(value = "imageFile",required = false) MultipartFile imageFile, HttpServletRequest request) {
 		
 		Doctor _d = null;
 		if(StringUtils.isNotBlank(doctor.getId())) {
@@ -98,24 +99,24 @@ public class DoctorContorller extends GenericEntityController<Doctor, Doctor, Do
 			doctor.setHead(_d.getHead());
 		}
 		iDoctorManager.save(doctor);
-		return DOCTOR_LIST;
+		return Result.success();
 	}
 	
 	@RequestMapping(value = "sfDoctorInfo",method = RequestMethod.POST)
 	@ResponseBody
-	public void sfDoctorInfo(String id, Model model,HttpServletResponse response) {
+	public Result sfDoctorInfo(String id, Model model,HttpServletResponse response) {
 		try {
 			String msg = "";
 			Doctor doctor = iDoctorManager.findById(id);
 			if(doctor == null) {
 				msg = "无法显示";
+				return Result.failure(msg);
 			}
-			response.setCharacterEncoding("utf-8");
-			response.setContentType("text/html");
-			response.getWriter().write(msg);
+			return Result.success();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	@RequestMapping(value = "detail",method = RequestMethod.GET)

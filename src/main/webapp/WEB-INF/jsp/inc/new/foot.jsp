@@ -9,6 +9,9 @@
 
 <!-- Bootstrap -->
 <script src="${contextPath}/html/js/bootstrap.min.js"></script>
+
+
+
 <script src="${contextPath}/html/js/select.min.js"></script> <!-- Custom Select -->
 <script src="${contextPath}/html/js/chosen.min.js"></script> <!-- Custom Multi Select -->
 <!-- Charts -->
@@ -78,9 +81,9 @@
 <script src="${contextPath}/html/js/calendar.min.js"></script>
 <!-- Calendar -->
 
-<!-- Other -->
-<script src="${contextPath}/html/js/calendar.min.js"></script>
-<!-- Calendar -->
+<script src="${contextPath}/html/js/media-player.min.js"></script> <!-- Video Player -->
+<script src="${contextPath}/html/js/pirobox.min.js"></script> <!-- Lightbox -->
+
 <script src="${contextPath}/html/js/feeds.min.js"></script>
 <!-- News Feeds -->
 
@@ -101,6 +104,8 @@
 <!-- jQuery Form Validation Library - requirred with above js -->
 <script src="${contextPath}/html/js/icheck.js"></script>
 <!-- Custom Checkbox + Radio -->
+
+
 
 <script src="${contextPath}/static/js/global.js"></script>
 <!-- global -->
