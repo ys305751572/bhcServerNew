@@ -62,7 +62,18 @@ public class Doctor {
 	
 	@Column(name = "REWARD")
 	private String reward; // 所获奖励
-	 
+
+	@Column(name = "price")
+	private Double price;
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
 	public String getReward() {
 		return reward;
 	}

@@ -63,6 +63,10 @@
                             <option <c:if test="${doctor.gender=='2'}">selected="selected" </c:if> value="2">女</option>
                         </select>
                     </div>
+                    <div class="col-md-6 m-b-15" >
+                        <label>医师讲座价格（/月）</label>
+                        <input type="text" id="price" name="price" value="${doctor.price}" class="input-sm form-control validate[required,min[0],number]" placeholder="..." >
+                    </div>
                     <hr class="whiter m-t-20"/>
                     <div class="col-md-12 m-b-15">
                         <label>头像</label>
