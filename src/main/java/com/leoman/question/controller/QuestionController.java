@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-@RequestMapping("/management/question/")
+@RequestMapping("/admin/question")
 @Controller
 public class QuestionController extends GenericEntityController<QuestionContainer, QuestionContainer, QuestionManagerImpl> {
 
@@ -52,7 +52,7 @@ public class QuestionController extends GenericEntityController<QuestionContaine
 	 * 题库列表
 	 * @return
 	 */
-	@RequestMapping(value = "index", method = RequestMethod.GET)
+	@RequestMapping(value = "/qc/index", method = RequestMethod.GET)
 	public String pageList() {
 		return QUESTION_LIST;
 	}
@@ -78,7 +78,7 @@ public class QuestionController extends GenericEntityController<QuestionContaine
 	 * @param qc
 	 * @return
 	 */
-	@RequestMapping(value = "save", method = RequestMethod.POST)
+	@RequestMapping(value = "/qc/save", method = RequestMethod.POST)
 	public String createQuestionContainer(QuestionContainer qc,MultipartFile imageFile,HttpServletRequest request) {
 		
 		if(imageFile!=null&&imageFile.getSize()>0){
@@ -95,20 +95,20 @@ public class QuestionController extends GenericEntityController<QuestionContaine
 		return QUESTION_LIST;
 	}
 	
-	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/qc/delete", method = RequestMethod.POST)
 	public String deleteQuestionContainer(String id) {
 		qcManager.deleteByPK(id);
 		return QUESTION_LIST;
 	}
 	
-	@RequestMapping(value = "edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/qc/edit", method = RequestMethod.GET)
 	public String pageEdit(@RequestParam(value = "id" ,required = false) String id,Model model) {
 		QuestionContainer qc = qcManager.queryByPK(id);
 		model.addAttribute("qc", qc);
 		return QUESTION_EDIT;
 	}
 	
-	@RequestMapping(value = "add", method = RequestMethod.GET)
+	@RequestMapping(value = "/qc/add", method = RequestMethod.GET)
 	public String pageAdd() {
 		return QUESTION_EDIT;
 	}

@@ -29,11 +29,11 @@
                 <div class="row">
                     <div class="col-md-6 m-b-15">
                         <label>题库名称</label>
-                        <input type="text" id="title" name="title" value="${qc.name}" class="input-sm form-control validate[required]" placeholder="...">
+                        <input type="text" id="title" name="title" value="${qc.title}" class="input-sm form-control validate[required]" placeholder="...">
                     </div>
                     <hr class="whiter m-t-20"/>
                     <div class="col-md-12 m-b-15">
-                        <label>头像</label>
+                        <label>封面</label>
                         <div class="fileupload fileupload-new" data-provides="fileupload">
                             <div class="fileupload-preview thumbnail form-control">
 
@@ -47,11 +47,6 @@
                                 <a href="#" class="btn fileupload-exists btn-sm" data-dismiss="fileupload">移除</a>
                             </div>
                         </div>
-                    </div>
-                    <hr class="whiter m-t-20"/>
-                    <div class="col-md-12 m-b-15">
-                        <label>详细描述</label>
-                        <div class="wysiwye-editor" id="detail" name="detail">${doctor.detail}</div>
                     </div>
                     <hr class="whiter m-t-20"/>
                 </div>
