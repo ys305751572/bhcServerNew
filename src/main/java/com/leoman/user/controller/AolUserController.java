@@ -1,9 +1,6 @@
 package com.leoman.user.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -77,12 +74,12 @@ public class AolUserController extends GenericEntityController<AolUser, AolUser,
         return DataTableFactory.fitting(draw, tmpList, count);
     }
 
-    @RequestMapping(value = "foucsListPage", method = RequestMethod.GET)
+    @RequestMapping(value = "/foucsIndex", method = RequestMethod.GET)
     public String foucsListPage(String cuserId, Model model) {
         Map<String, Object> respMap = new HashMap<String, Object>();
         respMap.put("cuserId", cuserId);
         model.addAttribute("cuser", respMap);
-        return "management/aol/cuserMgr/usersList";
+        return "cuser/userlist";
     }
 
     /**
@@ -98,9 +95,13 @@ public class AolUserController extends GenericEntityController<AolUser, AolUser,
         //获取登录用户
         PageVO pv = new PageVO();
         Admin loginuser = (Admin) request.getSession().getAttribute(Constant.SESSION_MEMBER_GLOBLE);
-        pv = this.getEntityManager().queryFoucsUsersDataList(start, length, cuserId, "0", "0");
+        int pagenum = getPageNum(start,length);
+        pv = this.getEntityManager().queryFoucsUsersDataList(pagenum, length, cuserId, "0", "0");
         Long count = (long) pv.getCount();
         List tmpList = pv.getList();
+        if(tmpList == null ) {
+            tmpList = Collections.emptyList();
+        }
         return DataTableFactory.fitting(draw, tmpList, count);
     }
 

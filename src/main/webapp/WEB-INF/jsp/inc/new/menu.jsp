@@ -92,7 +92,7 @@
             </a>
             <ul class="list-unstyled menu-item">
                 <li><a href="${contextPath}/admin/aoluser/userslist">用户信息查询</a></li>
-                <li><a href="form-components.html">子女用户信息查询</a></li>
+                <li><a href="${contextPath}/admin/cuser/index">子女用户信息查询</a></li>
             </ul>
         </li>
         <li class="dropdown">

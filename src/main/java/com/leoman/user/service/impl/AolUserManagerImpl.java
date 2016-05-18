@@ -11,6 +11,7 @@ import javax.persistence.Query;
 
 import com.leoman.common.entity.PageVO;
 import com.leoman.common.service.impl.GenericManagerImpl;
+import com.leoman.cuser.entity.AolChildRelation;
 import com.leoman.user.dao.AolUserDAO;
 import com.leoman.user.entity.AolUser;
 import com.leoman.user.service.IAolUserManager;
@@ -168,31 +169,31 @@ public class AolUserManagerImpl extends GenericManagerImpl<AolUser, AolUserDAO> 
 	@SuppressWarnings("unchecked")
 	public PageVO queryFoucsUsersDataList(int start,int length, String user_id,String username,String bak4){
 		PageVO pv = new PageVO();
-//		EntityManager em = entityManagerFactory.createEntityManager();
-//		try {
-//			String innserSql = "select _ar from ";
-//			String sql = "AolChildRelation _ar WHERE _ar.childId = '" + user_id + "'";
-//			List<AolChildRelation> list = null;
-//			Long count = queryCount2(sql);
-//			Query query = em.createQuery(innserSql + sql);
-//			int firstResult = pp.getStart() * pp.getLength();
-//			if(pp.getLength()>=0){
-//				query.setFirstResult(firstResult);
-//				query.setMaxResults(pp.getLength());
-//			}
-//			list = query.getResultList();
-//			List<AolUser> aolUserList = new ArrayList<AolUser>();
-//			for (AolChildRelation ar : list) {
-//				aolUserList.add(ar.getAolUser());
-//			}
-//			pv.setCount(count);
-//			pv.setStart(pp.getStart());
-//			pv.setLength(pp.getLength());
-//			pv.setList(aolUserList);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		em.close();
+		EntityManager em = entityManagerFactory.createEntityManager();
+		try {
+			String innserSql = "select _ar from ";
+			String sql = "AolChildRelation _ar WHERE _ar.childId = '" + user_id + "'";
+			List<AolChildRelation> list = null;
+			Long count = queryCount2(sql);
+			Query query = em.createQuery(innserSql + sql);
+			int firstResult = (start-1)  * length;
+			if(length>=0){
+				query.setFirstResult(firstResult);
+				query.setMaxResults(length);
+			}
+			list = query.getResultList();
+			List<AolUser> aolUserList = new ArrayList<AolUser>();
+			for (AolChildRelation ar : list) {
+				aolUserList.add(ar.getAolUser());
+			}
+			pv.setCount(count);
+			pv.setStart(start);
+			pv.setLength(length);
+			pv.setList(aolUserList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		em.close();
 		return pv;
 	}
 	
@@ -503,7 +504,7 @@ public class AolUserManagerImpl extends GenericManagerImpl<AolUser, AolUserDAO> 
 	/**
 	 * 查询总条数
 	 * @return
-
+	 */
 	public Long queryCount2(String sql) {
 		Long count = Long.valueOf(0);
 		String countSql = "select count(_ar.id) as count from " + sql + "";
@@ -513,7 +514,7 @@ public class AolUserManagerImpl extends GenericManagerImpl<AolUser, AolUserDAO> 
 		em.close();
 		return count;
 	}
-	 */
+
 	
 	/**
 	 * 根据部门ID获取该部门所属用户ID
