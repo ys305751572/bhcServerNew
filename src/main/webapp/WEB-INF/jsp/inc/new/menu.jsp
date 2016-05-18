@@ -101,6 +101,7 @@
             </a>
             <ul class="list-unstyled menu-item">
                 <li><a href="${contextPath}/admin/measure/xtlist">血糖预警</a></li>
+                <li><a href="${contextPath}/admin/measure/xylist">血压预警</a></li>
             </ul>
         </li>
         <li class="dropdown">

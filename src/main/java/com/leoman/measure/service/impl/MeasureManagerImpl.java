@@ -182,7 +182,7 @@ public class MeasureManagerImpl extends GenericManagerImpl<Measure, MeasureDAO> 
             Long count = queryCount(sql);
 
             Query query = em.createQuery(innerSql + sql);
-            int firstResult = pagenum * pagesize;
+            int firstResult = (pagenum - 1) * pagesize;
             query.setFirstResult(firstResult);
             query.setMaxResults(pagesize);
             list = query.getResultList();

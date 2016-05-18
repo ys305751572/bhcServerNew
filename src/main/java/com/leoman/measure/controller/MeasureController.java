@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MeasureController extends GenericEntityController<Measure, Measure, MeasureManagerImpl> {
 
     private static final String XTLIST = "measure/xtlist";//血糖预警
-    private static final String XYLIST = "management/aol/measureMgr/xyList";//血压预警
+    private static final String XYLIST = "measure/xylist";//血压预警
     private static final String XYREPORT = "management/aol/measureMgr/xyReportlist";//血压信息
     private static final String XTREPORT = "management/aol/measureMgr/xtReportlist";//血糖信息
     private static final String TWREPORT = "management/aol/measureMgr/twReportlist";//体温信息
@@ -266,29 +266,21 @@ public class MeasureController extends GenericEntityController<Measure, Measure,
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/getXyDataList", method = RequestMethod.POST)
     @ResponseBody
-    public void getXyDataList(HttpServletRequest request) {
+    public Map<String,Object> getXyDataList(HttpServletRequest request,Integer draw,Integer start,Integer length,
+                              String userName,String sendTimeQ,String sendTimeZ,String xtstate ) {
         //获取登录用户
-//		LoginUserVO loginuser = (LoginUserVO) request.getSession().getAttribute(SecurityConstants.LOGIN_USER);
-//		HashMap<String, String> paramMap = (HashMap<String, String>) convertToMap(params);
-//
-//		String userName = paramMap.get("usersname");
-//		String sendTimeQ = paramMap.get("sendTimeQ");
-//		String sendTimeZ = paramMap.get("sendTimeZ");
-//		String xtstate = paramMap.get("xtstate");
-//
-//		String sortStr = paramMap.get("bbSortName");
-//		PageParameters pp = PageUtil.getParameter(paramMap, sortStr);
-//		MeasureSearchVO measureSearchVO = new MeasureSearchVO();
-//		measureSearchVO.setUserName(userName);
-//		measureSearchVO.setSendTimeQ(sendTimeQ);
-//		measureSearchVO.setSendTimeZ(sendTimeZ);
-//		measureSearchVO.setXtstate(xtstate);
-//		measureSearchVO.setOrganiseId(loginuser.getOrganiseId());
-//
-//		PageVO pv = this.getEntityManager().queryXyDataList(measureSearchVO, pp);
-//		Long count = (long)pv.getCount();
-//		List<MeasureListVO> tmpList = pv.getList();
-//		return successed(new DataTableReturnObject(count, count, pp.getSEcho(),tmpList));
+		Admin loginuser = (Admin) request.getSession().getAttribute(Constant.SESSION_MEMBER_GLOBLE);
+
+		MeasureSearchVO measureSearchVO = new MeasureSearchVO();
+		measureSearchVO.setUserName(userName);
+		measureSearchVO.setSendTimeQ(sendTimeQ);
+		measureSearchVO.setSendTimeZ(sendTimeZ);
+		measureSearchVO.setXtstate(xtstate);
+        int pagenum = getPageNum(start,length);
+		PageVO pv = this.getEntityManager().queryXyDataList(measureSearchVO, pagenum,length);
+		Long count = (long)pv.getCount();
+		List<MeasureListVO> tmpList = pv.getList();
+		return DataTableFactory.fitting(draw,tmpList,count);
     }
 
     /**
