@@ -33,11 +33,13 @@ public class QuestionManagerImpl extends GenericManagerImpl<Question, QuestionDA
 	@Transactional
 	public void saveQuestions(QuestionCollection questions) {
 		List<Question> qList = questions.getQuestions();
-		for (Question question : qList) {
+		for(int i = 0;i < qList.size();i++) {
+			Question question = qList.get(i);
 			if(question.getQuestion() != null) {
+				question.setQno(i+1);
 				question.setTid(questions.getTid());
 				dao.save(question);
-			} 
+			}
 		}
 	}
 }

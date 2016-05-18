@@ -128,5 +128,13 @@
                 <li><a href="${contextPath}/admin/pg2/index">病理讲座列表V2</a></li>
             </ul>
         </li>
+        <li class="dropdown">
+            <a class="sa-side-typography" href="">
+                <span class="menu-item">题库管理</span>
+            </a>
+            <ul class="list-unstyled menu-item">
+                <li><a href="${contextPath}/admin/question/qc/index">题库列表</a></li>
+            </ul>
+        </li>
     </ul>
 </aside>

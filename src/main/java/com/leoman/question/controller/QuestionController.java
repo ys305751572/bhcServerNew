@@ -18,6 +18,8 @@ import com.leoman.question.service.IQuestionContainerManager;
 import com.leoman.question.service.IQuestionManager;
 import com.leoman.question.service.impl.QuestionManagerImpl;
 import com.leoman.utils.FileUtil;
+import com.leoman.utils.JsonUtil;
+import com.leoman.utils.Result;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -57,7 +59,7 @@ public class QuestionController extends GenericEntityController<QuestionContaine
 		return QUESTION_LIST;
 	}
 	
-	@RequestMapping(value = "list", method = RequestMethod.POST)
+	@RequestMapping(value = "/qc/list", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> findAll(Integer draw,Integer start,Integer length,String title) {
 
@@ -94,7 +96,17 @@ public class QuestionController extends GenericEntityController<QuestionContaine
 		qcManager.create(qc);
 		return QUESTION_LIST;
 	}
-	
+
+	@RequestMapping(value = "/qc/deleteBatch", method = RequestMethod.POST)
+	@ResponseBody
+	public Result deleteBatchQuestionContainer(String ids) {
+		String[] arrayId = JsonUtil.json2Obj(ids, String[].class);
+		for (String id : arrayId) {
+			qcManager.deleteByPK(id);
+		}
+		return Result.success();
+	}
+
 	@RequestMapping(value = "/qc/delete", method = RequestMethod.POST)
 	public String deleteQuestionContainer(String id) {
 		qcManager.deleteByPK(id);
@@ -125,7 +137,7 @@ public class QuestionController extends GenericEntityController<QuestionContaine
 	
 	// ========================================question===============================================
 	
-	@RequestMapping(value = "pageQuestionAdd", method = RequestMethod.GET)
+	@RequestMapping(value = "/q/add", method = RequestMethod.GET)
 	public String pageQuestionAdd(String tid, Model model) {
 		
 		Map<String,Object> tidMap = new HashMap<String, Object>();
@@ -145,7 +157,7 @@ public class QuestionController extends GenericEntityController<QuestionContaine
 	 * 保存题目s
 	 * @return
 	 */
-	@RequestMapping(value = "saveQuestions", method = RequestMethod.POST)
+	@RequestMapping(value = "/q/save", method = RequestMethod.POST)
 	public String saveQuestions(QuestionCollection questions) {
 		
 		if(questions != null && questions.getQuestions() != null && questions.getQuestions().size() >0) {

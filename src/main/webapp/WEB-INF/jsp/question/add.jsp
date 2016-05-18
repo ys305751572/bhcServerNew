@@ -22,42 +22,48 @@
         <ol class="breadcrumb hidden-xs">
             <li><a href="javascript:history.go(-1);" title="返回"><span class="icon">&#61771;</span></a></li>
         </ol>
+        <div class="block-area">
+            <div class="row">
+                <ul class="list-inline list-mass-actions">
+                    <li>
+                        <a data-toggle="modal" href="#" onclick="$user.fn.add();" title="新增题目" class="tooltips">
+                            <i class="sa-list-add"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <hr class="whiter m-t-20"/>
         <h1 class="page-title">题库信息</h1>
-        <form id="fromId" name="formName" method="post" enctype="multipart/form-data" class="box tile animated active form-validation-1">
+        <form id="fromId" name="formName" method="post" action="${contextPath}/admin/question/q/save" class="box tile animated active form-validation-1">
             <div class="block-area">
-                <input type="hidden" id="id" name="id" value="${qc.id}">
-                <div class="row">
+                <input type="hidden" id="tid" name="tid" value="${tidMap.tid}">
+                <div class="row questionRow" id="question1">
+                    <div class="col-md-12 m-b-15">
+                        <label>题目<input type="hidden" id="questions[1].qno" name="questions[1].qno"><a href="#" onclick="$user.fn.del(1);"><i class="fa fa-times-circle" aria-hidden="true"></i></a></label>
+                        <input type="text" id="questions[1].question" name="questions[1].question" value="" class="input-sm form-control validate[required]" placeholder="...">
+                    </div>
                     <div class="col-md-6 m-b-15">
-                        <label>题库名称</label>
-                        <input type="text" id="title" name="title" value="${qc.name}" class="input-sm form-control validate[required]" placeholder="...">
+                        <label>选项A</label>
+                        <input type="text" id="questions[1].optiona" name="questions[1].optiona" value="" class="input-sm form-control validate[required]" placeholder="...">
                     </div>
-                    <hr class="whiter m-t-20"/>
-                    <div class="col-md-12 m-b-15">
-                        <label>头像</label>
-                        <div class="fileupload fileupload-new" data-provides="fileupload">
-                            <div class="fileupload-preview thumbnail form-control">
-
-                            </div>
-                            <div>
-                                <span class="btn btn-file btn-alt btn-sm">
-                                    <span class="fileupload-new">选择图片</span>
-                                    <span class="fileupload-exists">更改</span>
-                                    <input id="imageFile" name="imageFile" type="file"/>
-                                </span>
-                                <a href="#" class="btn fileupload-exists btn-sm" data-dismiss="fileupload">移除</a>
-                            </div>
-                        </div>
+                    <div class="col-md-6 m-b-15">
+                        <label>选项B</label>
+                        <input type="text" id="questions[1].optionb" name="questions[1].optionb" value="" class="input-sm form-control validate[required]" placeholder="...">
                     </div>
-                    <hr class="whiter m-t-20"/>
-                    <div class="col-md-12 m-b-15">
-                        <label>详细描述</label>
-                        <div class="wysiwye-editor" id="detail" name="detail">${doctor.detail}</div>
+                    <div class="col-md-6 m-b-15">
+                        <label>选项C</label>
+                        <input type="text" id="questions[1].optionc" name="questions[1].optionc" value="" class="input-sm form-control validate[required]" placeholder="...">
+                    </div>
+                    <div class="col-md-6 m-b-15">
+                        <label>选项D</label>
+                        <input type="text" id="questions[1].optiond" name="questions[1].optiond" value="" class="input-sm form-control validate[required]" placeholder="...">
                     </div>
                     <hr class="whiter m-t-20"/>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-5">
-                        <button type="button" onclick="$user.fn.save();" class="btn btn-info btn-sm m-t-10">提交</button>
+                        <button type="submit" class="btn btn-info btn-sm m-t-10">提交</button>
                         <button type="button" class="btn btn-info btn-sm m-t-10" onclick="history.go(-1);">返回</button>
                     </div>
                 </div>
@@ -74,7 +80,8 @@
         v: {
             list: [],
             chart : null,
-            dTable: null
+            dTable: null,
+            index : 2
         },
         fn: {
             init: function () {
@@ -95,22 +102,40 @@
 //                    $(this).addClass("fileupload-exists").removeClass("fileupload-new");
 //                });
             },
-            save : function () {
-                var code =  $('.wysiwye-editor').code();
-                $("#fromId").ajaxSubmit({
-                    url : "${contextPath}/admin/doctor/save",
-                    type : "POST",
-                    data : {
-                        "detail" : code
-                    },
-                    success : function(result) {
-                        if(!result.status) {
-                            $common.fn.notify(result.msg);
-                            return;
-                        }
-                        window.location.href = "${contextPath}/admin/doctor/index";
-                    }
-                });
+            add : function() {
+                var index = $user.v.index;
+                var html = "<div class=\"row questionRow\" id=\"question"+ index +"\">";
+                html += "<div class='col-md-12 m-b-15'>";
+                html += "<label>题目<a href=\"\"><input type=\"hidden\" id=\"questions["+ index +"].qno\" name=\"questions["+ index +"].qno\"><a href='#' onclick=\"$user.fn.del('" + index + "')\"><i class=\"fa fa-times-circle\" aria-hidden=\"true\"></i></a></label>";
+                html += "<input type=\"text\" id=\"questions["+ index +"].question\" name=\"questions["+ index +"].question\" value=\"\" class=\"input-sm form-control validate[required]\" placeholder=\"...\">";
+                html += "</div>";
+                html += "<div class=\"col-md-6 m-b-15\">";
+                html += "<label>选项A</label>";
+                html += "<input type=\"text\" id=\"questions["+ index +"].optiona\" name=\"questions["+ index +"].optiona\" value=\"\" class=\"input-sm form-control validate[required]\" placeholder=\"...\">";
+                html += "</div>";
+                html += "<div class=\"col-md-6 m-b-15\">";
+                html += "<label>选项B</label>";
+                html += "<input type=\"text\" id=\"questions["+ index +"].optionb\" name=\"questions["+ index +"].optionb\" value=\"\" class=\"input-sm form-control validate[required]\" placeholder=\"...\">";
+                html += "</div>";
+                html += "<div class=\"col-md-6 m-b-15\">";
+                html += "<label>选项C</label>";
+                html += "<input type=\"text\" id=\"questions["+ index +"].optionc\" name=\"questions["+ index +"].optionc\" value=\"\" class=\"input-sm form-control validate[required]\" placeholder=\"...\">";
+                html += "</div>";
+                html += "<div class=\"col-md-6 m-b-15\">";
+                html += "<label>选项D</label>";
+                html += "<input type=\"text\" id=\"questions["+ index +"].optiond\" name=\"questions["+ index +"].optiond\" value=\"\" class=\"input-sm form-control validate[required]\" placeholder=\"...\">";
+                html += "</div>";
+                html += "<hr class=\"whiter m-t-20\"/>";
+                html += "<div>";
+                $(".questionRow:last").after(html);
+                $user.v.index = ++index;
+            },
+            del : function(_index) {
+                if($(".questionRow").length == 1) {
+                    $common.fn.notify("请至少保留一条数据");
+                    return;
+                }
+                $("#question" + _index).remove();
             }
         }
     }

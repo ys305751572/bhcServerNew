@@ -23,7 +23,7 @@
             <li><a href="javascript:history.go(-1);" title="返回"><span class="icon">&#61771;</span></a></li>
         </ol>
         <h1 class="page-title">题库信息</h1>
-        <form id="fromId" name="formName" method="post" enctype="multipart/form-data" class="box tile animated active form-validation-1">
+        <form id="fromId" name="formName" method="post" action="${contextPath}/admin/question/qc/save" enctype="multipart/form-data" class="box tile animated active form-validation-1">
             <div class="block-area">
                 <input type="hidden" id="id" name="id" value="${qc.id}">
                 <div class="row">
@@ -52,7 +52,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-5">
-                        <button type="button" onclick="$user.fn.save();" class="btn btn-info btn-sm m-t-10">提交</button>
+                        <button type="submit" onclick="$user.fn.save();" class="btn btn-info btn-sm m-t-10">提交</button>
                         <button type="button" class="btn btn-info btn-sm m-t-10" onclick="history.go(-1);">返回</button>
                     </div>
                 </div>
@@ -89,23 +89,6 @@
 //                $new.each(function() {
 //                    $(this).addClass("fileupload-exists").removeClass("fileupload-new");
 //                });
-            },
-            save : function () {
-                var code =  $('.wysiwye-editor').code();
-                $("#fromId").ajaxSubmit({
-                    url : "${contextPath}/admin/doctor/save",
-                    type : "POST",
-                    data : {
-                        "detail" : code
-                    },
-                    success : function(result) {
-                        if(!result.status) {
-                            $common.fn.notify(result.msg);
-                            return;
-                        }
-                        window.location.href = "${contextPath}/admin/doctor/index";
-                    }
-                });
             }
         }
     }
