@@ -31,11 +31,6 @@
     
     <!-- Side Menu -->
     <ul class="list-unstyled side-menu">
-        <li>
-            <a class="sa-side-home" href="${contextPath}/admin/dashboard">
-                <span class="menu-item">主页</span>
-            </a>
-        </li>
         <li class="dropdown">
             <a class="sa-side-form" href="">
                 <span class="menu-item">用户管理</span>
@@ -85,6 +80,14 @@
             </a>
             <ul class="list-unstyled menu-item">
                 <li><a href="${contextPath}/admin/question/qc/index">题库列表</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="sa-side-ui" href="">
+                <span class="menu-item">签约管理</span>
+            </a>
+            <ul class="list-unstyled menu-item">
+                <li><a href="${contextPath}/admin/sign/index">签约列表</a></li>
             </ul>
         </li>
     </ul>
