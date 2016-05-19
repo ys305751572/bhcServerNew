@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="../taglibs.jsp" %>
 <header id="header">
     <a href="" id="menu-toggle"></a> 
-    <a class="logo pull-left" href="index.html">SUPER ADMIN 1.0</a>
+    <a class="logo pull-left" href="${contextPath}/admin/dashboard">健康管家后台管理系统</a>
     
     <div class="media-body">
         <div class="media" id="top-menu">

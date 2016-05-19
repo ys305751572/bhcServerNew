@@ -287,7 +287,7 @@ $(document).ready(function(){
     (function(){
 	if($('#news-feed')[0]){
 	    $('#news-feed').FeedEk({
-		FeedUrl: 'http://rss.cnn.com/rss/edition.rss',
+		FeedUrl: 'http://news.baidu.com/n?cmd=1&class=civilnews&tn=rss&sub=0',
 		MaxCount: 5,
 		ShowDesc: false,
 		ShowPubDate: true,

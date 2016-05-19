@@ -72,7 +72,9 @@
                         <label>头像</label>
                         <div class="fileupload fileupload-new" data-provides="fileupload">
                             <div class="fileupload-preview thumbnail form-control">
-
+                                <c:if test="${doctor.head ne null}">
+                                    <img src="${doctor.head}">
+                                </c:if>
                             </div>
                             <div>
                                 <span class="btn btn-file btn-alt btn-sm">

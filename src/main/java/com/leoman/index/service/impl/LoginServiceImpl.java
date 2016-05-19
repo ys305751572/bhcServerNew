@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by wangbin on 2015/3/3.
@@ -87,12 +88,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public void logOut(HttpServletRequest request, String type) {
-//        HttpSession session = request.getSession(false);
-//        if (Constant.MEMBER_TYPE_GLOBLE.equals(type)) {
-//            session.removeAttribute(Constant.SESSION_MEMBER_GLOBLE);
-//        } else if (Constant.MEMBER_TYPE_BUSINESS.equals(type)) {
-//            session.removeAttribute(Constant.SESSION_MEMBER_BUSINESS);
-//        }
+        HttpSession session = request.getSession(false);
+        session.removeAttribute(Constant.SESSION_MEMBER_GLOBLE);
     }
 
     @Override
