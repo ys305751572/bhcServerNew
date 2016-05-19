@@ -20,7 +20,7 @@
         <!-- Feeds -->
         <div class="s-widget m-b-25">
             <h2 class="tile-title">
-               News Feeds
+               热门新闻
             </h2>
             
             <div class="s-widget-body">
