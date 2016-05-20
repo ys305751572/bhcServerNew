@@ -35,8 +35,13 @@
                            placeholder="..." readonly="readonly">
                 </div>
                 <div class="col-md-2 form-group">
-                    <label>注册时间</label>
-                    <input type="text" class="input-sm form-control form_datetime" id="" name="" placeholder="..."
+                    <label>注册时间开始</label>
+                    <input type="text" class="input-sm form-control form_datetime" id="regTimeQ" name="regTimeQ" placeholder="..."
+                           readonly="readonly">
+                </div>
+                <div class="col-md-2 form-group">
+                    <label>注册时间截止</label>
+                    <input type="text" class="input-sm form-control form_datetime" id="regTimeZ" name="regTimeZ" placeholder="..."
                            readonly="readonly">
                 </div>
                 <div class="col-md-2 form-group">
@@ -137,6 +142,8 @@
                         aoData.mobile = $("#mobile").val();
                         aoData.birthday = $("#birthday").val();
                         aoData.sexType = $("#sex").val();
+                        aoData.regTimeQ = $("#regTimeQ").val();
+                        aoData.regTimeZ = $("#regTimeZ").val();
                     }
                 });
             },

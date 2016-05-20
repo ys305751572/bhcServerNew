@@ -18,15 +18,15 @@
         </div>
         
         <!-- Feeds -->
-        <div class="s-widget m-b-25">
-            <h2 class="tile-title">
-               热门新闻
-            </h2>
-            
-            <div class="s-widget-body">
-                <div id="news-feed"></div>
-            </div>
-        </div>
+        <%--<div class="s-widget m-b-25">--%>
+            <%--<h2 class="tile-title">--%>
+               <%--热门新闻--%>
+            <%--</h2>--%>
+
+            <%--<div class="s-widget-body">--%>
+                <%--<div id="news-feed"></div>--%>
+            <%--</div>--%>
+        <%--</div>--%>
     </div>
     
     <!-- Side Menu -->

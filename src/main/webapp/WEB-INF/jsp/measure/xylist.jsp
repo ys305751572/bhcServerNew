@@ -26,25 +26,27 @@
                     <input type="text" class="input-sm form-control" id="username" name="username" placeholder="...">
                 </div>
                 <div class="col-md-2 form-group">
-                    <label>手机</label>
-                    <input type="text" class="input-sm form-control" id="mobile" name="mobile" placeholder="...">
-                </div>
-                <div class="col-md-2 form-group">
-                    <label>生日</label>
-                    <input type="text" class="input-sm form-control form_datetime" id="birthday" name="birthday"
-                           placeholder="..." readonly="readonly">
-                </div>
-                <div class="col-md-2 form-group">
-                    <label>注册时间</label>
-                    <input type="text" class="input-sm form-control form_datetime" id="" name="" placeholder="..."
+                    <label>测量时间开始</label>
+                    <input type="text" class="input-sm form-control form_datetime" id="sendTimeQ" name="sendTimeQ" placeholder="..."
                            readonly="readonly">
                 </div>
                 <div class="col-md-2 form-group">
-                    <label>性别</label>
-                    <select id="sex" name="sex" class="select">
+                    <label>测量时间截止</label>
+                    <input type="text" class="input-sm form-control form_datetime" id="sendTimeZ" name="sendTimeZ" placeholder="..."
+                           readonly="readonly">
+                </div>
+                <div class="col-md-2 form-group">
+                    <label>血压状态</label>
+                    <select id="xtstate" name="xtstate" class="select">
                         <option value="">全部</option>
-                        <option value="男">男</option>
-                        <option value="女">女</option>
+                        <option value="1">正常</option>
+                        <option value="2">正常高压</option>
+                        <option value="3">高血压</option>
+                        <option value="0">低血压</option>
+                        <option value="4">高压偏高</option>
+                        <option value="5">高压偏低</option>
+                        <option value="6">低压偏高</option>
+                        <option value="7">低压偏低</option>
                     </select>
                 </div>
             </div>
@@ -212,7 +214,7 @@
                         }
                     ],
                     "fnServerParams": function (aoData) {
-                        aoData.measureName = $("#measureName").val();
+                        aoData.username = $("#username").val();
                         aoData.sendTimeQ = $("#sendTimeQ").val();
                         aoData.sendTimeZ = $("#sendTimeZ").val();
                         aoData.xtstate = $("#xtstate").val();

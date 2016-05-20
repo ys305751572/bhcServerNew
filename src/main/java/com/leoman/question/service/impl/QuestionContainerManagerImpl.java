@@ -39,9 +39,8 @@ public class QuestionContainerManagerImpl extends GenericManagerImpl<QuestionCon
 
 	@Override
 	public Page<QuestionContainer> findAll(QuestionContainer qc, Integer currentPage, Integer pageSize) throws Exception {
-		
-		
-		return qcDao.findAll(new PageRequest(currentPage - 1, pageSize, Sort.Direction.DESC, "id"));
+		Specification<QuestionContainer> spec = buildSpecification(qc);
+		return qcDao.findAll(spec,new PageRequest(currentPage - 1, pageSize, Sort.Direction.DESC, "id"));
 	}
 	
 	@Override

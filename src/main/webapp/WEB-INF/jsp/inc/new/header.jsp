@@ -13,10 +13,6 @@
                 :
                 <span id="sec"></span>
             </div>
-
-            <div class="media-body">
-                <input type="text" class="main-search">
-            </div>
         </div>
     </div>
 </header>

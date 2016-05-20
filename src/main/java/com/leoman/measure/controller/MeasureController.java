@@ -238,12 +238,12 @@ public class MeasureController extends GenericEntityController<Measure, Measure,
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/getXtDataList", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> getXtDataList(HttpServletRequest request, Integer draw, Integer start, Integer length, String userename, String sendTimeQ, String sendTimeZ, String xtstate) {
+    public Map<String,Object> getXtDataList(HttpServletRequest request, Integer draw, Integer start, Integer length, String username, String sendTimeQ, String sendTimeZ, String xtstate) {
         //获取登录用户
         Admin loginuser = (Admin) request.getSession().getAttribute(Constant.SESSION_MEMBER_GLOBLE);
 
         MeasureSearchVO measureSearchVO = new MeasureSearchVO();
-        measureSearchVO.setUserName(userename);
+        measureSearchVO.setUserName(username);
         measureSearchVO.setSendTimeQ(sendTimeQ);
         measureSearchVO.setSendTimeZ(sendTimeZ);
         measureSearchVO.setXtstate(xtstate);
@@ -267,12 +267,12 @@ public class MeasureController extends GenericEntityController<Measure, Measure,
     @RequestMapping(value = "/getXyDataList", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> getXyDataList(HttpServletRequest request,Integer draw,Integer start,Integer length,
-                              String userName,String sendTimeQ,String sendTimeZ,String xtstate ) {
+                              String username,String sendTimeQ,String sendTimeZ,String xtstate ) {
         //获取登录用户
 		Admin loginuser = (Admin) request.getSession().getAttribute(Constant.SESSION_MEMBER_GLOBLE);
 
 		MeasureSearchVO measureSearchVO = new MeasureSearchVO();
-		measureSearchVO.setUserName(userName);
+		measureSearchVO.setUserName(username);
 		measureSearchVO.setSendTimeQ(sendTimeQ);
 		measureSearchVO.setSendTimeZ(sendTimeZ);
 		measureSearchVO.setXtstate(xtstate);

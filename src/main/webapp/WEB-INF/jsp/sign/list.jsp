@@ -26,7 +26,9 @@
                     <th><input type="checkbox" class="pull-left list-parent-check"/></th>
                     <th>用户姓名</th>
                     <th>医生名称</th>
-                    <th>状态</th>
+                    <th>签约时长(单位：月)</th>
+                    <th>付款状态</th>
+                    <th>签约状态</th>
                     <th>时间</th>
                 </tr>
                 </thead>
@@ -72,14 +74,31 @@
                         },
                         {"data": "aolUser.name"},
                         {"data": "doctor.name"},
+                        {"data": "month"},
                         {
-                            "data": "isSign",
-                            "render" : function(data) {
+                            "data": "orderStatus",
+                            "render" : function(data,type,row,meta ) {
                                 if(data == 0) {
-                                    return "解约";
+                                    return "待支付";
                                 }
                                 else if(data == 1) {
-                                    return "签约";
+                                    return "已支付";
+                                }
+                            }
+                        },
+                        {
+                            "data": "isSign",
+                            "render" : function(data,type,row,meta) {
+                                if(row.orderStatus == 0) {
+                                    return "-";
+                                }
+                                else {
+                                    if(data == 0) {
+                                        return "解约";
+                                    }
+                                    else if(data == 1) {
+                                        return "签约";
+                                    }
                                 }
                             }
                         },
