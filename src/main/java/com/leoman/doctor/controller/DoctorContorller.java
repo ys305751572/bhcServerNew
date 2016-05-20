@@ -13,7 +13,9 @@ import com.leoman.doctor.entity.Doctor;
 import com.leoman.doctor.service.IDoctorManager;
 import com.leoman.doctor.service.impl.DoctorManagerImpl;
 import com.leoman.image.entity.FileBo;
+import com.leoman.utils.ConfigUtil;
 import com.leoman.utils.FileUtil;
+import com.leoman.utils.JsonUtil;
 import com.leoman.utils.Result;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +65,9 @@ public class DoctorContorller extends GenericEntityController<Doctor, Doctor, Do
 		try {
 			Doctor doctor = iDoctorManager.findById(id);
 			doctor.setDetail(doctor.getDetail() !=null ? doctor.getDetail().replaceAll("&lt", "<").replaceAll("&gt",">").trim() : "");
+			if(StringUtils.isNotBlank(doctor.getHead())) {
+				doctor.setHead(ConfigUtil.getString("upload.url") + doctor.getHead());
+			}
 			model.addAttribute("doctor", doctor);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,6 +128,9 @@ public class DoctorContorller extends GenericEntityController<Doctor, Doctor, Do
 	public String viewDoctorInfo(String id, Model model) {
 		try {
 			Doctor doctor = iDoctorManager.findById(id);
+			if(StringUtils.isNotBlank(doctor.getHead())) {
+				doctor.setHead(ConfigUtil.getString("upload.url") + doctor.getHead());
+			}
 			model.addAttribute("doctor", doctor);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,6 +142,16 @@ public class DoctorContorller extends GenericEntityController<Doctor, Doctor, Do
 	@ResponseBody
 	public Result delete(String id) {
 		iDoctorManager.deleteByPK(id);
+		return Result.success();
+	}
+
+	@RequestMapping(value = "/deleteBatch", method = RequestMethod.POST)
+	@ResponseBody
+	public Result deleteBatch(String ids) {
+		String[] arrayId = JsonUtil.json2Obj(ids, String[].class);
+		for (String id : arrayId) {
+			iDoctorManager.deleteByPK(id);
+		}
 		return Result.success();
 	}
 

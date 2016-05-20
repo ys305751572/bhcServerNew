@@ -17,6 +17,7 @@ import com.leoman.question.entity.vo.QuestionContainer;
 import com.leoman.question.service.IQuestionContainerManager;
 import com.leoman.question.service.IQuestionManager;
 import com.leoman.question.service.impl.QuestionManagerImpl;
+import com.leoman.utils.ConfigUtil;
 import com.leoman.utils.FileUtil;
 import com.leoman.utils.JsonUtil;
 import com.leoman.utils.Result;
@@ -116,6 +117,9 @@ public class QuestionController extends GenericEntityController<QuestionContaine
 	@RequestMapping(value = "/qc/edit", method = RequestMethod.GET)
 	public String pageEdit(@RequestParam(value = "id" ,required = false) String id,Model model) {
 		QuestionContainer qc = qcManager.queryByPK(id);
+		if(StringUtils.isNotBlank(qc.getImage())) {
+			qc.setImage(ConfigUtil.getString("upload.url") + qc.getImage());
+		}
 		model.addAttribute("qc", qc);
 		return QUESTION_EDIT;
 	}

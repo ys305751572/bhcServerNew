@@ -40,12 +40,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="" title="刷新" class="tooltips">
+                        <a href="${contextPath}/admin/doctor/index" title="刷新" class="tooltips">
                             <i class="sa-list-refresh"></i>
                         </a>
                     </li>
                     <li class="show-on" style="display: none;">
-                        <a href="" title="删除" class="tooltips">
+                        <a href="#" onclick="$user.fn.delete();" title="删除" class="tooltips">
                             <i class="sa-list-delete"></i>
                         </a>
                     </li>
@@ -159,7 +159,25 @@
             edit: function (id) {
                 window.location.href = "${contextPath}/admin/doctor/edit?id=" + id;
             },
-
+            delete: function () {
+                var checkBox = $("#dataTables tbody tr").find('input[type=checkbox]:checked');
+                var ids = checkBox.getInputId();
+                $.ajax({
+                    url : "${contextPath}/admin/doctor/deleteBatch",
+                    data : {
+                        "ids" : JSON.stringify(ids)
+                    },
+                    type : "post",
+                    dataType : "json",
+                    success : function(result) {
+                        if(!result.status) {
+                            $common.fn.notify(result.msg);
+                            return;
+                        }
+                        $user.v.dTable.ajax.reload();
+                    }
+                });
+            },
             responseComplete: function (result, action) {
                 if (result.status == "0") {
                     if (action) {

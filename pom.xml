@@ -309,22 +309,22 @@
 				<pro.jdbc.url>jdbc:mysql://localhost:3306/aal?characterEncoding=UTF-8</pro.jdbc.url>
 				<pro.jdbc.username>root</pro.jdbc.username>
 				<pro.jdbc.password>root</pro.jdbc.password>
-				<pro.upload.url>http://4.16.0.180:8081/files/upload/</pro.upload.url>
-				<pro.upload.path>D:/server/tomcat-kdxg/webapps/files/upload/</pro.upload.path>
-				<base.url>http://localhost/kdxgServer/</base.url>
+				<pro.upload.url>http://localhost:8088/files/upload/</pro.upload.url>
+				<pro.upload.path>F:/server/apache-tomcat-7.0.64/webapps/files/upload/</pro.upload.path>
+				<base.url>http://localhost/bhcServer/</base.url>
 				<base.domain>http://localhost:8080</base.domain>
 			</properties>
 		</profile>
 		<profile>
 			<id>deploy-test</id>
 			<properties>
-				<pro.jdbc.url>jdbc:mysql://4.16.3.75:3306/kdxg?characterEncoding=UTF-8</pro.jdbc.url>
+				<pro.jdbc.url>jdbc:mysql://121.40.63.108:3306/aal?characterEncoding=UTF-8</pro.jdbc.url>
 				<pro.jdbc.username>root</pro.jdbc.username>
 				<pro.jdbc.password>root</pro.jdbc.password>
-				<pro.upload.url>http://localhost:8888/files/upload/</pro.upload.url>
-				<pro.upload.path>D:/tomcat7/webapps/files/upload/</pro.upload.path>
-				<base.url>http://localhost:8080/kdxgServer/</base.url>
-				<base.domain>http://localhost:8080</base.domain>
+				<pro.upload.url>http://121.40.63.108:8081/files/upload/</pro.upload.url>
+				<pro.upload.path>C:/server/tomcat-bhc/apache-tomcat-7.0.64/files/upload/</pro.upload.path>
+				<base.url>http://121.40.63.108:8081/bhcServer/</base.url>
+				<base.domain>http://121.40.63.108:8080</base.domain>
 			</properties>
 		</profile>
 		<profile>

@@ -69,8 +69,8 @@
                         <label>头像</label>
                         <p></p>
                         <p></p>
-                        <a href="${contextPath}/html/img/gallery/1.jpg" data-rel="gallery"  class="pirobox_gall img-popup" title="Lovely evening in Noreway">
-                            <img src="${contextPath}/html/img/gallery/thumbs/1.jpg" alt="">
+                        <a href="${doctor.head}" data-rel="gallery"  class="pirobox_gall img-popup" title="Lovely evening in Noreway">
+                            <img src="${doctor.head}" alt="">
                         </a>
                     </div>
                     <hr class="whiter m-t-20"/>

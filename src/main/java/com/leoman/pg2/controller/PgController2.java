@@ -18,6 +18,7 @@ import com.leoman.image.entity.FileBo;
 import com.leoman.pg2.entity.Pg2;
 import com.leoman.pg2.service.IPgManager2;
 import com.leoman.pg2.service.impl.PgManagerImpl2;
+import com.leoman.utils.ConfigUtil;
 import com.leoman.utils.FileUtil;
 import com.leoman.utils.JsonUtil;
 import com.leoman.utils.Result;
@@ -100,6 +101,9 @@ public class PgController2 extends GenericEntityController<Pg2, Pg2, PgManagerIm
 	public String pageEdit(String id,Model model) {
 		Pg2 pg = manager.queryByPK(id);
 		pg.setContent(StringUtils.isBlank(pg.getContent()) ? "" : pg.getContent().replaceAll("&lt","<").replaceAll("&gt",">"));
+		if(StringUtils.isNotBlank(pg.getUrl())) {
+			pg.setImage(ConfigUtil.getString("upload.url") + pg.getImage());
+		}
 		model.addAttribute("pg", pg);
 
 		List<Doctor> list = doctorManager.findAllDoctor();
@@ -177,6 +181,10 @@ public class PgController2 extends GenericEntityController<Pg2, Pg2, PgManagerIm
 	@RequestMapping(value = "detail", method = RequestMethod.POST)
 	public String detail(String id, Model model) {
 		Pg2 pg = manager.queryByPK(id);
+		pg.setContent(StringUtils.isBlank(pg.getContent()) ? "" : pg.getContent().replaceAll("&lt","<").replaceAll("&gt",">"));
+		if(StringUtils.isNotBlank(pg.getUrl())) {
+			pg.setImage(ConfigUtil.getString("upload.url") + pg.getImage());
+		}
 		model.addAttribute("pg", pg);
 		return PG_DETAIL;
 	}

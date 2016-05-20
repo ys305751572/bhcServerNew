@@ -36,7 +36,11 @@
                         <label>封面</label>
                         <div class="fileupload fileupload-new" data-provides="fileupload">
                             <div class="fileupload-preview thumbnail form-control">
-
+                                <div class="fileupload-preview thumbnail form-control">
+                                    <c:if test="${qc.image ne null}">
+                                        <img src="${qc.image}">
+                                    </c:if>
+                                </div>
                             </div>
                             <div>
                                 <span class="btn btn-file btn-alt btn-sm">
