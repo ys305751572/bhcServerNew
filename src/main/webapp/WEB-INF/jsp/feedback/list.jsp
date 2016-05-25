@@ -22,6 +22,10 @@
         <div class="block-area" id="search">
             <div class="row">
                 <div class="col-md-2 form-group">
+                    <label>标题</label>
+                    <input type="text" class="input-sm form-control" id="title" name="title" placeholder="...">
+                </div>
+                <div class="col-md-2 form-group">
                     <label>内容</label>
                     <input type="text" class="input-sm form-control" id="content1" name="content" placeholder="...">
                 </div>
@@ -117,6 +121,7 @@
                     ],
                     "fnServerParams": function (aoData) {
                         aoData.title = $("#title").val();
+                        aoData.content = $("#content1").val();
                     }
                 });
             },

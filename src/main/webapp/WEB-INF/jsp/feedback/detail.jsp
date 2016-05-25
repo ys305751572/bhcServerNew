@@ -28,13 +28,13 @@
                 <input type="hidden" id="id" name="id" value="${novice.id}">
                 <div class="row">
                     <div class="col-md-6 m-b-15">
-                        <label>序号</label>
-                        <input type="text" id="index2" name="index2" value="${novice.index2}" class="input-sm form-control validate[required]" placeholder="..." disabled>
+                        <label>标题</label>
+                        <input type="text" id="title" name="title" value="${feedback.title}" class="input-sm form-control validate[required]" placeholder="..." disabled>
                     </div>
                     <hr class="whiter m-t-20"/>
                     <div class="col-md-6 m-b-15">
                         <label>内容</label>
-                        <textarea id="content2" name="content" class="form-control auto-size m-b-10" placeholder="..." disabled>${novice.content}</textarea>
+                        <textarea id="content2" name="content" class="form-control auto-size m-b-10" placeholder="..." disabled>${feedback.content}</textarea>
                     </div>
                     <hr class="whiter m-t-20"/>
                     <div class="col-md-12 m-b-15">
