@@ -98,5 +98,13 @@
                 <li><a href="${contextPath}/admin/sign/index">签约列表</a></li>
             </ul>
         </li>
+        <li class="dropdown">
+            <a class="sa-side-ui" href="">
+                <span class="menu-item">反馈管理</span>
+            </a>
+            <ul class="list-unstyled menu-item">
+                <li><a href="${contextPath}/admin/feedback/index">反馈列表</a></li>
+            </ul>
+        </li>
     </ul>
 </aside>

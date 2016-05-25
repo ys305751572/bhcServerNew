@@ -79,6 +79,7 @@
         },
         fn: {
             init: function () {
+                console.log("=======init()=======");
                 $user.fn.dataTableInit();
                 $("#c_search").click(function () {
                     $user.v.dTable.ajax.reload();

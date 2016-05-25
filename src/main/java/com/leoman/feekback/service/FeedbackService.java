@@ -9,5 +9,5 @@ import org.springframework.data.domain.Page;
  */
 public interface FeedbackService extends GenericManager<FeedBack>{
 
-    public Page<FeedBack> findPage(String content,int pagenum,int pagesize);
+    public Page<FeedBack> findPage(String content,String title,int pagenum,int pagesize);
 }

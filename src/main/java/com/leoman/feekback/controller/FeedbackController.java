@@ -37,7 +37,7 @@ public class FeedbackController extends GenericEntityController<FeedBack,FeedBac
 
     @RequestMapping(value = "/index")
     public String index() {
-        return "info/list";
+        return "feedback/list";
     }
 
     @RequestMapping(value = "/list")
@@ -59,14 +59,14 @@ public class FeedbackController extends GenericEntityController<FeedBack,FeedBac
             FeedBack feedBack = service.queryByPK(id);
             model.addAttribute("info", feedBack);
         }
-        return "info/add";
+        return "feedback/add";
     }
 
     @RequestMapping(value = "/detail")
     public String detail(Long id, Model model) {
         FeedBack feedBack = service.queryByPK(id);
         model.addAttribute("info", feedBack);
-        return "info/detail";
+        return "feedback/detail";
     }
 
     @RequestMapping(value = "/save")

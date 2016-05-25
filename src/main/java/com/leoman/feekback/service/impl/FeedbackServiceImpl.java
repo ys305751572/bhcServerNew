@@ -29,13 +29,16 @@ public class FeedbackServiceImpl extends GenericManagerImpl<FeedBack, FeedbackDa
     private FeedbackDao dao;
 
     @Override
-    public Page<FeedBack> findPage(final String content, int pagenum, int pagesize) {
+    public Page<FeedBack> findPage(final String content,final String title, int pagenum, int pagesize) {
         Specification<FeedBack> spec = new Specification<FeedBack>() {
             @Override
             public Predicate toPredicate(Root<FeedBack> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> list = new ArrayList<Predicate>();
                 if (StringUtils.isNotBlank(content)) {
                     list.add(criteriaBuilder.like(root.get("content").as(String.class), content));
+                }
+                if(StringUtils.isNotBlank(title)) {
+                    list.add(criteriaBuilder.like(root.get("title").as(String.class),title));
                 }
                 return criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
             }
