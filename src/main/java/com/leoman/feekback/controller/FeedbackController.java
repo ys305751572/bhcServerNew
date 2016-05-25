@@ -42,11 +42,11 @@ public class FeedbackController extends GenericEntityController<FeedBack,FeedBac
 
     @RequestMapping(value = "/list")
     @ResponseBody
-    public Map<String, Object> list(String content, Integer draw, Integer start, Integer length) {
+    public Map<String, Object> list(String content,String title, Integer draw, Integer start, Integer length) {
         Page<FeedBack> page = null;
         try {
             int pagenum = getPageNum(start, length);
-            page = service.findPage(content, pagenum, length);
+            page = service.findPage(content,title, pagenum, length);
         } catch (Exception e) {
             e.printStackTrace();
         }
