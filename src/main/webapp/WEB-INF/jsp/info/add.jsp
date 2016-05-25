@@ -1,296 +1,137 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: wangbin
-  Date: 2015/3/3
-  Time: 9:33
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../inc/taglibs.jsp" %>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <%@ include file="../inc/meta.jsp" %>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>资讯添加</title>
-    <%@ include file="../inc/css.jsp" %>
-    <link href="static/js/plugins/bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
-    <script src="static/js/plugins/bootstrap-fileinput/js/fileinput.js" type="text/javascript"></script>
-    <script src="static/js/plugins/bootstrap-fileinput/js/fileinput_locale_zh.js" type="text/javascript"></script>
-    <link href="static/js/plugins/dropper/jquery.fs.dropper.css" rel="stylesheet">
-    <script src="static/js/plugins/dropper/jquery.fs.dropper.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta charset="UTF-8">
+    <meta name="description" content="Violate Responsive Admin Template">
+    <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap">
+    <title>Super Admin Responsive Template</title>
+    <!-- CSS -->
+    <%@ include file="../inc/new/css.jsp" %>
 </head>
-<style>
-    .kv-file-upload{display: none;}
-    .fileinput-upload-button {display: none;}
-</style>
-<body>
-
-<div id="posts" class="wrapper">
-
-    <%@ include file="../inc/nav.jsp" %>
-
-    <div id="page-wrapper">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">添加资讯</h1>
-            </div>
-            <!-- /.col-lg-12 -->
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <form id="productForm" method="post" enctype="multipart/form-data" action="admin/info/save" class="form-horizontal" role="form">
-                            <input type="hidden" id="id" name="id" value = ${info.id}>
-                            <div class="form-group">
-                                <label  class="col-sm-2 control-label">名称:</label>
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="title" name="title" maxlength="20"
-                                           data-rule="required" value="${info.title}" placeholder="请输入资讯名称">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label  class="col-sm-2 control-label">简介:</label>
-                                <div class="col-sm-3">
-                                    <textarea cols="40" data-rule="required" rows="8" class="form-control" name="introduction" id="introduction" maxlength="100" placeholder="请输入资讯简介">${info.introduction}</textarea>
-                                </div>
-                            </div>
-                            <div class="form-group img_tooltip" >
-                                <label for="imageId" class="col-sm-2 control-label">封面:</label>
-
-                                <div class="col-sm-3">
-                                    <input type="hidden" id="imageId" name="imageId" value="${info.image.id}">
-
-                                    <div class="image_show"  <c:if test="${info.image.path eq null}"> style="display: none"  </c:if>>
-                                        <img src="${info.image.path}" class='img-responsive' >
-                                    </div>
-                                    <div class="image_handle"  <c:if test="${info.image.path ne null}">  style="display: none"  </c:if>data-toggle="tooltip" data-placement="top" title="" data-original-title="建议上传宽480px高320px的图片">
-                                        <div class="dropped"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-5">
-                                    <a href="javascript:void(0)" id="removeImg" class="btn btn-info" role="button" >删除图片</a>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">详情:</label>
-                                <div class="col-sm-6">
-                                    <script id="container" name="content" type="text/plain">${info.content}</script>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="button" id="submitProduct" class="btn btn-primary">提交</button>
-                                </div>
-                            </div>
-                        </form>
-
+<body id="skin-cloth">
+<%@ include file="../inc/new/header.jsp" %>
+<div class="clearfix"></div>
+<section id="main" class="p-relative" role="main">
+    <%@ include file="../inc/new/menu.jsp" %>
+    <section id="content" class="container">
+        <!-- Breadcrumb -->
+        <ol class="breadcrumb hidden-xs">
+            <li><a href="javascript:history.go(-1);" title="返回"><span class="icon">&#61771;</span></a></li>
+        </ol>
+        <h1 class="page-title">新手指导信息</h1>
+        <form id="fromId" name="formName" method="post" enctype="multipart/form-data" class="box tile animated active form-validation-1">
+            <div class="block-area">
+                <input type="hidden" id="id" name="id" value="${info.id}">
+                <div class="row">
+                    <div class="col-md-6 m-b-15">
+                        <label>标题</label>
+                        <input type="text" id="title" name="title" value="${info.title}" class="input-sm form-control validate[required]" placeholder="...">
                     </div>
-                    <!-- /.panel-body -->
-
+                    <hr class="whiter m-t-20"/>
+                    <div class="col-md-6 m-b-15">
+                        <label>内容</label>
+                        <textarea id="content2" name="content" class="form-control auto-size m-b-10" placeholder="...">${info.content}</textarea>
+                    </div>
+                    <hr class="whiter m-t-20"/>
+                    <div class="col-md-12 m-b-15">
+                        <label>图片</label>
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <div class="fileupload-preview thumbnail form-control">
+                                <c:if test="${info.path ne null}">
+                                    <img src="${info.path}">
+                                    <input type="hidden" id="path" name="path" value="${info.path}">
+                                </c:if>
+                            </div>
+                            <div>
+                                <span class="btn btn-file btn-alt btn-sm">
+                                    <span class="fileupload-new">选择图片</span>
+                                    <span class="fileupload-exists">更改</span>
+                                    <input id="imageFile" name="imageFile" type="file"/>
+                                </span>
+                                <a href="#" class="btn fileupload-exists btn-sm" data-dismiss="fileupload">移除</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="whiter m-t-20"/>
                 </div>
-                <!-- /.panel -->
+                <div class="form-group">
+                    <div class="col-md-offset-5">
+                        <button type="button" onclick="$user.fn.save();" class="btn btn-info btn-sm m-t-10">提交</button>
+                        <button type="button" class="btn btn-info btn-sm m-t-10" onclick="history.go(-1);">返回</button>
+                    </div>
+                </div>
             </div>
-        </div>
+        </form>
+    </section>
+    <br/><br/>
+</section>
+<!-- JS -->
+<%@ include file="../inc/new/foot.jsp" %>
 
-    </div>
-    <!-- /#page-wrapper -->
-
-</div>
-<!-- /#wrapper -->
-
-<%@ include file="../inc/footer.jsp" %>
-<!-- 配置文件 -->
-<script type="text/javascript" src="ueditor1_4_3/ueditor.config.js"></script>
-<!-- 编辑器源码文件 -->
-<script type="text/javascript" src="ueditor1_4_3/ueditor.all.js"></script>
 <script>
-    $('.form_datetime').datetimepicker({
-        language:  'zh-CN',
-        weekStart: 1,
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        forceParse: 0,
-        showMeridian: 1,
-        format:'yyyy-mm-dd hh:ii'
-    });
-</script>
-</body>
-
-<script type="text/javascript">
-    var product = {
+    $user = {
         v: {
-            id: "product",
             list: [],
+            chart : null,
             dTable: null
         },
         fn: {
             init: function () {
+                $user.fn.initImage();
+            },
+            initImage : function() {
 
-                if($("#id").val()!=""){
-                    $(".page-header").text("编辑资讯")
-                }
-                $("#submitProduct").click(function(){
-                    product.fn.save();
-                })
-                product.fn.imageInit();
-                product.fn.dropperInit();
-                $("#removeImg").click(function(){
-                    product.fn.clearImageView();
-                })
-                UE.getEditor('container');
-
+//                var $exists = $("#imageFile").find(".fileupload-exists");
+//                var $new = $("#imageFile").find(".fileupload-new");
+//
+//                $exists.each(function() {
+//                    $(this).addClass("fileupload-new").removeClass("fileupload-exists");
+//                });
+//                $new.each(function() {
+//                    $(this).addClass("fileupload-exists").removeClass("fileupload-new");
+//                });
             },
-            clearImageView: function(){
-                $("#imageId").val("");
-                $(".image_show").html("");
-                $(".image_handle").show();
-                $(".dropper-input").val("");
-            },
-            viewImage: function (image) {
-                if (image) {
-                    $(".dropper-input").val("");
-                    $(".image_handle").hide();
-                    $(".image_show").show();
-                    $("#imageId").val(image.id);
-                    $(".image_show").html("<img src='" + image.path + "' class='img-responsive' >");
-                }
-            },
-            dropperInit: function () {
-                $(".dropped").dropper({
-                    postKey: "file",
-                    action: "common/file/save/image",
-                    postData: {thumbSizes: '480x800'},
-                    label: "把图片拖拽到此处 ",
-                    maxSize: 204857
-                }).on("fileComplete.dropper", product.fn.onFileComplete)
-                        .on("fileError.dropper", product.fn.onFileError);
-            },
-            onFileComplete: function (e, file, response) {
-                if (response.status == '0') {
-                    product.fn.viewImage(response.data);
-                } else {
-                    $bluemobi.notify(response.msg, "error");
-                }
-            },
-            onFileError: function (e, file, error) {
-                $bluemobi.notify(error, "error");
-            },
-            initialPreview:function(){
-                var imgPreViews = [];
-                <c:forEach var="_image" items="${product.images}" >
-                var img =  "<img src='${_image.path}' style ='height:160px'>"
-                imgPreViews.push(img);
-                </c:forEach>
-                return imgPreViews;
-            },
-            initialPreviewConfig:function(){
-                var imgPreViewsConf = [];
-                <c:forEach var="_image" items="${product.images}" >
-                var conf = {
-                    caption: "",
-                    width: "120px",
-                    url: "product/delPic?productId=${product.id}&imageId=${_image.id}",
-                    key: ${_image.id}
-                }
-                imgPreViewsConf.push(conf);
-                </c:forEach>
-                return imgPreViewsConf;
-
-            },
-            imageInit:function(){
-                var $input = $("#the_file");
-                $input.fileinput({
-                    uploadUrl: "common/file/save/images", // server upload action
-                    uploadAsync: false,
-                    showUpload: true, // hide upload button
-                    showRemove: false, // hide remove button
-                    overwriteInitial: false,
-                    minFileCount: 1,
-                    maxFileCount: 3,
-                    initialPreview: product.fn.initialPreview(),
-                    initialPreviewConfig: product.fn.initialPreviewConfig(),
-                    msgFilesTooMany:"只能上传三张图片",
-                    allowedFileTypes:['image'],
-                    uploadExtraData: function() {  // callback example
-                        var out = {}, key, i = 0;
-                        $('.kv-input:visible').each(function() {
-                            $el = $(this);
-                            key = $el.hasClass('kv-new') ? 'new_' + i : 'init_' + i;
-                            out[key] = $el.val();
-                            i++;
-                        });
-                        return out;
-                    }
-                }).on('filebatchuploadsuccess', function(event, data, previewId, index) {
-                    var response = data.response;
-                    if(response.status==0){
-                        var imageIds = "";
-                        $.each(response.data,function(index,data){
-                            imageIds+=data.id+",";
-                        })
-                        if(imageIds.length>0){
-                            imageIds =  imageIds.substr(0,imageIds.length-1);
+            save : function () {
+                var code =  $('.wysiwye-editor').code();
+                $("#fromId").ajaxSubmit({
+                    url : "${contextPath}/admin/info/save",
+                    type : "POST",
+                    data : {
+                        "detail" : code
+                    },
+                    success : function(result) {
+                        if(!result.status) {
+                            $common.fn.notify(result.msg);
+                            return;
                         }
-                        $("#imageIds").val(imageIds);
-
-                        $("#productForm").ajaxSubmit({
-                            dataType: "json",
-                            success: function (result) {
-                                $("#imageIds").val("");
-                                product.fn.responseComplete(result);
-                            }
-                        })
+                        window.location.href = "${contextPath}/admin/info/index";
                     }
                 });
-            },
-            save: function () {
-
-                console.log($("#datetest").val());
-                if(!$('#productForm').isValid()) {
-                    return false;
-                };
-
-                if($("#imageId")==""||$("#imageId")==null){
-                    $bluemobi.notify("缩略图不能为空!", "error");
-                    return false;
-                }
-
-                if($(".glyphicon-hand-down").length==0){ // 没有图片的情况
-                    $("#productForm").ajaxSubmit({
-                        dataType: "json",
-                        success: function (result) {
-                            product.fn.responseComplete(result,true);
-                        }
-                    });
-                }else{ // 有图片的情况
-                    $(".fileinput-upload-button").trigger("click");
-                }
-
-            },
-            responseComplete: function (result) {
-                if (result.status == "0") {
-                    $bluemobi.notify(result.msg, "success");
-//                    $("#id").val(result.data.id)
-                    window.location.href = " ${contextPath}/admin/info/index";
-                } else {
-                    $bluemobi.notify(result.msg, "error");
-                }
             }
         }
     }
-
-    $(document).ready(function () {
-        product.fn.init();
-
-
+    $(function () {
+        $user.fn.init();
+    })
+</script>
+<script>
+    $('.form_datetime').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: "2",
+        forceParse: 0,
+        showMeridian: 1,
+        format: 'yyyy-mm-dd'
     });
 </script>
-
-
+</body>
 </html>
+

@@ -58,11 +58,19 @@
             </ul>
         </li>
         <li class="dropdown">
-            <a class="sa-side-folder" href="">
-                <span class="menu-item">设备管理</span>
+            <a class="sa-side-ui" href="">
+                <span class="menu-item">资讯管理</span>
             </a>
             <ul class="list-unstyled menu-item">
-                <li><a href="${contextPath}/admin/devices/deviceslist">设备列表</a></li>
+                <li><a href="${contextPath}/admin/info/index">资讯列表</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="sa-side-folder" href="">
+                <span class="menu-item">新手指导管理</span>
+            </a>
+            <ul class="list-unstyled menu-item">
+                <li><a href="${contextPath}/admin/novice/index">新手指导列表</a></li>
             </ul>
         </li>
         <li class="dropdown">
@@ -76,10 +84,10 @@
         </li>
         <li class="dropdown">
             <a class="sa-side-typography" href="">
-                <span class="menu-item">题库管理</span>
+                <span class="menu-item">常见问题管理</span>
             </a>
             <ul class="list-unstyled menu-item">
-                <li><a href="${contextPath}/admin/question/qc/index">题库列表</a></li>
+                <li><a href="${contextPath}/admin/cq/index">常见问题列表</a></li>
             </ul>
         </li>
         <li class="dropdown">

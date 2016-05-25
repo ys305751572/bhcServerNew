@@ -1,303 +1,193 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: wangbin
-  Date: 2015/8/17
-  Time: 15:37
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="../inc/taglibs.jsp" %>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <%@ include file="../inc/meta.jsp" %>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>资讯列表</title>
-    <%@ include file="../inc/css.jsp" %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta charset="UTF-8">
+    <meta name="description" content="Violate Responsive Admin Template">
+    <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap">
+    <title>Super Admin Responsive Template</title>
+    <!-- CSS -->
+    <%@ include file="../inc/new/css.jsp" %>
 </head>
-
-<body>
-<div id="posts" class="wrapper">
-
-    <%@ include file="../inc/nav.jsp" %>
-
-    <div id="page-wrapper">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">资讯列表</h1>
-            </div>
-            <!-- /.col-lg-12 -->
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <a href="admin/info/add" class="btn btn-outline btn-primary btn-lg" role="button">添加资讯</a>
-                        <button href="#" id="publish" class="btn btn-outline btn-primary btn-lg" role="button">一键发布</button>
-                        <button href="#" id="unpublish" class="btn btn-outline btn-primary btn-lg" role="button">一键下架</button>
-                        <button href="#" id="batchDel" class="btn btn-outline btn-primary btn-lg" role="button">一键删除</button>
-                    </div>
-                    <form class="navbar-form navbar-right" role="search">
-                        <div class="form-group">
-                            <label>资讯名称：</label>
-                            <input type="text" class="form-control" value="" id="title" name="title" maxlength="20"
-                                   placeholder="请输入资讯名称">
-                        </div>
-                        <div class="form-group">
-                            <label>资讯状态：</label>
-                            <select class="form-control input-sm" id="type">
-                                <option value="" selected="selected">全部</option>
-                                <option value="0">未发布</option>
-                                <option value="1">已发布</option>
-                            </select>
-                        </div>
-                        <button type="button" id="c_search" class="btn btn-info btn-sm">查询</button>
-                    </form>
-
-
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-
-                        <div class="table-responsive">
-
-                            <table class="table table-striped table-bordered table-hover" id="dataTables">
-                                <colgroup>
-                                    <col class="gradeA even"/>
-                                    <col class="gradeA odd"/>
-                                    <col class="gradeA even"/>
-                                    <col class="gradeA odd"/>
-                                    <col class="gradeA even"/>
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th><input type="checkbox" onclick="$bluemobi.checkAll(this)" class="checkall"/>
-                                    </th>
-                                    <th>资讯名称</th>
-                                    <th>添加时间</th>
-                                    <th>状态</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                    <!-- /.panel-body -->
-
+<body id="skin-cloth">
+<%@ include file="../inc/new/header.jsp" %>
+<div class="clearfix"></div>
+<section id="main" class="p-relative" role="main">
+    <%@ include file="../inc/new/menu.jsp" %>
+    <section id="content" class="container">
+        <!-- 查询条件 -->
+        <div class="block-area" id="search">
+            <div class="row">
+                <div class="col-md-2 form-group">
+                    <label>标题</label>
+                    <input type="text" class="input-sm form-control" id="title" name="title" placeholder="...">
                 </div>
-                <!-- /.panel -->
+                <div class="col-md-2 form-group">
+                    <label>内容</label>
+                    <input type="text" class="input-sm form-control" id="content1" name="content" placeholder="...">
+                </div>
             </div>
         </div>
+        <div class="block-area" id="alternative-buttons">
+            <button id="c_search" class="btn btn-alt m-r-5">查询</button>
+        </div>
+        <hr class="whiter m-t-20"/>
+        <div class="block-area">
+            <div class="row">
+                <ul class="list-inline list-mass-actions">
+                    <li>
+                        <a data-toggle="modal" href="${contextPath}/admin/info/add" title="新增" class="tooltips">
+                            <i class="sa-list-add"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="${contextPath}/admin/info/index" title="刷新" class="tooltips">
+                            <i class="sa-list-refresh"></i>
+                        </a>
+                    </li>
+                    <li class="show-on" style="display: none;">
+                        <a onclick="$user.fn.delete();" title="删除" class="tooltips">
+                            <i class="sa-list-delete"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <hr class="whiter m-t-20"/>
+        <!-- form表格 -->
+        <div class="block-area" id="tableHover">
+            <table class="table table-bordered table-hover tile" id="dataTables" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" class="pull-left list-parent-check"/></th>
+                    <th>标题</th>
+                    <th>时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </section>
+    <br/><br/>
+</section>
+<!-- JS -->
+<%@ include file="../inc/new/foot.jsp" %>
 
-
-    </div>
-    <!-- /#page-wrapper -->
-
-
-</div>
-<!-- /#wrapper -->
-
-<%@ include file="../inc/footer.jsp" %>
-</body>
-<script type="text/javascript">
-    Date.prototype.format = function (format) {
-        var o = {
-            "M+": this.getMonth() + 1, // month
-            "d+": this.getDate(), // day
-            "h+": this.getHours(), // hour
-            "m+": this.getMinutes(), // minute
-            "s+": this.getSeconds(), // second
-            "q+": Math.floor((this.getMonth() + 3) / 3), // quarter
-            "S": this.getMilliseconds()
-        };
-        if (/(y+)/.test(format)) {
-            format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-        }
-        ;
-        for (var k in o) {
-            if (new RegExp("(" + k + ")").test(format)) {
-                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
-            }
-        }
-        ;
-        return format;
-    };
-</script>
-<script type="text/javascript">
-
-    var kuserList = {
+<script>
+    $user = {
         v: {
-            id: "kuserList",
             list: [],
             dTable: null
         },
         fn: {
             init: function () {
-                kuserList.fn.dataTableInit();
-                // 查询
+                $user.fn.dataTableInit();
                 $("#c_search").click(function () {
-                    kuserList.v.dTable.ajax.reload();
-                })
-
-                $("#delete").click(function () {
-                    var checkBox = $("#dataTables tbody tr").find('input[type=checkbox]:checked');
-                    var ids = checkBox.getInputId();
-                    kuserList.fn.deleteRow(checkBox, ids)
-                })
-
-                $("#publish").click(function() {
-                    var checkBox = $("#dataTables tbody tr").find('input[type=checkbox]:checked');
-                    var ids = checkBox.getInputId();
-                    kuserList.fn.publish(ids);
-                })
-
-                $("#unpublish").click(function() {
-                    var checkBox = $("#dataTables tbody tr").find('input[type=checkbox]:checked');
-                    var ids = checkBox.getInputId();
-                    kuserList.fn.unpublish(ids);
-                })
-
-                $("#batchDel").click(function() {
-                    var checkBox = $("#dataTables tbody tr").find('input[type=checkbox]:checked');
-                    var ids = checkBox.getInputId();
-                    kuserList.fn.batchDel(ids);
-                })
+                    $user.v.dTable.ajax.reload();
+                });
             },
             dataTableInit: function () {
-                kuserList.v.dTable = $bluemobi.dataTable($('#dataTables'), {
+                $user.v.dTable = $leoman.dataTable($('#dataTables'), {
                     "processing": true,
                     "serverSide": true,
                     "searching": false,
-                    "ordering": true,
                     "ajax": {
-                        "url": "admin/info/list",
+                        "url": "${contextPath}/admin/info/list",
                         "type": "POST"
                     },
                     "columns": [
-                        {"data": "id",orderable : false},
-                        {"data": "title",orderable : false},
                         {
-                            "data": "createDate",orderable : true , render: function (data) {
-                            return new Date(data).format("yyyy-MM-dd hh:mm:ss")
-                        }
-                        },
-                        {
-                            "data": "isList", orderable : false,render: function (data) {
-                                if (data == 0) {
-                                    return "未发布";
-                                }
-                                else if (data == 1) {
-                                    return "已发布";
-                                }else if (data == 2) {
-                                    return "已下架";
-                                }
-
+                            "data": "id",
+                            "render": function (data) {
+//                                var checkbox = "<div class=\"icheckbox_minimal\" aria-checked=\"false\" aria-disabled=\"false\" style=\"position: relative;\"><input type=\"checkbox\" value="+ data +" class='pull-left list-check' style=\"position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);\"></div>";
+                                var checkbox = "<input type='checkbox' class='pull-left list-check' value=" + data + ">";
+                                return checkbox;
                             }
                         },
-                        {"data": "",orderable : false}
-                    ],
-                    "columnDefs": [
+                        {"data": "title"},
                         {
-                            "data": null,
-                            "defaultContent":
-                            "<a  title='编辑'  class='btn btn-primary btn-circle add'>" +
-                            "<i class='fa fa-edit'></i>" +
-                            "</a>"
-                            +
-                            "&nbsp;&nbsp;"
-                            +
-                            "<a title='删除' class='btn btn-primary btn-circle delete'>" +
-                            "<i class='fa fa-times'></i>" +
-                            "</a>",
-                            "targets": -1
+                            "data": "createDate",
+                            "render" : function(data) {
+                                return new Date(data).format("yyyy-MM-dd hh:mm:ss");
+                            }
+                        },
+                        {
+                            "data": "id",
+                            "render": function (data) {
+                                var detail = "<button title='查看' class='btn btn-primary btn-circle add' onclick=\"$user.fn.detail(\'" + data + "\')\">" +
+                                        "<i class='fa fa-eye'></i></button>";
+
+                                var edit = "<button title='编辑' class='btn btn-primary btn-circle edit' onclick=\"$user.fn.edit(\'" + data + "\')\">" +
+                                        "<i class='fa fa-pencil-square-o'></i></button>";
+                                return detail + "&nbsp;&nbsp;" + edit;
+                            }
                         }
                     ],
-                    "createdRow": function (row, data, index) {
-                        kuserList.v.list.push(data);
-                        $('td', row).eq(0).html("<input type='checkbox' value=" + data.id + ">");
-//                        if(data.status == 0){
-//                            $(row).addClass("success")
-//
-//                            $('td', row).last().find(".settingAdded").addClass("btn-default");
-//                            $('td', row).last().find(".settingAdded").attr("title", "禁用")
-//                        }else{
-//                            $('td', row).last().find(".settingAdded").addClass("btn-info");
-//                            $('td', row).last().find(".settingAdded").attr("title", "启用");
-//                        }
-                    },
-                    rowCallback: function (row, data) {
-                        var items = kuserList.v.list;
-                        $('td', row).last().find(".add").attr("href", 'admin/info/add?id=' + data.id);
-                        $('td', row).last().find(".delete").attr("href", 'admin/info/delete?id=' + data.id);
-                    },
                     "fnServerParams": function (aoData) {
                         aoData.title = $("#title").val();
-                        aoData.isList = $("#isList").val();
-                    },
-                    "fnDrawCallback": function (row) {
-                        $bluemobi.uiform();
                     }
                 });
             },
-//            settingAdded: function (data) {
-//                $bluemobi.optNotify(function () {
-//                    $bluemobi.ajax("admin/kuser/modifyStatus", {
-//                        id: JSON.stringify(data.id),
-//                        status: JSON.stringify(data.status)
-//                    }, function (result) {
-//                        kuserList.fn.responseComplete(result);
-//                    })
-//                }, "你确定要禁用/启用吗？", "确定");
-//            },
-            publish : function(ids) {
-                if (ids.length > 0) {
-                    $bluemobi.optNotify(function () {
-                        $.post("admin/info/publish",{ids:JSON.stringify(ids)},function(result) {
-                            kuserList.fn.responseComplete(result);
-                        })
-                    },"你确定要发布吗？","确定");
-                }
+            edit: function (id) {
+                window.location.href = "${contextPath}/admin/info/add?id=" + id;
             },
-
-            unpublish : function(ids) {
-                if (ids.length > 0) {
-                    $bluemobi.optNotify(function () {
-                        $.post("admin/info/unpublish",{ids:JSON.stringify(ids)},function(result) {
-                            kuserList.fn.responseComplete(result);
-                        })
-                    },"你确定要下架吗？","确定");
-                }
+            detail: function (id) {
+                window.location.href = "${contextPath}/admin/info/detail?id=" + id;
             },
-
-            batchDel : function(ids) {
-                if (ids.length > 0) {
-                    $bluemobi.optNotify(function () {
-                        $.post("admin/info/batchDel",{ids:JSON.stringify(ids)},function(result) {
-                            kuserList.fn.responseComplete(result);
-                        })
-                    },"你确定要删除吗？","确定");
-                }
+            delete: function () {
+                var checkBox = $("#dataTables tbody tr").find('input[type=checkbox]:checked');
+                var ids = checkBox.getInputId();
+                $.ajax({
+                    url : "${contextPath}/admin/info/deleteBatch",
+                    data : {
+                        "ids" : JSON.stringify(ids)
+                    },
+                    type : "post",
+                    dataType : "json",
+                    success : function(result) {
+                        if(!result.status) {
+                            $common.fn.notify(result.msg);
+                            return;
+                        }
+                        $user.v.dTable.ajax.reload();
+                    }
+                });
             },
             responseComplete: function (result, action) {
                 if (result.status == "0") {
                     if (action) {
-                        kuserList.v.dTable.ajax.reload(null, false);
+                        $user.v.dTable.ajax.reload(null, false);
                     } else {
-                        kuserList.v.dTable.ajax.reload();
+                        $user.v.dTable.ajax.reload();
                     }
-                    $bluemobi.notify(result.msg, "success");
+                    $leoman.notify(result.msg, "success");
                 } else {
-                    $bluemobi.notify(result.msg, "error");
+                    $leoman.notify(result.msg, "error");
                 }
             }
         }
     }
-    $(document).ready(function () {
-        kuserList.fn.init();
+    $(function () {
+        $user.fn.init();
+    })
+</script>
+<script>
+    $('.form_datetime').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: "2",
+        forceParse: 0,
+        showMeridian: 1,
+        format: 'yyyy-mm-dd'
     });
 </script>
+</body>
 </html>
+
