@@ -43,9 +43,11 @@
                             <label>头像</label>
                             <p></p>
                             <p></p>
-                            <a href="${novice.path}" data-rel="gallery"  class="pirobox_gall img-popup" title="Lovely evening in Noreway">
-                                <img src="${novice.path}" alt="">
-                            </a>
+                            <c:forEach items="${feedback.list}" var="feedbackImage">
+                                <a href="${feedbackImage.path}" data-rel="gallery"  class="pirobox_gall img-popup" title="Lovely evening in Noreway">
+                                    <img src="${feedbackImage.path}" alt="">
+                                </a>
+                           </c:forEach>
                         </div>
                     </div>
                     <hr class="whiter m-t-20"/>

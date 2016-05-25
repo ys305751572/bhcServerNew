@@ -54,7 +54,7 @@
                 <thead>
                 <tr>
                     <th><input type="checkbox" class="pull-left list-parent-check"/></th>
-                    <th>内容</th>
+                    <th>标题</th>
                     <th>用户</th>
                     <th>时间</th>
                 </tr>
@@ -86,7 +86,7 @@
                     "serverSide": true,
                     "searching": false,
                     "ajax": {
-                        "url": "${contextPath}/admin/novice/list",
+                        "url": "${contextPath}/admin/feedback/list",
                         "type": "POST"
                     },
                     "columns": [
@@ -98,8 +98,8 @@
                                 return checkbox;
                             }
                         },
-                        {"data": "content"},
-                        {"data": "index2"},
+                        {"data": "title"},
+                        {"data": "aolUser.name"},
                         {
                             "data": "createDate",
                             "render" : function(data) {
@@ -111,29 +111,23 @@
                             "render": function (data) {
                                 var detail = "<button title='查看' class='btn btn-primary btn-circle add' onclick=\"$user.fn.detail(\'" + data + "\')\">" +
                                         "<i class='fa fa-eye'></i></button>";
-
-                                var edit = "<button title='编辑' class='btn btn-primary btn-circle edit' onclick=\"$user.fn.edit(\'" + data + "\')\">" +
-                                        "<i class='fa fa-pencil-square-o'></i></button>";
-                                return detail + "&nbsp;&nbsp;" + edit;
+                                return detail ;
                             }
                         }
                     ],
                     "fnServerParams": function (aoData) {
-                        aoData.content = $("#content1").val();
+                        aoData.title = $("#title").val();
                     }
                 });
             },
-            edit: function (id) {
-                window.location.href = "${contextPath}/admin/novice/add?id=" + id;
-            },
             detail: function (id) {
-                window.location.href = "${contextPath}/admin/novice/detail?id=" + id;
+                window.location.href = "${contextPath}/admin/feedback/detail?id=" + id;
             },
             delete: function () {
                 var checkBox = $("#dataTables tbody tr").find('input[type=checkbox]:checked');
                 var ids = checkBox.getInputId();
                 $.ajax({
-                    url : "${contextPath}/admin/novice/deleteBatch",
+                    url : "${contextPath}/admin/feedback/deleteBatch",
                     data : {
                         "ids" : JSON.stringify(ids)
                     },

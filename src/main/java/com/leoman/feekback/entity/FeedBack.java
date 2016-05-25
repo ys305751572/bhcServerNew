@@ -4,6 +4,7 @@ import com.leoman.common.entity.BaseEntity;
 import com.leoman.user.entity.AolUser;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/5/25.
@@ -21,6 +22,18 @@ public class FeedBack extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "CREATE_USER")
     private AolUser aolUser;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "feekback_id")
+    private List<FeedbackImage> list;
+
+    public List<FeedbackImage> getList() {
+        return list;
+    }
+
+    public void setList(List<FeedbackImage> list) {
+        this.list = list;
+    }
 
     public String getTitle() {
         return title;
