@@ -47,7 +47,7 @@
                         <label>医师</label>
                         <select class="select" id="doctorId" name="doctorId">
                             <c:forEach items="${list}" var="doctor">
-                                <option <c:if test="${pg.doctor.id == doctor.id}">selected="selected" </c:if> value="${doctor.id}">${doctor.name}</option>
+                                <option <c:if test="${pg.doctor.id == doctor.id}">selected="selected" </c:if> value="${doctor.id}">${doctor.name}-${doctor.depart}-${doctor.domain}-${doctor.hospital}</option>
                             </c:forEach>
                         </select>
                     </div>
