@@ -55,7 +55,9 @@ public class NoviceController extends GenericEntityController<Novice, Novice, No
 
     @RequestMapping(value = "/add")
     public String add(Long id, Model model) {
-        model.addAttribute("novice", service.queryByPK(id));
+        if(id != null) {
+            model.addAttribute("novice", service.queryByPK(id));
+        }
         return "novice/add";
     }
 

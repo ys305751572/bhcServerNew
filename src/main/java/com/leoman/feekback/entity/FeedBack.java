@@ -2,6 +2,7 @@ package com.leoman.feekback.entity;
 
 import com.leoman.common.entity.BaseEntity;
 import com.leoman.user.entity.AolUser;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +12,12 @@ import java.util.List;
  */
 @Entity
 @Table(name = "feedback")
-public class FeedBack extends BaseEntity{
+public class FeedBack{
+
+    @Id
+    @GenericGenerator(name = "idGenerator", strategy = "uuid")
+    @GeneratedValue(generator = "idGenerator")
+    private String id = null;
 
     @Column(name = "TITLE")
     private String title;
@@ -26,6 +32,36 @@ public class FeedBack extends BaseEntity{
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "feekback_id")
     private List<FeedbackImage> list;
+
+    @Column(name = "create_date")
+    private Long createDate;
+
+    @Column(name = "modify_date")
+    private Long modifyDate;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Long getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Long createDate) {
+        this.createDate = createDate;
+    }
+
+    public Long getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(Long modifyDate) {
+        this.modifyDate = modifyDate;
+    }
 
     public List<FeedbackImage> getList() {
         return list;

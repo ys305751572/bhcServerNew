@@ -22,12 +22,12 @@
         <div class="block-area" id="search">
             <div class="row">
                 <div class="col-md-2 form-group">
-                    <label>标题</label>
-                    <input type="text" class="input-sm form-control" id="title" name="title" placeholder="...">
+                    <label>用户名称</label>
+                    <input type="text" class="input-sm form-control" id="aolname" name="aolname" placeholder="...">
                 </div>
                 <div class="col-md-2 form-group">
-                    <label>内容</label>
-                    <input type="text" class="input-sm form-control" id="content1" name="content" placeholder="...">
+                    <label>医生名称</label>
+                    <input type="text" class="input-sm form-control" id="doctorname" name="doctorname" placeholder="...">
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
             <div class="row">
                 <ul class="list-inline list-mass-actions">
                     <li>
-                        <a href="${contextPath}/admin/feedback/index" title="刷新" class="tooltips">
+                        <a href="${contextPath}/admin/comp/index" title="刷新" class="tooltips">
                             <i class="sa-list-refresh"></i>
                         </a>
                     </li>
@@ -58,11 +58,10 @@
                 <thead>
                 <tr>
                     <th><input type="checkbox" class="pull-left list-parent-check"/></th>
-                    <th>标题</th>
+                    <th>用户名称</th>
+                    <th>医生名称</th>
                     <th>内容</th>
-                    <th>用户</th>
                     <th>时间</th>
-                    <th>操作</th>
                 </tr>
                 </thead>
             </table>
@@ -81,7 +80,6 @@
         },
         fn: {
             init: function () {
-                console.log("=======init()=======");
                 $user.fn.dataTableInit();
                 $("#c_search").click(function () {
                     $user.v.dTable.ajax.reload();
@@ -93,60 +91,39 @@
                     "serverSide": true,
                     "searching": false,
                     "ajax": {
-                        "url": "${contextPath}/admin/feedback/list",
+                        "url": "${contextPath}/admin/comp/list",
                         "type": "POST"
                     },
                     "columns": [
                         {
                             "data": "id",
                             "render": function (data) {
+//                                var checkbox = "<div class=\"icheckbox_minimal\" aria-checked=\"false\" aria-disabled=\"false\" style=\"position: relative;\"><input type=\"checkbox\" value="+ data +" class='pull-left list-check' style=\"position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);\"></div>";
                                 var checkbox = "<input type='checkbox' class='pull-left list-check' value=" + data + ">";
                                 return checkbox;
                             }
                         },
-                        {"data": "title"},
-                        {
-                            "data": "content",
-                            "render" : function(data) {
-                                var content;
-                                if(data.length > 30) {
-                                    content = data.substring(0,30);
-                                    content = content + "...";
-                                    return content;
-                                }
-                                return data;
-                            }
-                        },
-                        {"data": "aolUser.name"},
+                        {"data": "user.name"},
+                        {"data": "doctor.name"},
+                        {"data": "content"},
                         {
                             "data": "createDate",
                             "render" : function(data) {
                                 return new Date(data).format("yyyy-MM-dd hh:mm:ss");
                             }
-                        },
-                        {
-                            "data": "id",
-                            "render": function (data) {
-                                var detail = "<button title='查看' class='btn btn-primary btn-circle add' onclick=\"$user.fn.detail(\'" + data + "\')\">" +
-                                        "<i class='fa fa-eye'></i></button>";
-                                return detail ;
-                            }
                         }
                     ],
                     "fnServerParams": function (aoData) {
-                        aoData.title = $("#title").val();
-                        aoData.content = $("#content1").val();
+                        aoData.question = $("#question").val();
+                        aoData.answer = $("#answer").val();
                     }
                 });
-            },
-            detail: function (id) {
-                window.location.href = "${contextPath}/admin/feedback/detail?id=" + id;
             },
             delete: function () {
                 var checkBox = $("#dataTables tbody tr").find('input[type=checkbox]:checked');
                 var ids = checkBox.getInputId();
                 $.ajax({
-                    url : "${contextPath}/admin/feedback/deleteBatch",
+                    url : "${contextPath}/admin/comp/deleteBatch",
                     data : {
                         "ids" : JSON.stringify(ids)
                     },

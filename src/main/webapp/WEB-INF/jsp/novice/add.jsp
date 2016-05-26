@@ -25,11 +25,11 @@
         <h1 class="page-title">新手指导信息</h1>
         <form id="fromId" name="formName" method="post" enctype="multipart/form-data" class="box tile animated active form-validation-1">
             <div class="block-area">
-                <input type="hidden" id="id" name="id" value="${info.id}">
+                <input type="hidden" id="id" name="id" value="${novice.id}">
                 <div class="row">
                     <div class="col-md-6 m-b-15">
-                        <label>标题</label>
-                        <input type="text" id="title" name="title" value="${info.title}" class="input-sm form-control validate[required]" placeholder="...">
+                        <label>序号</label>
+                        <input type="text" id="index2" name="index2" value="${novice.index2}" class="input-sm form-control validate[required]" placeholder="...">
                     </div>
                     <hr class="whiter m-t-20"/>
                     <div class="col-md-6 m-b-15">
@@ -41,8 +41,8 @@
                         <label>图片</label>
                         <div class="fileupload fileupload-new" data-provides="fileupload">
                             <div class="fileupload-preview thumbnail form-control">
-                                <c:if test="${info.path ne null}">
-                                    <img src="${info.path}">
+                                <c:if test="${novice.path ne null}">
+                                    <img src="${novice.path}">
                                     <input type="hidden" id="path" name="path" value="${novice.path}">
                                 </c:if>
                             </div>

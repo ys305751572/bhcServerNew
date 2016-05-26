@@ -106,5 +106,13 @@
                 <li><a href="${contextPath}/admin/feedback/index">反馈列表</a></li>
             </ul>
         </li>
+        <li class="dropdown">
+            <a class="sa-side-ui" href="">
+                <span class="menu-item">医生投诉管理</span>
+            </a>
+            <ul class="list-unstyled menu-item">
+                <li><a href="${contextPath}/admin/comp/index">医生投诉列表</a></li>
+            </ul>
+        </li>
     </ul>
 </aside>

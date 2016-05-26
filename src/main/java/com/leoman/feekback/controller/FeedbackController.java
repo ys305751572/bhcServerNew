@@ -63,9 +63,9 @@ public class FeedbackController extends GenericEntityController<FeedBack,FeedBac
     }
 
     @RequestMapping(value = "/detail")
-    public String detail(Long id, Model model) {
+    public String detail(String id, Model model) {
         FeedBack feedBack = service.queryByPK(id);
-        model.addAttribute("info", feedBack);
+        model.addAttribute("feedback", feedBack);
         return "feedback/detail";
     }
 
@@ -79,9 +79,10 @@ public class FeedbackController extends GenericEntityController<FeedBack,FeedBac
     @RequestMapping(value = "/deleteBatch", method = RequestMethod.POST)
     @ResponseBody
     public Result deleteBatch(String ids) {
-        Long[] arrayId = JsonUtil.json2Obj(ids, Long[].class);
-        for (Long id : arrayId) {
-            service.deleteByPK(service.queryByPK(id));
+        String[] arrayId = JsonUtil.json2Obj(ids, String[].class);
+        for (String id : arrayId) {
+            FeedBack fb = service.queryByPK(id);
+            service.delete(fb);
         }
         return Result.success();
     }
