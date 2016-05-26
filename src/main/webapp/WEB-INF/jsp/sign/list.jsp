@@ -84,16 +84,11 @@
                         {
                             "data": "isSign",
                             "render" : function(data,type,row,meta) {
-                                if(row.orderStatus == 0) {
-                                    return "-";
+                                if(data == 0) {
+                                    return "解约";
                                 }
-                                else {
-                                    if(data == 0) {
-                                        return "解约";
-                                    }
-                                    else if(data == 1) {
-                                        return "签约";
-                                    }
+                                else if(data == 1) {
+                                    return "签约";
                                 }
                             }
                         },
