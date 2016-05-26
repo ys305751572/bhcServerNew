@@ -131,6 +131,7 @@ public class DoctorContorller extends GenericEntityController<Doctor, Doctor, Do
 			if(StringUtils.isNotBlank(doctor.getHead())) {
 				doctor.setHead(ConfigUtil.getString("upload.url") + doctor.getHead());
 			}
+			doctor.setDetail(doctor.getDetail() !=null ? doctor.getDetail().replaceAll("&lt", "<").replaceAll("&gt",">").trim() : "");
 			model.addAttribute("doctor", doctor);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -55,64 +55,67 @@
             </a>
             <ul class="list-unstyled menu-item">
                 <li><a href="${contextPath}/admin/doctor/index">医师列表</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a class="sa-side-ui" href="">
-                <span class="menu-item">资讯管理</span>
-            </a>
-            <ul class="list-unstyled menu-item">
-                <li><a href="${contextPath}/admin/info/index">资讯列表</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a class="sa-side-folder" href="">
-                <span class="menu-item">新手指导管理</span>
-            </a>
-            <ul class="list-unstyled menu-item">
-                <li><a href="${contextPath}/admin/novice/index">新手指导列表</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a class="sa-side-page" href="">
-                <span class="menu-item">病理讲座管理</span>
-            </a>
-            <ul class="list-unstyled menu-item">
-                <li><a href="${contextPath}/admin/pg/index">病理讲座列表</a></li>
                 <li><a href="${contextPath}/admin/pg2/index">医生讲座计划</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a class="sa-side-typography" href="">
-                <span class="menu-item">常见问题管理</span>
-            </a>
-            <ul class="list-unstyled menu-item">
-                <li><a href="${contextPath}/admin/cq/index">常见问题列表</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a class="sa-side-ui" href="">
-                <span class="menu-item">签约管理</span>
-            </a>
-            <ul class="list-unstyled menu-item">
                 <li><a href="${contextPath}/admin/sign/index">签约列表</a></li>
             </ul>
         </li>
         <li class="dropdown">
-            <a class="sa-side-ui" href="">
+            <a class="sa-side-table" href="">
+                <span class="menu-item">系统管理</span>
+            </a>
+            <ul class="list-unstyled menu-item">
+                <li><a href="${contextPath}/admin/info/index">资讯列表</a></li>
+                <li><a href="${contextPath}/admin/novice/index">新手指导列表</a></li>
+                <li><a href="${contextPath}/admin/cq/index">常见问题列表</a></li>
+
+            </ul>
+        </li>
+        <%--<li class="dropdown">--%>
+            <%--<a class="sa-side-folder" href="">--%>
+                <%--<span class="menu-item">新手指导管理</span>--%>
+            <%--</a>--%>
+            <%--<ul class="list-unstyled menu-item">--%>
+
+            <%--</ul>--%>
+        <%--</li>--%>
+        <%--<li class="dropdown">--%>
+            <%--<a class="sa-side-page" href="">--%>
+                <%--<span class="menu-item">病理讲座管理</span>--%>
+            <%--</a>--%>
+            <%--<ul class="list-unstyled menu-item">--%>
+                <%--<li><a href="${contextPath}/admin/pg2/index">医生讲座计划</a></li>--%>
+            <%--</ul>--%>
+        <%--</li>--%>
+        <%--<li class="dropdown">--%>
+            <%--<a class="sa-side-typography" href="">--%>
+                <%--<span class="menu-item">常见问题管理</span>--%>
+            <%--</a>--%>
+            <%--<ul class="list-unstyled menu-item">--%>
+
+            <%--</ul>--%>
+        <%--</li>--%>
+        <%--<li class="dropdown">--%>
+            <%--<a class="sa-side-ui" href="">--%>
+                <%--<span class="menu-item">签约管理</span>--%>
+            <%--</a>--%>
+
+        <%--</li>--%>
+        <li class="dropdown">
+            <a class="sa-side-page" href="">
                 <span class="menu-item">反馈管理</span>
             </a>
             <ul class="list-unstyled menu-item">
                 <li><a href="${contextPath}/admin/feedback/index">反馈列表</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a class="sa-side-ui" href="">
-                <span class="menu-item">医生投诉管理</span>
-            </a>
-            <ul class="list-unstyled menu-item">
                 <li><a href="${contextPath}/admin/comp/index">医生投诉列表</a></li>
             </ul>
         </li>
+        <%--<li class="dropdown">--%>
+            <%--<a class="sa-side-ui" href="">--%>
+                <%--<span class="menu-item">医生投诉管理</span>--%>
+            <%--</a>--%>
+            <%--<ul class="list-unstyled menu-item">--%>
+
+            <%--</ul>--%>
+        <%--</li>--%>
     </ul>
 </aside>

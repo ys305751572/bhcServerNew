@@ -27,7 +27,7 @@
                     <th>用户姓名</th>
                     <th>医生名称</th>
                     <th>签约时长(单位：月)</th>
-                    <th>付款状态</th>
+                    <th>签约金额</th>
                     <th>签约状态</th>
                     <th>时间</th>
                 </tr>
@@ -76,14 +76,9 @@
                         {"data": "doctor.name"},
                         {"data": "month"},
                         {
-                            "data": "orderStatus",
-                            "render" : function(data,type,row,meta ) {
-                                if(data == 0) {
-                                    return "待支付";
-                                }
-                                else if(data == 1) {
-                                    return "已支付";
-                                }
+                            "data": "month",
+                            "render" : function(data,type,row,meta) {
+                                return row.doctor.price * data;
                             }
                         },
                         {
