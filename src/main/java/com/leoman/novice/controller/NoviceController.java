@@ -8,6 +8,7 @@ import com.leoman.novice.entity.Novice;
 import com.leoman.novice.service.NoviceService;
 import com.leoman.novice.service.impl.NoviceServiceImpl;
 import com.leoman.question.entity.vo.QuestionContainer;
+import com.leoman.utils.ConfigUtil;
 import com.leoman.utils.FileUtil;
 import com.leoman.utils.JsonUtil;
 import com.leoman.utils.Result;
@@ -56,14 +57,22 @@ public class NoviceController extends GenericEntityController<Novice, Novice, No
     @RequestMapping(value = "/add")
     public String add(Long id, Model model) {
         if(id != null) {
-            model.addAttribute("novice", service.queryByPK(id));
+            Novice n = service.queryByPK(id);
+            if(n.getPath() != null) {
+                n.setPath(ConfigUtil.getString("upload.url") + n.getPath());
+            }
+            model.addAttribute("novice", n);
         }
         return "novice/add";
     }
 
     @RequestMapping(value = "/detail")
     public String detail(Long id, Model model) {
-        model.addAttribute("novice", service.queryByPK(id));
+        Novice n = service.queryByPK(id);
+        if(n.getPath() != null) {
+            n.setPath(ConfigUtil.getString("upload.url") + n.getPath());
+        }
+        model.addAttribute("novice", n);
         return "novice/detail";
     }
 
