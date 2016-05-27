@@ -3,12 +3,14 @@ package com.leoman.information.controller;
 import com.leoman.common.controller.common.GenericEntityController;
 import com.leoman.common.factory.DataTableFactory;
 import com.leoman.cp.entity.Cq;
+import com.leoman.feekback.entity.FeedBack;
 import com.leoman.image.entity.FileBo;
 import com.leoman.information.entity.Information;
 import com.leoman.information.service.InformationService;
 import com.leoman.information.service.impl.InformationServiceImpl;
 import com.leoman.utils.ConfigUtil;
 import com.leoman.utils.FileUtil;
+import com.leoman.utils.JsonUtil;
 import com.leoman.utils.Result;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -87,6 +90,18 @@ public class InformcationController extends GenericEntityController<Information,
             }
         }
         service.save(information);
+        return Result.success();
+    }
+
+
+    @RequestMapping(value = "/deleteBatch", method = RequestMethod.POST)
+    @ResponseBody
+    public Result deleteBatch(String ids) {
+        Long[] arrayId = JsonUtil.json2Obj(ids, Long[].class);
+        for (Long id : arrayId) {
+            Information info = service.queryByPK(id);
+            service.delete(info);
+        }
         return Result.success();
     }
 }
